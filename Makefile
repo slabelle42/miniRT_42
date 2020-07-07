@@ -9,7 +9,8 @@ MAIN = minirt.c
 SRC_DIR = srcs/
 SRC = srcs/rt_color.c
 SRC += srcs/rt_display.c
-SRC += srcs/rt_math.c
+SRC += srcs/rt_object.c
+SRC += srcs/rt_vector.c
 
 INC_DIR = incs/
 LIBXH = mlx.h
