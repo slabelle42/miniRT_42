@@ -10,8 +10,8 @@ t_rt			*rt_init_rt(t_simul_parse *sp)
 	rt->win_ptr = NULL;
 	rt->img_ptr = NULL;
 	rt->win_name = sp->file_name;
-	rt->win_W = sp->win_W;
 	rt->win_H = sp->win_H;
+	rt->win_W = sp->win_W;
 	rt->fov = sp->fov;
 	return (rt);
 }
@@ -37,6 +37,17 @@ t_ray			*rt_init_ray(t_vector *origin, t_vector *direction)
 	ray->origin = origin;
 	ray->direction = direction;
 	return (ray);
+}
+
+t_light			*rt_init_light(t_vector *origin, double intensity)
+{
+	t_light		*light;
+
+	if (!(light = ft_memalloc(sizeof(t_light))))
+		return (NULL);
+	light->origin = origin;
+	light->intensity = intensity;
+	return (light);
 }
 
 t_object		*rt_init_sphere(t_vector *origin, double radius, int color)

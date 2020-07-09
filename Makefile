@@ -4,41 +4,53 @@ CC = clang
 FLAGC = -Wall -Wextra -Werror
 FLAGL = -lm -lbsd -lX11 -lXext -Llibs -lft
 
-MAIN = main.c
+SRCS_DIR = srcs/
+SRCS = srcs/main.c
+SRCS += srcs/rt_1_parse.c
+SRCS += srcs/rt_2_struct.c
+SRCS += srcs/rt_3_display.c
+SRCS += srcs/rt_4_math.c
+SRCS += srcs/rt_5_color.c
 
-SRC_DIR = srcs/
-SRC = srcs/rt_1_parse.c
-SRC += srcs/rt_2_struct.c
-SRC += srcs/rt_3_display.c
-SRC += srcs/rt_4_math.c
-SRC += srcs/rt_5_color.c
+OBJS = ${SRCS:.c=.o}
 
-INC_DIR = incs/
-LIBXH = mlx.h
-LIBFTH = libft.h
+INCS_DIR = incs/
 
-LIB_DIR = libs/
+LIBS_DIR = libs/
+
 LIBX_DIR = libs/minilibx/
 LIBX1 = libmlx.a
 LIBX2 = libmlx_Linux.a
+LIBXH = mlx.h
+
 LIBFT_DIR = libs/libft/
 LIBFT = libft.a
+LIBFTH = libft.h
 
-$(NAME):
+$(NAME): $(LIBX1) $(LIBFT) $(OBJS)
+	@$(CC) $(FLAGC) $(OBJS) $(LIBS_DIR)$(LIBX1) $(LIBS_DIR)$(LIBX2) $(FLAGL) -o $(NAME)
+
+%.o: %.c
+	@$(CC) $(FLAGC) -I $(INCS_DIR) -c $? -o $@
+	@echo "Compiling [$?] ... OK"
+
+$(LIBX1):
 	@make -C $(LIBX_DIR)
-	@cp $(LIBX_DIR)$(LIBX1) $(LIB_DIR)
-	@cp $(LIBX_DIR)$(LIBX2) $(LIB_DIR)
-	@cp $(LIBX_DIR)$(LIBXH) $(INC_DIR)
+	@cp $(LIBX_DIR)$(LIBX1) $(LIBS_DIR)
+	@cp $(LIBX_DIR)$(LIBX2) $(LIBS_DIR)
+	@cp $(LIBX_DIR)$(LIBXH) $(INCS_DIR)
+
+$(LIBFT):
 	@make -C $(LIBFT_DIR)
-	@cp $(LIBFT_DIR)$(LIBFT) $(LIB_DIR)
-	@cp $(LIBFT_DIR)$(LIBFTH) $(INC_DIR)
-	@$(CC) $(SRC_DIR)$(MAIN) $(SRC) $(LIB_DIR)$(LIBX1) $(LIB_DIR)$(LIBX2) $(FLAGL) -o $(NAME)
+	@cp $(LIBFT_DIR)$(LIBFT) $(LIBS_DIR)
+	@cp $(LIBFT_DIR)$(LIBFTH) $(INCS_DIR)
 
 all: $(NAME)
 
 clean:
-	@rm -f $(LIB_DIR)$(LIBX1) $(LIB_DIR)$(LIBX2) $(INC_DIR)$(LIBXH)
-	@rm -f $(LIB_DIR)$(LIBFT) $(INC_DIR)$(LIBFTH)
+	@rm -f $(OBJS)
+	@rm -f $(LIBS_DIR)$(LIBX1) $(LIBS_DIR)$(LIBX2) $(LIBS_DIR)$(LIBFT)
+	@rm -f $(INCS_DIR)$(LIBXH) $(INCS_DIR)$(LIBFTH)
 
 fclean: clean
 	@rm $(NAME)
