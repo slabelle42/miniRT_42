@@ -4,13 +4,14 @@ CC = clang
 FLAGC = -Wall -Wextra -Werror
 FLAGL = -lm -lbsd -lX11 -lXext -Llibs -lft
 
-MAIN = minirt.c
+MAIN = main.c
 
 SRC_DIR = srcs/
-SRC = srcs/rt_color.c
-SRC += srcs/rt_display.c
-SRC += srcs/rt_object.c
-SRC += srcs/rt_vector.c
+SRC = srcs/rt_1_parse.c
+SRC += srcs/rt_2_struct.c
+SRC += srcs/rt_3_display.c
+SRC += srcs/rt_4_math.c
+SRC += srcs/rt_5_color.c
 
 INC_DIR = incs/
 LIBXH = mlx.h

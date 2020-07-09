@@ -7,6 +7,27 @@
 # include "mlx.h"
 # include "libft.h"
 
+typedef struct	s_simul_parse
+{
+	char		*file_name;
+	int			win_W;
+	int			win_H;
+	double		fov;
+	double		ray_o_x;
+	double		ray_o_y;
+	double		ray_o_z;
+	double		ray_d_x;
+	double		ray_d_y;
+	double		ray_d_z;
+	double		obj_o_x;
+	double		obj_o_y;
+	double		obj_o_z;
+	double		obj_r;
+	int			obj_red;
+	int			obj_green;
+	int			obj_blue;
+}				t_simul_parse;
+
 typedef struct	s_rt
 {
 	void		*mlx_ptr;
@@ -15,6 +36,7 @@ typedef struct	s_rt
 	char		*win_name;
 	int			win_W;
 	int			win_H;
+	double		fov;
 }				t_rt;
 
 typedef struct	s_vector
@@ -34,22 +56,25 @@ typedef struct	s_object
 {
 	char		type;
 	t_vector	*origin;
-	double		radius;
+	double		size;
 	int			color;
 }				t_object;
 
 int				rt_color_rgbtoi(int red, int green, int blue);
 
-int				rt_display_sphere(t_rt *rt, t_object *sphere);
-int				rt_display_xpm(char *xpm_file_name, t_rt *rt, int x, int y);
+void			rt_display(t_rt *rt, t_ray *ray, t_object *sphere);
+void			rt_display_sphere(t_rt *rt, t_ray *ray, t_object *sphere);
 
+double			rt_math_dotproduct(t_vector *vec1, t_vector *vec2);
+char			rt_math_intersect(t_ray *ray, t_object *sphere);
+double			rt_math_norm2(t_vector *vec);
+void			rt_math_normalize(t_vector *vec);
+
+int				rt_parse(t_simul_parse *sp);
+
+t_rt			*rt_init_rt(t_simul_parse *sp);
 t_vector		*rt_init_vector(double x, double y, double z);
 t_ray			*rt_init_ray(t_vector *origin, t_vector *direction);
 t_object		*rt_init_sphere(t_vector *origin, double radius, int color);
-
-double			rt_vector_dot(t_vector *vec1, t_vector *vec2);
-char			rt_vector_intersec(t_ray *ray, t_object *sphere);
-double			rt_vector_norm2(t_vector *vec);
-void			rt_vector_normalize(t_vector *vec);
 
 #endif
