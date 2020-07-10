@@ -8,28 +8,28 @@ double			rt_math_dotproduct(t_vector *vec1, t_vector *vec2)
 char			rt_math_intersect(t_ray *ray, t_object *sphere,
 				t_vector *intersect_pos, t_vector *intersect_norm)
 {
-	double		a;
 	t_vector	*diff;
-	double		b;
-	double		c;
-	double		delta;
+	t_delta		*delta;
 	double		sol1;
 	double		sol2;
 	double		sol;
 
-	a = 1;
 	if (!(diff = rt_init_vector(ray->origin->x - sphere->origin->x,
 		ray->origin->y - sphere->origin->y,
 		ray->origin->z - sphere->origin->z)))
 		exit(-1);
-	b = 2 * rt_math_dotproduct(ray->direction, diff);
-	c = rt_math_norm2(diff) - sphere->size * sphere->size;
-	delta = b * b - 4 * a * c;
+	if (!(delta = rt_init_delta(1, 2 * rt_math_dotproduct(ray->direction, diff),
+		rt_math_norm2(diff) - sphere->size * sphere->size)))
+		exit(-1);
 	free(diff);
-	if (delta < 0)
+	if (delta->delta < 0)
+	{
+		free(delta);
 		return ('n');
-	sol1 = (-b - sqrt(delta)) / (2 * a);
-	sol2 = (-b + sqrt(delta)) / (2 * a);
+	}
+	sol1 = (-delta->b - sqrt(delta->delta)) / (2 * delta->a);
+	sol2 = (-delta->b + sqrt(delta->delta)) / (2 * delta->a);
+	free(delta);
 	if (sol2 < 0)
 		return ('n');
 	if (sol1 > 0)

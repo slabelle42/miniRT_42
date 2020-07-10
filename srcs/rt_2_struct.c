@@ -74,3 +74,16 @@ t_object		*rt_init_sphere(t_vector *origin, double radius, t_color *color)
 	sphere->color = color;
 	return (sphere);
 }
+
+t_delta			*rt_init_delta(double a, double b, double c)
+{
+	t_delta		*delta;
+
+	if (!(delta = ft_memalloc(sizeof(t_delta))))
+		return (NULL);
+	delta->a = a;
+	delta->b = b;
+	delta->c = c;
+	delta->delta = b * b - 4 * a * c;
+	return (delta);
+}
