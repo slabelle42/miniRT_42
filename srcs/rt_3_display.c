@@ -46,11 +46,13 @@ void			rt_display_sphere(t_rt *rt, t_ray *ray, t_light *light, t_object *sphere)
 					pix_intensity = 0;
 				else if (pix_intensity > 255)
 					pix_intensity = 255;
-				mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, j, i,
-					rt_color_rgbtoi(pix_intensity, pix_intensity, pix_intensity));
+				mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, j, rt->win_H - i - 1, rt_color_rgbtoi(
+					pix_intensity * sphere->color->red / 255,
+					pix_intensity * sphere->color->green / 255,
+					pix_intensity * sphere->color->blue / 255));
 			}
 			else
-				mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, j, i,
+				mlx_pixel_put(rt->mlx_ptr, rt->win_ptr, j, rt->win_H - i - 1,
 					rt_color_rgbtoi(0, 0, 0));
 			j++;
 		}

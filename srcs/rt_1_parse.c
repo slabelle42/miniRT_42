@@ -9,6 +9,7 @@ void			rt_parse(t_simul_parse *sp)
 	t_vector	*vec_l_o;
 	t_light		*light;
 	t_vector	*vec_s_o;
+	t_color		*color_s;
 	t_object	*sphere;
 
 	if (!(rt = rt_init_rt(sp)))
@@ -25,8 +26,9 @@ void			rt_parse(t_simul_parse *sp)
 		exit(-1);
 	if (!(vec_s_o = rt_init_vector(sp->obj_o_x, sp->obj_o_y, sp->obj_o_z)))
 		exit(-1);
-	if (!(sphere = rt_init_sphere(vec_s_o, sp->obj_r,
-		rt_color_rgbtoi(sp->obj_red, sp->obj_green, sp->obj_blue))))
+	if (!(color_s = rt_init_color(sp->obj_red, sp->obj_green, sp->obj_blue)))
+		exit(-1);
+	if (!(sphere = rt_init_sphere(vec_s_o, sp->obj_r, color_s)))
 		exit(-1);
 	rt_display(rt, ray, light, sphere);
 	free(rt);
@@ -36,5 +38,6 @@ void			rt_parse(t_simul_parse *sp)
 	free(vec_l_o);
 	free(light);
 	free(vec_s_o);
+	free(color_s);
 	free(sphere);
 }

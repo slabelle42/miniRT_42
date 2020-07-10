@@ -17,8 +17,8 @@ static t_simul_parse	*rt_init_sp(char *file_name)
 	sp->ray_d_y = 0;
 	sp->ray_d_z = 0;
 	sp->li_o_x = 15;
-	sp->li_o_y = 60;
-	sp->li_o_z = -40;
+	sp->li_o_y = 70;
+	sp->li_o_z = -30;
 	sp->li_i = 300;
 	sp->obj_o_x = 0;
 	sp->obj_o_y = 0;

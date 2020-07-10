@@ -28,6 +28,18 @@ t_vector		*rt_init_vector(double x, double y, double z)
 	return (vector);
 }
 
+t_color			*rt_init_color(int red, int green, int blue)
+{
+	t_color		*color;
+
+	if (!(color = ft_memalloc(sizeof(t_color))))
+		return (NULL);
+	color->red = red;
+	color->green = green;
+	color->blue = blue;
+	return (color);
+}
+
 t_ray			*rt_init_ray(t_vector *origin, t_vector *direction)
 {
 	t_ray		*ray;
@@ -50,7 +62,7 @@ t_light			*rt_init_light(t_vector *origin, double intensity)
 	return (light);
 }
 
-t_object		*rt_init_sphere(t_vector *origin, double radius, int color)
+t_object		*rt_init_sphere(t_vector *origin, double radius, t_color *color)
 {
 	t_object	*sphere;
 

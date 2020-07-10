@@ -50,6 +50,13 @@ typedef struct	s_vector
 	double		z;
 }				t_vector;
 
+typedef struct	s_color
+{
+	int			red;
+	int			green;
+	int			blue;
+}				t_color;
+
 typedef struct	s_ray
 {
 	t_vector	*origin;
@@ -67,16 +74,17 @@ typedef struct	s_object
 	char		type;
 	t_vector	*origin;
 	double		size;
-	int			color;
+	t_color		*color;
 }				t_object;
 
 void			rt_parse(t_simul_parse *sp);
 
 t_rt			*rt_init_rt(t_simul_parse *sp);
 t_vector		*rt_init_vector(double x, double y, double z);
+t_color			*rt_init_color(int red, int green, int blue);
 t_ray			*rt_init_ray(t_vector *origin, t_vector *direction);
 t_light			*rt_init_light(t_vector *origin, double intensity);
-t_object		*rt_init_sphere(t_vector *origin, double radius, int color);
+t_object		*rt_init_sphere(t_vector *origin, double radius, t_color *color);
 
 void			rt_display(t_rt *rt, t_ray *ray, t_light *light, t_object *sphere);
 void			rt_display_sphere(t_rt *rt, t_ray *ray, t_light *light, t_object *sphere);
