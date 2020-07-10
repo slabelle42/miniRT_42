@@ -5,7 +5,7 @@ void			rt_parse(t_simul_parse *sp)
 	t_rt		*rt;
 	t_vector	*vec_r_o;
 	t_vector	*vec_r_d;
-	t_ray		*ray;
+	t_camera	*camera;
 	t_vector	*vec_l_o;
 	t_light		*light;
 	t_vector	*vec_s_o;
@@ -14,11 +14,11 @@ void			rt_parse(t_simul_parse *sp)
 
 	if (!(rt = rt_init_rt(sp)))
 		exit(-1);
-	if (!(vec_r_o = rt_init_vector(sp->ray_o_x, sp->ray_o_y, sp->ray_o_z)))
+	if (!(vec_r_o = rt_init_vector(sp->cam_o_x, sp->cam_o_y, sp->cam_o_z)))
 		exit(-1);
-	if (!(vec_r_d = rt_init_vector(sp->ray_d_x, sp->ray_d_y, sp->ray_d_z)))
+	if (!(vec_r_d = rt_init_vector(sp->cam_d_x, sp->cam_d_y, sp->cam_d_z)))
 		exit(-1);
-	if (!(ray = rt_init_ray(vec_r_o, vec_r_d)))
+	if (!(camera = rt_init_camera(vec_r_o, vec_r_d, sp->fov)))
 		exit(-1);
 	if (!(vec_l_o = rt_init_vector(sp->li_o_x, sp->li_o_y, sp->li_o_z)))
 		exit(-1);
@@ -30,11 +30,11 @@ void			rt_parse(t_simul_parse *sp)
 		exit(-1);
 	if (!(sphere = rt_init_sphere(vec_s_o, sp->obj_r, color_s)))
 		exit(-1);
-	rt_display(rt, ray, light, sphere);
+	rt_display(rt, camera, light, sphere);
 	free(rt);
 	free(vec_r_o);
 	free(vec_r_d);
-	free(ray);
+	free(camera);
 	free(vec_l_o);
 	free(light);
 	free(vec_s_o);

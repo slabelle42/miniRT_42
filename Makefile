@@ -8,7 +8,8 @@ SRCS_DIR = srcs/
 SRCS = srcs/main.c
 SRCS += srcs/rt_1_parse.c
 SRCS += srcs/rt_2_struct.c
-SRCS += srcs/rt_3_display.c
+SRCS += srcs/rt_3_display_1_window.c
+SRCS += srcs/rt_3_display_2_utils.c
 SRCS += srcs/rt_4_math.c
 SRCS += srcs/rt_5_color.c
 

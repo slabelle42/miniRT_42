@@ -13,12 +13,12 @@ typedef struct	s_simul_parse
 	int			win_H;
 	int			win_W;
 	double		fov;
-	double		ray_o_x;
-	double		ray_o_y;
-	double		ray_o_z;
-	double		ray_d_x;
-	double		ray_d_y;
-	double		ray_d_z;
+	double		cam_o_x;
+	double		cam_o_y;
+	double		cam_o_z;
+	double		cam_d_x;
+	double		cam_d_y;
+	double		cam_d_z;
 	double		li_o_x;
 	double		li_o_y;
 	double		li_o_z;
@@ -40,7 +40,6 @@ typedef struct	s_rt
 	char		*win_name;
 	int			win_H;
 	int			win_W;
-	double		fov;
 }				t_rt;
 
 typedef struct	s_vector
@@ -50,11 +49,12 @@ typedef struct	s_vector
 	double		z;
 }				t_vector;
 
-typedef struct	s_ray
+typedef struct	s_camera
 {
 	t_vector	*origin;
 	t_vector	*direction;
-}				t_ray;
+	double		fov;
+}				t_camera;
 
 typedef struct	s_color
 {
@@ -86,24 +86,52 @@ typedef struct	s_delta
 	double		delta;
 }				t_delta;
 
+typedef struct	s_display
+{
+	int			i;
+	int			j;
+	t_vector	*intersect_pos;
+	t_vector	*intersect_norm;
+	char		intersect;
+	t_vector	*diff;
+	double		pix_intensity;
+}				t_display;
+
 void			rt_parse(t_simul_parse *sp);
 
 t_rt			*rt_init_rt(t_simul_parse *sp);
 t_vector		*rt_init_vector(double x, double y, double z);
-t_ray			*rt_init_ray(t_vector *origin, t_vector *direction);
+t_camera		*rt_init_camera(t_vector *origin, t_vector *direction,
+					double fov);
 t_color			*rt_init_color(int red, int green, int blue);
 t_light			*rt_init_light(t_vector *origin, double intensity);
-t_object		*rt_init_sphere(t_vector *origin, double radius, t_color *color);
+t_object		*rt_init_sphere(t_vector *origin, double radius,
+					t_color *color);
 t_delta			*rt_init_delta(double a, double b, double c);
+t_display		*rt_init_display(t_vector *intersect_pos,
+					t_vector *intersect_norm, t_vector *diff);
 
-void			rt_display(t_rt *rt, t_ray *ray, t_light *light, t_object *sphere);
-void			rt_display_sphere(t_rt *rt, t_ray *ray, t_light *light, t_object *sphere);
+void			rt_display_scene(t_rt *rt, t_camera *camera, t_light *light,
+					t_object *sphere, t_display *display);
+void			rt_display_window(t_rt *rt, t_camera *camera, t_light *light,
+					t_object *sphere, t_display *display);
+void			rt_display(t_rt *rt, t_camera *camera, t_light *light,
+					t_object *sphere);
 
-double			rt_math_dotproduct(t_vector *vec1, t_vector *vec2);
-char			rt_math_intersect(t_ray *ray, t_object *sphere,
-					t_vector *intersect_pos, t_vector *intersect_norm);
+void			rt_display_adjustcam(t_rt *rt, t_camera *camera,
+					t_display *display);
+void			rt_display_getdiff(t_light *light, t_display *display);
+void			rt_display_pixintens(t_light *light, t_display *display);
+
+void			rt_math_pos_norm(t_camera *camera, t_object *sphere,
+					t_vector *intersect_pos, t_vector *intersect_norm,
+					double sol);
+double			rt_math_solution(t_delta *delta);
 double			rt_math_norm2(t_vector *vec);
 void			rt_math_normalize(t_vector *vec);
+double			rt_math_dotproduct(t_vector *vec1, t_vector *vec2);
+char			rt_math_intersect(t_camera *camera, t_object *sphere,
+					t_vector *intersect_pos, t_vector *intersect_norm);
 
 int				rt_color_rgbtoi(int red, int green, int blue);
 

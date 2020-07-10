@@ -12,7 +12,6 @@ t_rt			*rt_init_rt(t_simul_parse *sp)
 	rt->win_name = sp->file_name;
 	rt->win_H = sp->win_H;
 	rt->win_W = sp->win_W;
-	rt->fov = sp->fov;
 	return (rt);
 }
 
@@ -28,6 +27,18 @@ t_vector		*rt_init_vector(double x, double y, double z)
 	return (vector);
 }
 
+t_camera		*rt_init_camera(t_vector *origin, t_vector *direction, double fov)
+{
+	t_camera	*camera;
+
+	if (!(camera = ft_memalloc(sizeof(t_camera))))
+		return (NULL);
+	camera->origin = origin;
+	camera->direction = direction;
+	camera->fov = fov;
+	return (camera);
+}
+
 t_color			*rt_init_color(int red, int green, int blue)
 {
 	t_color		*color;
@@ -38,17 +49,6 @@ t_color			*rt_init_color(int red, int green, int blue)
 	color->green = green;
 	color->blue = blue;
 	return (color);
-}
-
-t_ray			*rt_init_ray(t_vector *origin, t_vector *direction)
-{
-	t_ray		*ray;
-
-	if (!(ray = ft_memalloc(sizeof(t_ray))))
-		return (NULL);
-	ray->origin = origin;
-	ray->direction = direction;
-	return (ray);
 }
 
 t_light			*rt_init_light(t_vector *origin, double intensity)
@@ -86,4 +86,21 @@ t_delta			*rt_init_delta(double a, double b, double c)
 	delta->c = c;
 	delta->delta = b * b - 4 * a * c;
 	return (delta);
+}
+
+t_display			*rt_init_display(t_vector *intersect_pos,
+						t_vector *intersect_norm, t_vector *diff)
+{
+	t_display		*display;
+
+	if (!(display = ft_memalloc(sizeof(t_display))))
+		return (NULL);
+	display->i = 0;
+	display->j = 0;
+	display->intersect_pos = intersect_pos;
+	display->intersect_norm = intersect_norm;
+	display->intersect = 'n';
+	display->diff = diff;
+	display->pix_intensity = 0;
+	return (display);
 }
