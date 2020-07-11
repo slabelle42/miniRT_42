@@ -127,7 +127,7 @@ double			rt_math_solution(t_delta *delta);
 double			rt_math_norm2(t_vector *vec);
 void			rt_math_normalize(t_vector *vec);
 double			rt_math_dotproduct(t_vector *vec1, t_vector *vec2);
-char			rt_math_intersect(t_camera *camera, t_object *sphere);
+double			rt_math_intersect(t_camera *camera, t_object *sphere);
 void			rt_math_pos_norm(t_camera *camera, t_object *sphere,
 					t_display *display);
 
