@@ -34,10 +34,12 @@ int						main(int ac, char **av)
 {
 	t_simul_parse		*sp;
 
-	ac *= 1;
-	if (!(sp = rt_init_sp(av[1])))
-		return (-1);
-	rt_parse(sp);
-	free(sp);
+	if (ac == 1)
+	{
+		if (!(sp = rt_init_sp(av[1])))
+			return (-1);
+		rt_parse(sp);
+		free(sp);
+	}
 	return (0);
 }
