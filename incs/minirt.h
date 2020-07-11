@@ -23,13 +23,20 @@ typedef struct	s_simul_parse
 	double		li_o_y;
 	double		li_o_z;
 	double		li_i;
-	double		obj_o_x;
-	double		obj_o_y;
-	double		obj_o_z;
-	double		obj_r;
-	int			obj_red;
-	int			obj_green;
-	int			obj_blue;
+	double		s1_o_x;
+	double		s1_o_y;
+	double		s1_o_z;
+	double		s1_r;
+	int			s1_red;
+	int			s1_green;
+	int			s1_blue;
+	double		s2_o_x;
+	double		s2_o_y;
+	double		s2_o_z;
+	double		s2_r;
+	int			s2_red;
+	int			s2_green;
+	int			s2_blue;
 }				t_simul_parse;
 
 typedef struct	s_rt
@@ -95,6 +102,12 @@ typedef struct	s_display
 	t_vector	*intersect_norm;
 	t_vector	*diff;
 	double		pix_intensity;
+	double		sphere_x;
+	double		sphere_y;
+	double		sphere_z;
+	int			sphere_red;
+	int			sphere_green;
+	int			sphere_blue;
 }				t_display;
 
 void			rt_parse(t_simul_parse *sp);
@@ -111,12 +124,14 @@ t_delta			*rt_init_delta(double a, double b, double c);
 t_display		*rt_init_display(t_vector *intersect_pos,
 					t_vector *intersect_norm, t_vector *diff);
 
+void			rt_display_object(t_rt *rt, t_camera *camera, t_light *light,
+					t_display *display);
 void			rt_display_scene(t_rt *rt, t_camera *camera, t_light *light,
-					t_object *sphere, t_display *display);
+					t_object *s1, t_object *s2, t_display *display);
 void			rt_display_window(t_rt *rt, t_camera *camera, t_light *light,
-					t_object *sphere, t_display *display);
+					t_object *s1, t_object *s2, t_display *display);
 void			rt_display(t_rt *rt, t_camera *camera, t_light *light,
-					t_object *sphere);
+					t_object *s1, t_object *s2);
 
 void			rt_display_adjustcam(t_rt *rt, t_camera *camera,
 					t_display *display);
@@ -128,8 +143,7 @@ double			rt_math_norm2(t_vector *vec);
 void			rt_math_normalize(t_vector *vec);
 double			rt_math_dotproduct(t_vector *vec1, t_vector *vec2);
 double			rt_math_intersect(t_camera *camera, t_object *sphere);
-void			rt_math_pos_norm(t_camera *camera, t_object *sphere,
-					t_display *display);
+void			rt_math_pos_norm(t_camera *camera, t_display *display);
 
 int				rt_color_rgbtoi(int red, int green, int blue);
 

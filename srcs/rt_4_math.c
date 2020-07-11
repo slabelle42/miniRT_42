@@ -63,8 +63,7 @@ double			rt_math_intersect(t_camera *camera, t_object *sphere)
 	return (solution);
 }
 
-void			rt_math_pos_norm(t_camera *camera, t_object *sphere,
-					t_display *display)
+void			rt_math_pos_norm(t_camera *camera, t_display *display)
 {
 	display->intersect_pos->x = camera->origin->x + display->solution
 		* camera->direction->x;
@@ -72,8 +71,8 @@ void			rt_math_pos_norm(t_camera *camera, t_object *sphere,
 		* camera->direction->y;
 	display->intersect_pos->z = camera->origin->z + display->solution
 		* camera->direction->z;
-	display->intersect_norm->x = display->intersect_pos->x - sphere->origin->x;
-	display->intersect_norm->y = display->intersect_pos->y - sphere->origin->y;
-	display->intersect_norm->z = display->intersect_pos->z - sphere->origin->z;
+	display->intersect_norm->x = display->intersect_pos->x - display->sphere_x;
+	display->intersect_norm->y = display->intersect_pos->y - display->sphere_y;
+	display->intersect_norm->z = display->intersect_pos->z - display->sphere_z;
 	rt_math_normalize(display->intersect_norm);
 }

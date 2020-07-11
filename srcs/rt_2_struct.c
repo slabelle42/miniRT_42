@@ -102,5 +102,11 @@ t_display			*rt_init_display(t_vector *intersect_pos,
 	display->intersect_norm = intersect_norm;
 	display->diff = diff;
 	display->pix_intensity = 0;
+	display->sphere_x = 0;
+	display->sphere_y = 0;
+	display->sphere_z = 0;
+	display->sphere_red = 0;
+	display->sphere_green = 0;
+	display->sphere_blue = 0;
 	return (display);
 }

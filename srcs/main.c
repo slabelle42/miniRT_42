@@ -20,13 +20,20 @@ static t_simul_parse	*rt_init_sp(char *file_name)
 	sp->li_o_y = 70;
 	sp->li_o_z = -30;
 	sp->li_i = 300;
-	sp->obj_o_x = 0;
-	sp->obj_o_y = 0;
-	sp->obj_o_z = -55;
-	sp->obj_r = 20;
-	sp->obj_red = 0;
-	sp->obj_green = 255;
-	sp->obj_blue = 0;
+	sp->s1_o_x = 0;
+	sp->s1_o_y = 0;
+	sp->s1_o_z = -55;
+	sp->s1_r = 20;
+	sp->s1_red = 0;
+	sp->s1_green = 255;
+	sp->s1_blue = 0;
+	sp->s2_o_x = 0;
+	sp->s2_o_y = -2000 -20;
+	sp->s2_o_z = 0;
+	sp->s2_r = 2000;
+	sp->s2_red = 0;
+	sp->s2_green = 0;
+	sp->s2_blue = 255;
 	return (sp);
 }
 
