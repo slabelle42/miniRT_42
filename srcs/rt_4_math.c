@@ -1,18 +1,5 @@
 #include "../incs/minirt.h"
 
-void			rt_math_pos_norm(t_camera *camera, t_object *sphere,
-					t_vector *intersect_pos, t_vector *intersect_norm,
-					double sol)
-{
-	intersect_pos->x = camera->origin->x + sol * camera->direction->x;
-	intersect_pos->y = camera->origin->y + sol * camera->direction->y;
-	intersect_pos->z = camera->origin->z + sol * camera->direction->z;
-	intersect_norm->x = intersect_pos->x - sphere->origin->x;
-	intersect_norm->y = intersect_pos->y - sphere->origin->y;
-	intersect_norm->z = intersect_pos->z - sphere->origin->z;
-	rt_math_normalize(intersect_norm);
-}
-
 double			rt_math_solution(t_delta *delta)
 {
 	double		sol1;
@@ -74,4 +61,19 @@ double			rt_math_intersect(t_camera *camera, t_object *sphere)
 	if (sol < 0)
 		return (-1);
 	return (sol);
+}
+
+void			rt_math_pos_norm(t_camera *camera, t_object *sphere,
+					t_display *display)
+{
+	display->intersect_pos->x = camera->origin->x + display->solution
+		* camera->direction->x;
+	display->intersect_pos->y = camera->origin->y + display->solution
+		* camera->direction->y;
+	display->intersect_pos->z = camera->origin->z + display->solution
+		* camera->direction->z;
+	display->intersect_norm->x = display->intersect_pos->x - sphere->origin->x;
+	display->intersect_norm->y = display->intersect_pos->y - sphere->origin->y;
+	display->intersect_norm->z = display->intersect_pos->z - sphere->origin->z;
+	rt_math_normalize(intersect_norm);
 }
