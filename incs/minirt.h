@@ -90,9 +90,9 @@ typedef struct	s_display
 {
 	int			i;
 	int			j;
+	double		solution;
 	t_vector	*intersect_pos;
 	t_vector	*intersect_norm;
-	char		intersect;
 	t_vector	*diff;
 	double		pix_intensity;
 }				t_display;
@@ -123,15 +123,13 @@ void			rt_display_adjustcam(t_rt *rt, t_camera *camera,
 void			rt_display_getdiff(t_light *light, t_display *display);
 void			rt_display_pixintens(t_light *light, t_display *display);
 
-void			rt_math_pos_norm(t_camera *camera, t_object *sphere,
-					t_vector *intersect_pos, t_vector *intersect_norm,
-					double sol);
 double			rt_math_solution(t_delta *delta);
 double			rt_math_norm2(t_vector *vec);
 void			rt_math_normalize(t_vector *vec);
 double			rt_math_dotproduct(t_vector *vec1, t_vector *vec2);
-char			rt_math_intersect(t_camera *camera, t_object *sphere,
-					t_vector *intersect_pos, t_vector *intersect_norm);
+char			rt_math_intersect(t_camera *camera, t_object *sphere);
+void			rt_math_pos_norm(t_camera *camera, t_object *sphere,
+					t_display *display);
 
 int				rt_color_rgbtoi(int red, int green, int blue);
 
