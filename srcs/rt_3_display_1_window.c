@@ -8,9 +8,9 @@ void			rt_display_scene(t_rt *rt, t_camera *camera, t_light *light,
 		while (display->j < rt->win_W)
 		{
 			rt_display_adjustcam(rt, camera, display);
-			display->intersect = rt_math_intersect(camera, sphere,
-				display->intersect_pos, display->intersect_norm);
-			if (display->intersect == 'y')
+			display->solution = rt_math_intersect(camera, sphere);
+			rt_math_pos_norm(camera, sphere, display);
+			if (display->solution >= 0)
 			{
 				rt_display_getdiff(light, display);
 				rt_display_pixintens(light, display);
