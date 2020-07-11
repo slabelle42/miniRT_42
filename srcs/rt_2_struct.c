@@ -27,7 +27,8 @@ t_vector		*rt_init_vector(double x, double y, double z)
 	return (vector);
 }
 
-t_camera		*rt_init_camera(t_vector *origin, t_vector *direction, double fov)
+t_camera		*rt_init_camera(t_vector *origin, t_vector *direction,
+					double fov)
 {
 	t_camera	*camera;
 
@@ -62,17 +63,61 @@ t_light			*rt_init_light(t_vector *origin, double intensity)
 	return (light);
 }
 
-t_object		*rt_init_sphere(t_vector *origin, double radius, t_color *color)
+t_objects		*rt_init_object(char type, t_vector *origin, double size,
+					t_color *color)
 {
-	t_object	*sphere;
+	t_objects	*object;
 
-	if (!(sphere = ft_memalloc(sizeof(t_object))))
+	if (!(object = ft_memalloc(sizeof(t_objects))))
 		return (NULL);
-	sphere->type = 's';
-	sphere->origin = origin;
-	sphere->size = radius;
-	sphere->color = color;
-	return (sphere);
+	object->type = type;
+	object->origin = origin;
+	object->size = size;
+	object->color = color;
+	object->next = NULL;
+	return (object);
+}
+
+int				rt_add_object(t_objects **objects, t_objects *new_object)
+{
+	t_objects	*tmp;
+
+	if (objects && new_object)
+	{
+		if (!(*objects))
+			*objects = new_object;
+		else
+		{
+			tmp = *objects;
+			while (tmp->next)
+				tmp = tmp->next;
+			tmp->next = new_object;
+		}
+		return (0);
+	}
+	return (-1);
+}
+
+int				rt_clear_objects(t_objects **objects)
+{
+	t_objects	*tmp1;
+	t_objects	*tmp2;
+
+	if (objects)
+	{
+		tmp1 = *objects;
+		while (tmp1)
+		{
+			tmp2 = tmp1;
+			tmp1 = tmp1->next;
+			free(tmp2->origin);
+			free(tmp2->color);
+			free(tmp2);
+		}
+		*objects = NULL;
+		return (0);
+	}
+	return (-1);
 }
 
 t_delta			*rt_init_delta(double a, double b, double c)

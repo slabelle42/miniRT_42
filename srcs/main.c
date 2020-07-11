@@ -20,6 +20,7 @@ static t_simul_parse	*rt_init_sp(char *file_name)
 	sp->li_o_y = 70;
 	sp->li_o_z = -30;
 	sp->li_i = 300;
+	sp->s1_type = 's';
 	sp->s1_o_x = 0;
 	sp->s1_o_y = 0;
 	sp->s1_o_z = -55;
@@ -27,6 +28,7 @@ static t_simul_parse	*rt_init_sp(char *file_name)
 	sp->s1_red = 0;
 	sp->s1_green = 255;
 	sp->s1_blue = 0;
+	sp->s2_type = 's';
 	sp->s2_o_x = 0;
 	sp->s2_o_y = -2000 -20;
 	sp->s2_o_z = 0;

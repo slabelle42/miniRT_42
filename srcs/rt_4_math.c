@@ -37,7 +37,7 @@ double			rt_math_dotproduct(t_vector *vec1, t_vector *vec2)
 	return (vec1->x * vec2->x + vec1->y * vec2->y + vec1->z * vec2->z);
 }
 
-double			rt_math_intersect(t_camera *camera, t_object *sphere)
+double			rt_math_intersect(t_camera *camera, t_objects *sphere)
 {
 	t_vector	*diff;
 	t_delta		*delta;
