@@ -97,9 +97,9 @@ t_display			*rt_init_display(t_vector *intersect_pos,
 		return (NULL);
 	display->i = 0;
 	display->j = 0;
+	display->solution = -2;
 	display->intersect_pos = intersect_pos;
 	display->intersect_norm = intersect_norm;
-	display->intersect = 'n';
 	display->diff = diff;
 	display->pix_intensity = 0;
 	return (display);
