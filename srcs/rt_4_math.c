@@ -2,19 +2,19 @@
 
 double			rt_math_solution(t_delta *delta)
 {
-	double		sol1;
-	double		sol2;
-	double		sol;
+	double		solution1;
+	double		solution2;
+	double		solution;
 
-	sol1 = (-delta->b - sqrt(delta->delta)) / (2 * delta->a);
-	sol2 = (-delta->b + sqrt(delta->delta)) / (2 * delta->a);
-	if (sol2 < 0)
+	solution1 = (-delta->b - sqrt(delta->delta)) / (2 * delta->a);
+	solution2 = (-delta->b + sqrt(delta->delta)) / (2 * delta->a);
+	if (solution2 < 0)
 		return (-1);
-	if (sol1 > 0)
-		sol = sol1;
+	if (solution1 > 0)
+		solution = solution1;
 	else
-		sol = sol2;
-	return (sol);
+		solution = solution2;
+	return (solution);
 }
 
 double			rt_math_norm2(t_vector *vec)
@@ -41,7 +41,7 @@ double			rt_math_intersect(t_camera *camera, t_object *sphere)
 {
 	t_vector	*diff;
 	t_delta		*delta;
-	double		sol;
+	double		solution;
 
 	if (!(diff = rt_init_vector(camera->origin->x - sphere->origin->x,
 		camera->origin->y - sphere->origin->y,
@@ -56,11 +56,11 @@ double			rt_math_intersect(t_camera *camera, t_object *sphere)
 		free(delta);
 		return (-1);
 	}
-	sol = rt_math_solution(delta);
+	solution = rt_math_solution(delta);
 	free(delta);
-	if (sol < 0)
+	if (solution < 0)
 		return (-1);
-	return (sol);
+	return (solution);
 }
 
 void			rt_math_pos_norm(t_camera *camera, t_object *sphere,
