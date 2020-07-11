@@ -50,8 +50,8 @@ double			rt_math_dotproduct(t_vector *vec1, t_vector *vec2)
 	return (vec1->x * vec2->x + vec1->y * vec2->y + vec1->z * vec2->z);
 }
 
-char			rt_math_intersect(t_camera *camera, t_object *sphere,
-				t_vector *intersect_pos, t_vector *intersect_norm)
+double			rt_math_intersect(t_camera *camera, t_object *sphere,
+					t_vector *intersect_pos, t_vector *intersect_norm)
 {
 	t_vector	*diff;
 	t_delta		*delta;
@@ -68,12 +68,12 @@ char			rt_math_intersect(t_camera *camera, t_object *sphere,
 	if (delta->delta < 0)
 	{
 		free(delta);
-		return ('n');
+		return (-1);
 	}
 	sol = rt_math_solution(delta);
 	free(delta);
 	if (sol < 0)
-		return ('n');
+		return (-1);
 	rt_math_pos_norm(camera, sphere, intersect_pos, intersect_norm, sol);
-	return ('y');
+	return (sol);
 }
