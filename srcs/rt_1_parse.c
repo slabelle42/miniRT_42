@@ -2,53 +2,61 @@
 
 void			rt_parse(t_simul_parse *sp)
 {
-	t_rt		*rt;
-	t_vector	*vec_r_o;
-	t_vector	*vec_r_d;
-	t_camera	*camera;
-	t_vector	*vec_l_o;
-	t_light		*light;
-	t_vector	*vec_s1_o;
-	t_color		*color_s1;
-	t_vector	*vec_s2_o;
-	t_color		*color_s2;
+	t_vector	*d_vec;
+	t_color		*d_color;
+	t_display	*display;
+	t_vector	*cam_ori;
+	t_vector	*cam_dir;
+	t_cameras	*cameras;
+	t_vector	*li_ori;
+	t_lights	*lights;
+	t_vector	*obj1_ori;
+	t_color		*obj1_color;
+	t_vector	*obj2_ori;
+	t_color		*obj2_color;
 	t_objects	*objects;
 
-	if (!(rt = rt_init_rt(sp)))
+	if (!(d_vec = rt_init_vector(0, 0, 0)))
 		exit(-1);
-	if (!(vec_r_o = rt_init_vector(sp->cam_o_x, sp->cam_o_y, sp->cam_o_z)))
+	if (!(d_color = rt_init_color(0, 0, 0)))
 		exit(-1);
-	if (!(vec_r_d = rt_init_vector(sp->cam_d_x, sp->cam_d_y, sp->cam_d_z)))
+	if (!(display = rt_init_display(sp, d_vec, d_color)))
 		exit(-1);
-	if (!(camera = rt_init_camera(vec_r_o, vec_r_d, sp->fov)))
+	if (!(cam_ori = rt_init_vector(sp->cam_ori_x, sp->cam_ori_y, sp->cam_ori_z)))
 		exit(-1);
-	if (!(vec_l_o = rt_init_vector(sp->li_o_x, sp->li_o_y, sp->li_o_z)))
+	if (!(cam_dir = rt_init_vector(sp->cam_dir_x, sp->cam_dir_y, sp->cam_dir_z)))
 		exit(-1);
-	if (!(light = rt_init_light(vec_l_o, sp->li_i)))
+	if (!(cameras = rt_init_camera(cam_ori, cam_dir, sp->fov)))
 		exit(-1);
-	if (!(vec_s1_o = rt_init_vector(sp->s1_o_x, sp->s1_o_y, sp->s1_o_z)))
+	if (!(li_ori = rt_init_vector(sp->li_ori_x, sp->li_ori_y, sp->li_ori_z)))
 		exit(-1);
-	if (!(color_s1 = rt_init_color(sp->s1_red, sp->s1_green, sp->s1_blue)))
+	if (!(lights = rt_init_light(li_ori, sp->li_intensity)))
 		exit(-1);
-	if (!(vec_s2_o = rt_init_vector(sp->s2_o_x, sp->s2_o_y, sp->s2_o_z)))
+	if (!(obj1_ori = rt_init_vector(sp->obj1_ori_x, sp->obj1_ori_y, sp->obj1_ori_z)))
 		exit(-1);
-	if (!(color_s2 = rt_init_color(sp->s2_red, sp->s2_green, sp->s2_blue)))
+	if (!(obj1_color = rt_init_color(sp->obj1_R, sp->obj1_G, sp->obj1_B)))
 		exit(-1);
-	if (!(objects = rt_init_object(sp->s1_type, vec_s1_o, sp->s1_r, color_s1)))
+	if (!(obj2_ori = rt_init_vector(sp->obj2_ori_x, sp->obj2_ori_y, sp->obj2_ori_z)))
 		exit(-1);
-	if (rt_add_object(&objects, rt_init_object(sp->s2_type, vec_s2_o, sp->s2_r,
-		color_s2)) == -1)
+	if (!(obj2_color = rt_init_color(sp->obj2_R, sp->obj2_G, sp->obj2_B)))
 		exit(-1);
-	rt_display(rt, camera, light, objects);
-	free(rt);
-	free(vec_r_o);
-	free(vec_r_d);
-	free(camera);
-	free(vec_l_o);
-	free(light);
-	free(vec_s1_o);
-	free(color_s1);
-	free(vec_s2_o);
-	free(color_s2);
+	if (!(objects = rt_init_object(sp->obj1_type, obj1_ori, sp->obj1_rad, obj1_color)))
+		exit(-1);
+	if (rt_add_object(&objects, rt_init_object(sp->obj2_type, obj2_ori, sp->obj2_rad,
+		obj2_color)) == -1)
+		exit(-1);
+	rt_display(display, cameras, lights, objects);
+	free(d_vec);
+	free(d_color);
+	free(display);
+	free(cam_ori);
+	free(cam_dir);
+	free(cameras);
+	free(li_ori);
+	free(lights);
+	free(obj1_ori);
+	free(obj1_color);
+	free(obj2_ori);
+	free(obj2_color);
 	rt_clear_objects(&objects);
 }

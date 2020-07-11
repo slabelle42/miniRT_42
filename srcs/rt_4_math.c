@@ -37,18 +37,18 @@ double			rt_math_dotproduct(t_vector *vec1, t_vector *vec2)
 	return (vec1->x * vec2->x + vec1->y * vec2->y + vec1->z * vec2->z);
 }
 
-double			rt_math_intersect(t_camera *camera, t_objects *sphere)
+double			rt_math_intersect(t_cameras *camera, t_objects *object)
 {
 	t_vector	*diff;
 	t_delta		*delta;
 	double		solution;
 
-	if (!(diff = rt_init_vector(camera->origin->x - sphere->origin->x,
-		camera->origin->y - sphere->origin->y,
-		camera->origin->z - sphere->origin->z)))
+	if (!(diff = rt_init_vector(camera->origin->x - object->origin->x,
+		camera->origin->y - object->origin->y,
+		camera->origin->z - object->origin->z)))
 		exit(-1);
 	if (!(delta = rt_init_delta(1, 2 * rt_math_dotproduct(camera->direction, diff),
-		rt_math_norm2(diff) - sphere->size * sphere->size)))
+		rt_math_norm2(diff) - object->size * object->size)))
 		exit(-1);
 	free(diff);
 	if (delta->delta < 0)
@@ -63,16 +63,17 @@ double			rt_math_intersect(t_camera *camera, t_objects *sphere)
 	return (solution);
 }
 
-void			rt_math_pos_norm(t_camera *camera, t_display *display)
+void			rt_math_pos_norm(t_display *display, t_cameras *camera,
+				t_intersection *intersection)
 {
-	display->intersect_pos->x = camera->origin->x + display->solution
+	intersection->position->x = camera->origin->x + intersection->solution
 		* camera->direction->x;
-	display->intersect_pos->y = camera->origin->y + display->solution
+	intersection->position->y = camera->origin->y + intersection->solution
 		* camera->direction->y;
-	display->intersect_pos->z = camera->origin->z + display->solution
+	intersection->position->z = camera->origin->z + intersection->solution
 		* camera->direction->z;
-	display->intersect_norm->x = display->intersect_pos->x - display->sphere_x;
-	display->intersect_norm->y = display->intersect_pos->y - display->sphere_y;
-	display->intersect_norm->z = display->intersect_pos->z - display->sphere_z;
-	rt_math_normalize(display->intersect_norm);
+	intersection->normal->x = intersection->position->x - display->origin->x;
+	intersection->normal->y = intersection->position->y - display->origin->y;
+	intersection->normal->z = intersection->position->z - display->origin->z;
+	rt_math_normalize(intersection->normal);
 }

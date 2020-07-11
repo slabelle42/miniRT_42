@@ -1,20 +1,5 @@
 #include "../incs/minirt.h"
 
-t_rt			*rt_init_rt(t_simul_parse *sp)
-{
-	t_rt		*rt;
-
-	if (!(rt = ft_memalloc(sizeof(t_rt))))
-		return (NULL);
-	rt->mlx_ptr = NULL;
-	rt->win_ptr = NULL;
-	rt->img_ptr = NULL;
-	rt->win_name = sp->file_name;
-	rt->win_H = sp->win_H;
-	rt->win_W = sp->win_W;
-	return (rt);
-}
-
 t_vector		*rt_init_vector(double x, double y, double z)
 {
 	t_vector	*vector;
@@ -27,39 +12,62 @@ t_vector		*rt_init_vector(double x, double y, double z)
 	return (vector);
 }
 
-t_camera		*rt_init_camera(t_vector *origin, t_vector *direction,
-					double fov)
-{
-	t_camera	*camera;
-
-	if (!(camera = ft_memalloc(sizeof(t_camera))))
-		return (NULL);
-	camera->origin = origin;
-	camera->direction = direction;
-	camera->fov = fov;
-	return (camera);
-}
-
-t_color			*rt_init_color(int red, int green, int blue)
+t_color			*rt_init_color(int R, int G, int B)
 {
 	t_color		*color;
 
 	if (!(color = ft_memalloc(sizeof(t_color))))
 		return (NULL);
-	color->red = red;
-	color->green = green;
-	color->blue = blue;
+	color->R = R;
+	color->G = G;
+	color->B = B;
 	return (color);
 }
 
-t_light			*rt_init_light(t_vector *origin, double intensity)
+t_display			*rt_init_display(t_simul_parse *sp, t_vector *origin,
+						t_color *color)
 {
-	t_light		*light;
+	t_display		*display;
 
-	if (!(light = ft_memalloc(sizeof(t_light))))
+	if (!(display = ft_memalloc(sizeof(t_display))))
+		return (NULL);
+	display->mlx_ptr = NULL;
+	display->win_ptr = NULL;
+	display->img_ptr = NULL;
+	display->win_name = sp->file_name;
+	display->win_H = sp->win_H;
+	display->win_W = sp->win_W;
+	display->i = 0;
+	display->j = 0;
+	display->pix_intensity = 0;
+	display->origin = origin;
+	display->color = color;
+	return (display);
+}
+
+t_cameras		*rt_init_camera(t_vector *origin, t_vector *direction,
+					double fov)
+{
+	t_cameras	*camera;
+
+	if (!(camera = ft_memalloc(sizeof(t_cameras))))
+		return (NULL);
+	camera->origin = origin;
+	camera->direction = direction;
+	camera->fov = fov;
+	camera->next = NULL;
+	return (camera);
+}
+
+t_lights		*rt_init_light(t_vector *origin, double intensity)
+{
+	t_lights	*light;
+
+	if (!(light = ft_memalloc(sizeof(t_lights))))
 		return (NULL);
 	light->origin = origin;
 	light->intensity = intensity;
+	light->next = NULL;
 	return (light);
 }
 
@@ -120,6 +128,20 @@ int				rt_clear_objects(t_objects **objects)
 	return (-1);
 }
 
+t_intersection		*rt_init_intersection(t_vector *position, t_vector *normal,
+						t_vector *diff)
+{
+	t_intersection	*intersection;
+
+	if (!(intersection = ft_memalloc(sizeof(t_intersection))))
+		return (NULL);
+	intersection->solution = 0;
+	intersection->position = position;
+	intersection->normal = normal;
+	intersection->diff = diff;
+	return (intersection);
+}
+
 t_delta			*rt_init_delta(double a, double b, double c)
 {
 	t_delta		*delta;
@@ -131,27 +153,4 @@ t_delta			*rt_init_delta(double a, double b, double c)
 	delta->c = c;
 	delta->delta = b * b - 4 * a * c;
 	return (delta);
-}
-
-t_display			*rt_init_display(t_vector *intersect_pos,
-						t_vector *intersect_norm, t_vector *diff)
-{
-	t_display		*display;
-
-	if (!(display = ft_memalloc(sizeof(t_display))))
-		return (NULL);
-	display->i = 0;
-	display->j = 0;
-	display->solution = -2;
-	display->intersect_pos = intersect_pos;
-	display->intersect_norm = intersect_norm;
-	display->diff = diff;
-	display->pix_intensity = 0;
-	display->sphere_x = 0;
-	display->sphere_y = 0;
-	display->sphere_z = 0;
-	display->sphere_red = 0;
-	display->sphere_green = 0;
-	display->sphere_blue = 0;
-	return (display);
 }
