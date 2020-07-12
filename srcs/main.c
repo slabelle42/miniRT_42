@@ -19,7 +19,7 @@ static t_simul_parse	*rt_init_sp(char *file_name)
 	sp->li_ori_x = 15;
 	sp->li_ori_y = 70;
 	sp->li_ori_z = -30;
-	sp->li_intensity = 300;
+	sp->li_intens = 300;
 	sp->obj1_type = 's';
 	sp->obj1_ori_x = 0;
 	sp->obj1_ori_y = 0;
@@ -42,12 +42,17 @@ static t_simul_parse	*rt_init_sp(char *file_name)
 int						main(int ac, char **av)
 {
 	t_simul_parse		*sp;
+	t_scn				*scn;
 
 	if (ac == 1)
 	{
 		if (!(sp = rt_init_sp(av[1])))
 			return (-1);
-		rt_parse(sp);
+		if (!(scn = rt_parse(sp)))
+			return (-1);
+		rt_display_window(scn);
+		rt_clear_scene_structs(scn->ori, scn->color);
+		rt_clear_scene(&scn, scn->cams, scn->lights, scn->objs);
 		free(sp);
 	}
 	return (0);

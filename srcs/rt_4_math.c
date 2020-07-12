@@ -1,10 +1,10 @@
 #include "../incs/minirt.h"
 
-double			rt_math_solution(t_delta *delta)
+double		rt_math_solution(t_delta *delta)
 {
-	double		solution1;
-	double		solution2;
-	double		solution;
+	double	solution1;
+	double	solution2;
+	double	solution;
 
 	solution1 = (-delta->b - sqrt(delta->delta)) / (2 * delta->a);
 	solution2 = (-delta->b + sqrt(delta->delta)) / (2 * delta->a);
@@ -17,12 +17,12 @@ double			rt_math_solution(t_delta *delta)
 	return (solution);
 }
 
-double			rt_math_norm2(t_vector *vec)
+double		rt_math_norm2(t_vec *vec)
 {
 	return (vec->x * vec->x + vec->y * vec->y + vec->z * vec->z);
 }
 
-void			rt_math_normalize(t_vector *vec)
+void		rt_math_normalize(t_vec *vec)
 {
 	double		norm;
 
@@ -32,23 +32,24 @@ void			rt_math_normalize(t_vector *vec)
 	vec->z /= norm;
 }
 
-double			rt_math_dotproduct(t_vector *vec1, t_vector *vec2)
+double		rt_math_dotproduct(t_vec *vec1, t_vec *vec2)
 {
 	return (vec1->x * vec2->x + vec1->y * vec2->y + vec1->z * vec2->z);
 }
 
-double			rt_math_intersect(t_cameras *camera, t_objects *object)
+double		rt_math_intersect(t_cams *cam, t_objs *obj)
 {
-	t_vector	*diff;
-	t_delta		*delta;
-	double		solution;
+	t_vec	*diff;
+	t_delta	*delta;
+	double	solution;
 
-	if (!(diff = rt_init_vector(camera->origin->x - object->origin->x,
-		camera->origin->y - object->origin->y,
-		camera->origin->z - object->origin->z)))
+	if (!(diff = rt_init_vector()))
 		exit(-1);
-	if (!(delta = rt_init_delta(1, 2 * rt_math_dotproduct(camera->direction, diff),
-		rt_math_norm2(diff) - object->size * object->size)))
+	diff->x = cam->ori->x - obj->ori->x;
+	diff->y = cam->ori->y - obj->ori->y;
+	diff->z = cam->ori->z - obj->ori->z;
+	if (!(delta = rt_init_delta(1, 2 * rt_math_dotproduct(cam->dir, diff),
+		rt_math_norm2(diff) - obj->size * obj->size)))
 		exit(-1);
 	free(diff);
 	if (delta->delta < 0)
@@ -63,17 +64,16 @@ double			rt_math_intersect(t_cameras *camera, t_objects *object)
 	return (solution);
 }
 
-void			rt_math_pos_norm(t_display *display, t_cameras *camera,
-				t_intersection *intersection)
+void		rt_math_pos_norm(t_scn *scn, t_intersect *intersect)
 {
-	intersection->position->x = camera->origin->x + intersection->solution
-		* camera->direction->x;
-	intersection->position->y = camera->origin->y + intersection->solution
-		* camera->direction->y;
-	intersection->position->z = camera->origin->z + intersection->solution
-		* camera->direction->z;
-	intersection->normal->x = intersection->position->x - display->origin->x;
-	intersection->normal->y = intersection->position->y - display->origin->y;
-	intersection->normal->z = intersection->position->z - display->origin->z;
-	rt_math_normalize(intersection->normal);
+	intersect->pos->x = scn->cams->ori->x
+		+ intersect->solution * scn->cams->dir->x;
+	intersect->pos->y = scn->cams->ori->y
+		+ intersect->solution * scn->cams->dir->y;
+	intersect->pos->z = scn->cams->ori->z
+		+ intersect->solution * scn->cams->dir->z;
+	intersect->norm->x = intersect->pos->x - scn->ori->x;
+	intersect->norm->y = intersect->pos->y - scn->ori->y;
+	intersect->norm->z = intersect->pos->z - scn->ori->z;
+	rt_math_normalize(intersect->norm);
 }
