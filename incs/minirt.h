@@ -161,6 +161,7 @@ int					rt_clear_intersection(t_intersect **intersect,
 t_delta				*rt_init_delta(double a, double b, double c);
 
 
+void				rt_display_pixel(t_scn *scn, t_intersect *intersect);
 void				rt_display_object(t_scn *scn, t_intersect *intersect);
 void				rt_display_scene(t_scn *scn);
 void				rt_display_window(t_scn *scn);
