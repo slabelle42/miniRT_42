@@ -1,4 +1,4 @@
-#include "../incs/minirt.h"
+#include "minirt.h"
 
 int	rt_color_rgbtoi(int R, int G, int B)
 {

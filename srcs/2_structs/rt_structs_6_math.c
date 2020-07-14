@@ -1,4 +1,4 @@
-#include "../incs/minirt.h"
+#include "minirt.h"
 
 t_intersect		*rt_init_intersection()
 {

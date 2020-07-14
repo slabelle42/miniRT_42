@@ -1,4 +1,4 @@
-#include "../incs/minirt.h"
+#include "minirt.h"
 
 t_scn			*rt_init_scene()
 {

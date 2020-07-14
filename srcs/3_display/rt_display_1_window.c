@@ -1,4 +1,4 @@
-#include "../incs/minirt.h"
+#include "minirt.h"
 
 void			rt_display_pixel(t_scn *scn, t_intersect *intersect)
 {
@@ -64,5 +64,7 @@ void			rt_display_window(t_scn *scn)
 	scn->win_ptr = mlx_new_window(scn->mlx_ptr, scn->win_W, scn->win_H,
 		scn->file_name);
 	rt_display_scene(scn);
+	mlx_hook(scn->win_ptr, 2, 1L << 0, rt_keys, 0);
+	mlx_hook(scn->win_ptr, 17, 1L << 17, rt_keys_exit, 0);
 	mlx_loop(scn->mlx_ptr);
 }

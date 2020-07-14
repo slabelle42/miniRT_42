@@ -1,4 +1,4 @@
-#include "../incs/minirt.h"
+#include "minirt.h"
 
 void	rt_display_adjustcam(t_scn *scn)
 {

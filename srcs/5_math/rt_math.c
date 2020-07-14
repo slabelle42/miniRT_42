@@ -1,4 +1,4 @@
-#include "../incs/minirt.h"
+#include "minirt.h"
 
 double		rt_math_solution(t_delta *delta)
 {

@@ -172,6 +172,10 @@ void				rt_display_getdiff(t_lights *light, t_intersect *intersect);
 void				rt_display_pixintens(t_scn *scn, t_intersect *intersect);
 
 
+int					rt_keys_exit();
+int					rt_keys(int key);
+
+
 double				rt_math_solution(t_delta *delta);
 double				rt_math_norm2(t_vec *vec);
 void				rt_math_normalize(t_vec *vec);

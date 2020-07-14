@@ -15,8 +15,9 @@ SRCS += srcs/2_structs/rt_structs_5_scene.c
 SRCS += srcs/2_structs/rt_structs_6_math.c
 SRCS += srcs/3_display/rt_display_1_window.c
 SRCS += srcs/3_display/rt_display_2_utils.c
-SRCS += srcs/4_math/rt_math.c
-SRCS += srcs/5_color/rt_color.c
+SRCS += srcs/4_keys/rt_keys.c
+SRCS += srcs/5_math/rt_math.c
+SRCS += srcs/6_color/rt_color.c
 
 OBJS = ${SRCS:.c=.o}
 
