@@ -22,13 +22,19 @@ t_scn			*rt_parse(t_simul_parse *sp)
 	rt_fill_object(objs, sp->obj1_type, sp->obj1_rad);
 	rt_fill_object_origin(objs, sp->obj1_ori_x, sp->obj1_ori_y, sp->obj1_ori_z);
 	rt_fill_object_color(objs, sp->obj1_R, sp->obj1_G, sp->obj1_B);
-	if (rt_add_object(&objs, rt_init_object()) == -1)
-		return (NULL);
 	tmp = objs;
+	if (rt_add_object(&tmp, rt_init_object()) == -1)
+		return (NULL);
 	tmp = tmp->next;
 	rt_fill_object(tmp, sp->obj2_type, sp->obj2_rad);
 	rt_fill_object_origin(tmp, sp->obj2_ori_x, sp->obj2_ori_y, sp->obj2_ori_z);
 	rt_fill_object_color(tmp, sp->obj2_R, sp->obj2_G, sp->obj2_B);
+	if (rt_add_object(&tmp, rt_init_object()) == -1)
+		return (NULL);
+	tmp = tmp->next;
+	rt_fill_object(tmp, sp->obj3_type, sp->obj3_rad);
+	rt_fill_object_origin(tmp, sp->obj3_ori_x, sp->obj3_ori_y, sp->obj3_ori_z);
+	rt_fill_object_color(tmp, sp->obj3_R, sp->obj3_G, sp->obj3_B);
 	tmp = NULL;
 	if (!(scn = rt_init_scene()))
 		return (NULL);

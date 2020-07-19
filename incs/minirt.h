@@ -41,6 +41,14 @@ typedef struct		s_simul_parse
 	int				obj2_R;
 	int				obj2_G;
 	int				obj2_B;
+	char			obj3_type;
+	double			obj3_ori_x;
+	double			obj3_ori_y;
+	double			obj3_ori_z;
+	double			obj3_rad;
+	int				obj3_R;
+	int				obj3_G;
+	int				obj3_B;
 }					t_simul_parse;
 
 typedef struct		s_vec

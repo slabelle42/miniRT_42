@@ -36,6 +36,14 @@ static t_simul_parse	*rt_init_sp(char *file_name)
 	sp->obj2_R = 0;
 	sp->obj2_G = 0;
 	sp->obj2_B = 255;
+	sp->obj3_type = 's';
+	sp->obj3_ori_x = 15;
+	sp->obj3_ori_y = 13;
+	sp->obj3_ori_z = -40;
+	sp->obj3_rad = 5;
+	sp->obj3_R = 255;
+	sp->obj3_G = 0;
+	sp->obj3_B = 0;
 	return (sp);
 }
 
