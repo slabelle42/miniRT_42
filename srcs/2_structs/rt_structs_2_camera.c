@@ -17,7 +17,7 @@ t_cams			*rt_init_camera()
 
 t_cams			*rt_fill_camera(t_cams *cam, double fov)
 {
-	cam->fov = fov;
+	cam->fov = fov * M_PI / 180;
 	return (cam);
 }
 
