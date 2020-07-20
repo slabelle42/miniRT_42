@@ -9,7 +9,7 @@ static t_simul_parse	*rt_init_sp(char *file_name)
 	sp->file_name = file_name;
 	sp->win_H = 640;
 	sp->win_W = 640;
-	sp->fov = 60 * M_PI / 180;
+	sp->fov = 60;
 	sp->cam_ori_x = 0;
 	sp->cam_ori_y = 0;
 	sp->cam_ori_z = 0;
