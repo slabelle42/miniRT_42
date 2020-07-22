@@ -140,12 +140,13 @@ void				rt_display_pixintens(t_scn *scn, t_intersect *intersect);
 int					rt_display_rgbtoi(int R, int G, int B);
 
 
-double				rt_math_fov(double fov);
+double				rt_math_intersect(t_cams *cam, t_objs *obj);
+double				rt_math_dotproduct(t_vec *vec1, t_vec *vec2);
 double				rt_math_solution(t_delta *delta);
+
+double				rt_math_fov(double fov);
 double				rt_math_norm2(t_vec *vec);
 void				rt_math_normalize(t_vec *vec);
-double				rt_math_dotproduct(t_vec *vec1, t_vec *vec2);
-double				rt_math_intersect(t_cams *cam, t_objs *obj);
 void				rt_math_pos_norm(t_scn *scn, t_intersect *intersect);
 
 
