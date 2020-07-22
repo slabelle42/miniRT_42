@@ -25,24 +25,6 @@ t_scn			*rt_init_scene()
 	return (scn);
 }
 
-t_scn			*rt_fill_scene_R(t_scn *scn, char *file_name,
-					int win_H, int win_W)
-{
-	scn->file_name = file_name;
-	scn->win_H = win_H;
-	scn->win_W = win_W;
-	return (scn);
-}
-
-t_scn			*rt_fill_scene_CLO(t_scn *scn,
-					t_cams *cams, t_lights *lights, t_objs *objs)
-{
-	scn->cams = cams;
-	scn->lights = lights;
-	scn->objs = objs;
-	return (scn);
-}
-
 int				rt_clear_scene(t_scn **scn,
 					t_cams *cams, t_lights *lights, t_objs *objs)
 {

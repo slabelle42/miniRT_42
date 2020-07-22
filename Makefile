@@ -6,18 +6,21 @@ FLAGL = -lm -lbsd -lX11 -lXext -Llibs -lft
 
 SRCS_DIR = srcs/
 SRCS = srcs/main.c
-SRCS += srcs/1_parse/rt_parse.c
+SRCS += srcs/1_parse/rt_parse_1.c
+SRCS += srcs/1_parse/rt_parse_2_objects.c
+SRCS += srcs/1_parse/rt_parse_3_utils.c
 SRCS += srcs/2_structs/rt_structs_1_base.c
 SRCS += srcs/2_structs/rt_structs_2_camera.c
 SRCS += srcs/2_structs/rt_structs_3_light.c
 SRCS += srcs/2_structs/rt_structs_4_object.c
 SRCS += srcs/2_structs/rt_structs_5_scene.c
 SRCS += srcs/2_structs/rt_structs_6_math.c
-SRCS += srcs/3_display/rt_display_1_window.c
+SRCS += srcs/3_display/rt_display_1.c
 SRCS += srcs/3_display/rt_display_2_utils.c
-SRCS += srcs/4_keys/rt_keys.c
-SRCS += srcs/5_math/rt_math.c
-SRCS += srcs/6_color/rt_color.c
+SRCS += srcs/4_math/rt_math.c
+SRCS += srcs/5_keys/rt_keys.c
+SRCS += srcs/get_next_line/get_next_line.c
+SRCS += srcs/get_next_line/get_next_line_utils.c
 
 OBJS = ${SRCS:.c=.o}
 

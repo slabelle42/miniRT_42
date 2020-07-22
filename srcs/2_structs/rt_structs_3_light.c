@@ -15,27 +15,24 @@ t_lights		*rt_init_light()
 	return (light);
 }
 
-t_lights		*rt_fill_light(t_lights *light, double intens)
+int				rt_add_light(t_lights **lights, t_lights *new_light)
 {
-	light->intens = intens;
-	return (light);
-}
+	t_lights	*tmp;
 
-t_lights		*rt_fill_light_origin(t_lights *light,
-					double x, double y, double z)
-{
-	light->ori->x = x;
-	light->ori->y = y;
-	light->ori->z = z;
-	return (light);
-}
-
-t_lights		*rt_fill_light_color(t_lights *light, int R, int G, int B)
-{
-	light->color->R = R;
-	light->color->G = G;
-	light->color->B = B;
-	return (light);
+	if (lights && new_light)
+	{
+		if (!(*lights))
+			*lights = new_light;
+		else
+		{
+			tmp = *lights;
+			while (tmp->next)
+				tmp = tmp->next;
+			tmp->next = new_light;
+		}
+		return (0);
+	}
+	return (-1);
 }
 
 int				rt_clear_lights(t_lights **lights)

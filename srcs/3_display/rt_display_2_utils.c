@@ -36,3 +36,8 @@ void	rt_display_pixintens(t_scn *scn, t_intersect *intersect)
 	else if (scn->pix_intens > 255)
 		scn->pix_intens = 255;
 }
+
+int		rt_display_rgbtoi(int R, int G, int B)
+{
+	return (65536 * R + 256 * G + B);
+}

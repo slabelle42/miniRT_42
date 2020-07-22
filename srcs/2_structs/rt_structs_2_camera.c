@@ -15,28 +15,24 @@ t_cams			*rt_init_camera()
 	return (cam);
 }
 
-t_cams			*rt_fill_camera(t_cams *cam, double fov)
+int				rt_add_camera(t_cams **cams, t_cams *new_cam)
 {
-	cam->fov = fov * M_PI / 180;
-	return (cam);
-}
+	t_cams		*tmp;
 
-t_cams			*rt_fill_camera_origin(t_cams *cam,
-					double x, double y, double z)
-{
-	cam->ori->x = x;
-	cam->ori->y = y;
-	cam->ori->z = z;
-	return (cam);
-}
-
-t_cams			*rt_fill_camera_direction(t_cams *cam,
-					double x, double y, double z)
-{
-	cam->dir->x = x;
-	cam->dir->y = y;
-	cam->dir->z = z;
-	return (cam);
+	if (cams && new_cam)
+	{
+		if (!(*cams))
+			*cams = new_cam;
+		else
+		{
+			tmp = *cams;
+			while (tmp->next)
+				tmp = tmp->next;
+			tmp->next = new_cam;
+		}
+		return (0);
+	}
+	return (-1);
 }
 
 int				rt_clear_cameras(t_cams **cams)

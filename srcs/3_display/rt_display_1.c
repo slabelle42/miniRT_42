@@ -6,7 +6,7 @@ void			rt_display_pixel(t_scn *scn, t_intersect *intersect)
 	rt_display_getdiff(scn->lights, intersect);
 	rt_display_pixintens(scn, intersect);
 	mlx_pixel_put(scn->mlx_ptr, scn->win_ptr, scn->j,
-		(scn->win_H - scn->i - 1), rt_color_rgbtoi(
+		(scn->win_H - scn->i - 1), rt_display_rgbtoi(
 		scn->pix_intens * scn->color->R / 255,
 		scn->pix_intens * scn->color->G / 255,
 		scn->pix_intens * scn->color->B / 255));
@@ -43,6 +43,8 @@ void			rt_display_scene(t_scn *scn)
 
 	if (!(intersect = rt_init_intersection()))
 		exit(-1);
+	scn->i = 0;
+	scn->j = 0;
 	while (scn->i < scn->win_H)
 	{
 		while (scn->j < scn->win_W)

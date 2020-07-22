@@ -1,5 +1,10 @@
 #include "minirt.h"
 
+double		rt_math_fov(double fov)
+{
+	return (fov * M_PI / 180);
+}
+
 double		rt_math_solution(t_delta *delta)
 {
 	double	solution1;

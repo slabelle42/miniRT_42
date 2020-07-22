@@ -16,30 +16,6 @@ t_objs			*rt_init_object()
 	return (obj);
 }
 
-t_objs			*rt_fill_object(t_objs *obj, char type, double size)
-{
-	obj->type = type;
-	obj->size = size;
-	return (obj);
-}
-
-t_objs			*rt_fill_object_origin(t_objs *obj,
-					double x, double y, double z)
-{
-	obj->ori->x = x;
-	obj->ori->y = y;
-	obj->ori->z = z;
-	return (obj);
-}
-
-t_objs			*rt_fill_object_color(t_objs *obj, int R, int G, int B)
-{
-	obj->color->R = R;
-	obj->color->G = G;
-	obj->color->B = B;
-	return (obj);
-}
-
 int				rt_add_object(t_objs **objs, t_objs *new_obj)
 {
 	t_objs		*tmp;
