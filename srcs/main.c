@@ -9,21 +9,22 @@ int			main(int ac, char **av)
 
 	if (ac == 2)
 	{
+		ft_putendl_fd("MiniRT is starting! Hi :)", 1);
 		if ((fd = open(av[1], O_RDONLY)) == -1)
-			return (-1);
+			rt_exit_ko(2);
 		if (!(scn = rt_init_scene()))
-			return (-1);
+			rt_exit_ko(42);
 		scn->file_name = av[1];
 		while ((ret = get_next_line(fd, &line)))
 		{
 			if ((rt_parse_line(scn, line)) == -1)
-				return (-1);
+				rt_exit_ko(42);
 			free(line);
 		}
 		close(fd);
 		rt_display_window(scn);
-		rt_clear_scene_structs(scn->ori, scn->color);
-		rt_clear_scene(&scn, scn->cams, scn->lights, scn->objs);
 	}
+	else
+		rt_exit_ko(1);
 	return (0);
 }

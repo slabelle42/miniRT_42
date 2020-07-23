@@ -107,20 +107,19 @@ int					rt_fill_color(t_scn *scn, t_color *color, char *line);
 
 t_cams				*rt_init_camera();
 int					rt_add_camera(t_cams **cams, t_cams *new_cam);
-int					rt_clear_cameras(t_cams **cams);
+void				rt_clear_cameras(t_cams **cams);
 
 t_lights			*rt_init_light();
 int					rt_add_light(t_lights **lights, t_lights *new_light);
-int					rt_clear_lights(t_lights **lights);
+void				rt_clear_lights(t_lights **lights);
 
 t_objs				*rt_init_object();
 int					rt_add_object(t_objs **objs, t_objs *new_obj);
-int					rt_clear_objects(t_objs **objs);
+void				rt_clear_objects(t_objs **objs);
 
 t_scn				*rt_init_scene();
-int					rt_clear_scene(t_scn **scn,
+void				rt_clear_scene(t_scn **scn,
 						t_cams *cams, t_lights *lights, t_objs *objs);
-void				rt_clear_scene_structs(t_vec *ori, t_color *color);
 
 t_intersect			*rt_init_intersection();
 int					rt_clear_intersection(t_intersect **intersect,
@@ -150,7 +149,8 @@ void				rt_math_normalize(t_vec *vec);
 void				rt_math_pos_norm(t_scn *scn, t_intersect *intersect);
 
 
-int					rt_keys_exit();
+int					rt_exit_ok();
+void				rt_exit_ko();
 int					rt_keys(int key);
 
 

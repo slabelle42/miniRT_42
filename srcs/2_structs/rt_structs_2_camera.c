@@ -2,7 +2,7 @@
 
 t_cams			*rt_init_camera()
 {
-	t_cams	*cam;
+	t_cams		*cam;
 
 	if (!(cam = ft_memalloc(sizeof(t_cams))))
 		return (NULL);
@@ -35,24 +35,27 @@ int				rt_add_camera(t_cams **cams, t_cams *new_cam)
 	return (-1);
 }
 
-int				rt_clear_cameras(t_cams **cams)
+static void		rt_delone_camera(t_cams *cams)
 {
-	t_cams		*tmp1;
-	t_cams		*tmp2;
-
 	if (cams)
 	{
-		tmp1 = *cams;
-		while (tmp1)
-		{
-			tmp2 = tmp1;
-			tmp1 = tmp1->next;
-			free(tmp2->ori);
-			free(tmp2->dir);
-			free(tmp2);
-		}
-		*cams = NULL;
-		return (0);
+		free(cams->ori);
+		free(cams->dir);
+		free(cams);
 	}
-	return (-1);
+}
+
+void			rt_clear_cameras(t_cams **cams)
+{
+	t_cams		*tmp;
+
+	if (cams && *cams)
+	{
+		while (cams && *cams)
+		{
+			tmp = (*cams)->next;
+			rt_delone_camera(*cams);
+			*cams = tmp;
+		}
+	}
 }

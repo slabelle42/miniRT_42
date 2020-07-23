@@ -36,24 +36,27 @@ int				rt_add_object(t_objs **objs, t_objs *new_obj)
 	return (-1);
 }
 
-int				rt_clear_objects(t_objs **objs)
+static void		rt_delone_object(t_objs *objs)
 {
-	t_objs		*tmp1;
-	t_objs		*tmp2;
-
 	if (objs)
 	{
-		tmp1 = *objs;
-		while (tmp1)
-		{
-			tmp2 = tmp1;
-			tmp1 = tmp1->next;
-			free(tmp2->ori);
-			free(tmp2->color);
-			free(tmp2);
-		}
-		*objs = NULL;
-		return (0);
+		free(objs->ori);
+		free(objs->color);
+		free(objs);
 	}
-	return (-1);
+}
+
+void			rt_clear_objects(t_objs **objs)
+{
+	t_objs		*tmp;
+
+	if (objs && *objs)
+	{
+		while (objs && *objs)
+		{
+			tmp = (*objs)->next;
+			rt_delone_object(*objs);
+			*objs = tmp;
+		}
+	}
 }

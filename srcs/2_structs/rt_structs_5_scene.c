@@ -1,8 +1,8 @@
 #include "minirt.h"
 
-t_scn			*rt_init_scene()
+t_scn		*rt_init_scene()
 {
-	t_scn		*scn;
+	t_scn	*scn;
 
 	if (!(scn = ft_memalloc(sizeof(t_scn))))
 		return (NULL);
@@ -25,23 +25,21 @@ t_scn			*rt_init_scene()
 	return (scn);
 }
 
-int				rt_clear_scene(t_scn **scn,
-					t_cams *cams, t_lights *lights, t_objs *objs)
+static void	rt_clear_scene_structs(t_scn *scn)
 {
-	if (scn && cams && lights && objs)
+	free(scn->ori);
+	free(scn->color);
+	free(scn);
+}
+
+void		rt_clear_scene(t_scn **scn,
+				t_cams *cams, t_lights *lights, t_objs *objs)
+{
+	if (scn && *scn && cams && lights && objs)
 	{
 		rt_clear_cameras(&cams);
 		rt_clear_lights(&lights);
 		rt_clear_objects(&objs);
-		free(*scn);
-		*scn = NULL;
-		return (0);
+		rt_clear_scene_structs(*scn);
 	}
-	return (-1);
-}
-
-void			rt_clear_scene_structs(t_vec *ori, t_color *color)
-{
-	free(ori);
-	free(color);
 }
