@@ -6,7 +6,7 @@
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 20:33:07 by slabelle          #+#    #+#             */
-/*   Updated: 2019/10/24 20:33:11 by slabelle         ###   ########.fr       */
+/*   Updated: 2020/04/13 21:51:31 by slabelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 int					ft_atoi(const char *str);
 char				*ft_itoa(int n);
+char				*ft_itoa_ull(unsigned long long n);
+char				*ft_itoa_ull_base(unsigned long long n, int base);
 
 int					ft_isalnum(int c);
 int					ft_isalpha(int c);
@@ -29,6 +31,7 @@ int					ft_toupper(int c);
 
 char				**ft_split(char const *s, char c);
 char				*ft_strchr(const char *str, int c);
+char				*ft_strcpy(char *dst, char *src);
 char				*ft_strdup(const char *src);
 int					ft_strend(char *str, char *end);
 char				*ft_strjoin(char const *s1, char const *s2);
@@ -52,10 +55,10 @@ void				*ft_memcpy(void *dst, const void *src, size_t len);
 void				*ft_memmove(void *dst, const void *src, size_t len);
 void				*ft_memset(void *dst, int c, size_t len);
 
-void				ft_putchar_fd(char c, int fd);
+int					ft_putchar_fd(char c, int fd);
 void				ft_putendl_fd(char *s, int fd);
 void				ft_putnbr_fd(int n, int fd);
-void				ft_putstr_fd(char *s, int fd);
+int					ft_putstr_fd(char *s, int fd);
 
 typedef struct		s_list
 {

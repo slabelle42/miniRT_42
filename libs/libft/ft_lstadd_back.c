@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/12 15:48:27 by slabelle          #+#    #+#             */
-/*   Updated: 2019/10/12 15:48:30 by slabelle         ###   ########.fr       */
+/*   Created: 2019/10/24 15:44:32 by slabelle          #+#    #+#             */
+/*   Updated: 2019/11/11 18:25:28 by slabelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_putstr_fd(char *s, int fd)
+void	ft_lstadd_back(t_list **alst, t_list *new)
 {
-	int	len;
+	t_list	*tmp;
 
-	if (s)
+	if (alst && new)
 	{
-		len = ft_strlen(s);
-		write(fd, s, len);
-		return (len);
+		if (!(*alst))
+			*alst = new;
+		else
+		{
+			tmp = *alst;
+			while (tmp->next)
+				tmp = tmp->next;
+			tmp->next = new;
+		}
 	}
-	return (0);
 }

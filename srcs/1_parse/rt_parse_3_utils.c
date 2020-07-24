@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_parse_3_utils.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/24 13:03:51 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:04:08 by slabelle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int			rt_parse_toint(t_scn *scn, char *line)
@@ -9,7 +21,7 @@ int			rt_parse_toint(t_scn *scn, char *line)
 	{
 		n = (n * 10) + (line[scn->i] - '0');
 		(scn->i)++;
-	}	
+	}
 	return (n);
 }
 
@@ -32,8 +44,8 @@ double		rt_parse_todouble(t_scn *scn, char *line)
 	}
 	if (line[scn->i] == '.' && ft_isdigit(line[scn->i + 1]))
 	{
-			d += (line[scn->i] - '0') / 10;
-			scn->i += 2;
+		d += (line[scn->i] - '0') / 10;
+		scn->i += 2;
 	}
 	return (sign * d);
 }

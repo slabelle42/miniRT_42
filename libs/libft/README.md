@@ -9,21 +9,22 @@ Disclaimer: *Reinventing the wheel is bad, 42 makes us do this just so we can ha
 Libc & additional functions :
 
 + **"INT"**
-atoi.c itoa.c
+atoi.c itoa.c ft_itoa_ull.c ft_itoa_ull_base.c
 
 + **"CHAR"**
 isalnum.c isalpha.c isascii.c isdigit.c
 isprint.c tolower.c toupper.c
 
 + **"STR"**
-ft_split.c strchr.c strdup.c strjoin.c
-strlcat.c strlcpy.c strlen.c strmapi.c
-strncmp.c strnstr.c strrchr.c strtrim.c
-substr.c
+ft_split.c strchr.c ft_strcpy.c strdup.c
+strjoin.c strlcat.c strlcpy.c strlen.c
+strmapi.c strncmp.c strnstr.c strrchr.c
+strtrim.c substr.c
 
 + **"MEM"**
-bzero.c calloc.c memccpy.c memchr.c
-memcmp.c memcpy.c memmove.c memset.c
+bzero.c calloc.c ft_memalloc.c memccpy.c
+memchr.c memcmp.c memcpy.c memmove.c
+memset.c
 
 + **"PUT"**
 putchar_fd.c putendl_fd.c putnbr_fd.c putstr_fd.c

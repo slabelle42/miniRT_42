@@ -7,7 +7,9 @@ MAIN = main.c
 
 # [ int ]
 SRC =	ft_atoi.c
-SRC +=	ft_itoa.c	
+SRC +=	ft_itoa.c
+SRC +=	ft_itoa_ull.c
+SRC +=	ft_itoa_ull_base.c
 # [ char ]
 SRC +=	ft_isalnum.c
 SRC +=	ft_isalpha.c
@@ -19,6 +21,7 @@ SRC +=	ft_toupper.c
 # [ str ]
 SRC +=	ft_split.c
 SRC +=	ft_strchr.c
+SRC +=	ft_strcpy.c
 SRC +=	ft_strdup.c
 SRC +=	ft_strend.c
 SRC +=	ft_strjoin.c

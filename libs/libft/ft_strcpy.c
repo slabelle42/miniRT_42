@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_strcpy.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/12 15:48:27 by slabelle          #+#    #+#             */
-/*   Updated: 2019/10/12 15:48:30 by slabelle         ###   ########.fr       */
+/*   Created: 2020/04/05 16:26:57 by slabelle          #+#    #+#             */
+/*   Updated: 2020/04/05 16:27:15 by slabelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_putstr_fd(char *s, int fd)
+char		*ft_strcpy(char *dst, char *src)
 {
-	int	len;
+	int		len;
 
-	if (s)
+	len = 0;
+	while (src[len] != '\0')
 	{
-		len = ft_strlen(s);
-		write(fd, s, len);
-		return (len);
+		dst[len] = src[len];
+		len++;
 	}
-	return (0);
+	dst[len] = '\0';
+	return (dst);
 }

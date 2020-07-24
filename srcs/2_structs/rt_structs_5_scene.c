@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_structs_5_scene.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/24 13:05:09 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:05:10 by slabelle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-t_scn		*rt_init_scene()
+t_scn		*rt_init_scene(void)
 {
 	t_scn	*scn;
 
 	if (!(scn = ft_memalloc(sizeof(t_scn))))
 		return (NULL);
 	scn->file_name = "";
-	scn->win_H = 0;
-	scn->win_W = 0;
+	scn->win_h = 0;
+	scn->win_w = 0;
 	scn->cams = NULL;
 	scn->lights = NULL;
 	scn->objs = NULL;

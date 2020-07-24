@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_structs_6_math.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/24 13:05:15 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:05:16 by slabelle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-t_intersect		*rt_init_intersection()
+t_intersect		*rt_init_intersection(void)
 {
 	t_intersect	*intersect;
 

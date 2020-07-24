@@ -1,26 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
+/*   ft_itoa_ull.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/10/12 15:48:27 by slabelle          #+#    #+#             */
-/*   Updated: 2019/10/12 15:48:30 by slabelle         ###   ########.fr       */
+/*   Created: 2020/04/05 16:27:45 by slabelle          #+#    #+#             */
+/*   Updated: 2020/04/05 16:27:47 by slabelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_putstr_fd(char *s, int fd)
+char					*ft_itoa_ull(unsigned long long n)
 {
-	int	len;
+	unsigned long long	ull_n;
+	int					len;
+	char				*str;
 
-	if (s)
+	ull_n = n;
+	len = 2;
+	while ((ull_n /= 10))
+		len++;
+	if (!(str = malloc(sizeof(char) * len)))
+		return (NULL);
+	str[--len] = '\0';
+	while (len--)
 	{
-		len = ft_strlen(s);
-		write(fd, s, len);
-		return (len);
+		str[len] = n % 10 + 48;
+		n /= 10;
 	}
-	return (0);
+	return (str);
 }

@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_display_2_utils.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/24 13:05:51 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:05:52 by slabelle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 void	rt_display_adjustcam(t_scn *scn)
 {
-	scn->cams->dir->y = scn->i - scn->win_H / 2;
-	scn->cams->dir->x = scn->j - scn->win_W / 2;
-	scn->cams->dir->z = -scn->win_W / (2 * tan(scn->cams->fov / 2));
+	scn->cams->dir->y = scn->i - scn->win_h / 2;
+	scn->cams->dir->x = scn->j - scn->win_w / 2;
+	scn->cams->dir->z = -scn->win_w / (2 * tan(scn->cams->fov / 2));
 	rt_math_normalize(scn->cams->dir);
 }
 
@@ -13,9 +25,9 @@ void	rt_display_getobjparams(t_scn *scn, t_objs *obj)
 	scn->ori->x = obj->ori->x;
 	scn->ori->y = obj->ori->y;
 	scn->ori->z = obj->ori->z;
-	scn->color->R = obj->color->R;
-	scn->color->G = obj->color->G;
-	scn->color->B = obj->color->B;
+	scn->color->r = obj->color->r;
+	scn->color->g = obj->color->g;
+	scn->color->b = obj->color->b;
 }
 
 void	rt_display_getdiff(t_lights *light, t_intersect *intersect)
@@ -37,7 +49,7 @@ void	rt_display_pixintens(t_scn *scn, t_intersect *intersect)
 		scn->pix_intens = 255;
 }
 
-int		rt_display_rgbtoi(int R, int G, int B)
+int		rt_display_rgbtoi(int r, int g, int b)
 {
-	return (65536 * R + 256 * G + B);
+	return (65536 * r + 256 * g + b);
 }

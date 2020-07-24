@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minirt.h                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/24 13:41:39 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:41:44 by slabelle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef MINIRT_H
 # define MINIRT_H
-
 
 # include <fcntl.h>
 # include <math.h>
@@ -12,7 +23,6 @@
 # include "libft.h"
 # include "get_next_line.h"
 
-
 typedef struct		s_vec
 {
 	double			x;
@@ -22,9 +32,9 @@ typedef struct		s_vec
 
 typedef struct		s_color
 {
-	int				R;
-	int				G;
-	int				B;
+	int				r;
+	int				g;
+	int				b;
 }					t_color;
 
 typedef struct		s_cams
@@ -55,8 +65,8 @@ typedef struct		s_objs
 typedef struct		s_scn
 {
 	char			*file_name;
-	int				win_H;
-	int				win_W;
+	int				win_h;
+	int				win_w;
 	struct s_cams	*cams;
 	struct s_lights	*lights;
 	struct s_objs	*objs;
@@ -86,7 +96,6 @@ typedef struct		s_delta
 	double			delta;
 }					t_delta;
 
-
 int					rt_parse_line(t_scn *scn, char *line);
 int					rt_parse_window(t_scn *scn, char *line);
 int					rt_parse_camera(t_scn *scn, t_cams **cams, char *line);
@@ -99,33 +108,31 @@ double				rt_parse_todouble(t_scn *scn, char *line);
 int					rt_parse_vector(t_scn *scn, t_vec *vec, char *line);
 int					rt_parse_color(t_scn *scn, t_color *color, char *line);
 
-
-t_vec				*rt_init_vector();
+t_vec				*rt_init_vector(void);
 int					rt_fill_vector(t_scn *scn, t_vec *vec, char *line);
-t_color				*rt_init_color();
+t_color				*rt_init_color(void);
 int					rt_fill_color(t_scn *scn, t_color *color, char *line);
 
-t_cams				*rt_init_camera();
+t_cams				*rt_init_camera(void);
 int					rt_add_camera(t_cams **cams, t_cams *new_cam);
 void				rt_clear_cameras(t_cams **cams);
 
-t_lights			*rt_init_light();
+t_lights			*rt_init_light(void);
 int					rt_add_light(t_lights **lights, t_lights *new_light);
 void				rt_clear_lights(t_lights **lights);
 
-t_objs				*rt_init_object();
+t_objs				*rt_init_object(void);
 int					rt_add_object(t_objs **objs, t_objs *new_obj);
 void				rt_clear_objects(t_objs **objs);
 
-t_scn				*rt_init_scene();
+t_scn				*rt_init_scene(void);
 void				rt_clear_scene(t_scn **scn,
 						t_cams *cams, t_lights *lights, t_objs *objs);
 
-t_intersect			*rt_init_intersection();
+t_intersect			*rt_init_intersection(void);
 int					rt_clear_intersection(t_intersect **intersect,
 						t_vec *pos, t_vec *norm, t_vec *diff);
 t_delta				*rt_init_delta(double a, double b, double c);
-
 
 void				rt_display_window(t_scn *scn);
 void				rt_display_scene(t_scn *scn);
@@ -136,8 +143,7 @@ void				rt_display_adjustcam(t_scn *scn);
 void				rt_display_getobjparams(t_scn *scn, t_objs *obj);
 void				rt_display_getdiff(t_lights *light, t_intersect *intersect);
 void				rt_display_pixintens(t_scn *scn, t_intersect *intersect);
-int					rt_display_rgbtoi(int R, int G, int B);
-
+int					rt_display_rgbtoi(int r, int g, int b);
 
 double				rt_math_intersect(t_cams *cam, t_objs *obj);
 double				rt_math_dotproduct(t_vec *vec1, t_vec *vec2);
@@ -148,11 +154,9 @@ double				rt_math_norm2(t_vec *vec);
 void				rt_math_normalize(t_vec *vec);
 void				rt_math_pos_norm(t_scn *scn, t_intersect *intersect);
 
-
 void				rt_exit_ko_noscn(int error_nb);
 void				rt_exit_ko(int error_nb, t_scn *scn);
 int					rt_exit_ok(t_scn *scn);
 int					rt_keys(int key, t_scn *scn);
-
 
 #endif

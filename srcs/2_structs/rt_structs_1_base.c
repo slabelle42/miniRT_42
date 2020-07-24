@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_structs_1_base.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/24 13:04:22 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:04:41 by slabelle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
-t_vec		*rt_init_vector()
+t_vec		*rt_init_vector(void)
 {
 	t_vec	*vec;
 
@@ -31,33 +43,33 @@ int			rt_fill_vector(t_scn *scn, t_vec *vec, char *line)
 	return (0);
 }
 
-t_color		*rt_init_color()
+t_color		*rt_init_color(void)
 {
 	t_color	*color;
 
 	if (!(color = ft_memalloc(sizeof(t_color))))
 		return (NULL);
-	color->R = 0;
-	color->G = 0;
-	color->B = 0;
+	color->r = 0;
+	color->g = 0;
+	color->b = 0;
 	return (color);
 }
 
 int			rt_fill_color(t_scn *scn, t_color *color, char *line)
 {
 	if (ft_isdigit(line[scn->i]))
-		color->R = rt_parse_toint(scn, line);
+		color->r = rt_parse_toint(scn, line);
 	if (line[scn->i] == ',')
 		(scn->i)++;
 	else
 		return (-1);
 	if (ft_isdigit(line[scn->i]))
-		color->G = rt_parse_toint(scn, line);
+		color->g = rt_parse_toint(scn, line);
 	if (line[scn->i] == ',')
 		(scn->i)++;
 	else
 		return (-1);
 	if (ft_isdigit(line[scn->i]))
-		color->B = rt_parse_toint(scn, line);
+		color->b = rt_parse_toint(scn, line);
 	return (0);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_parse_1_start.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/24 13:02:29 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:02:58 by slabelle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 int				rt_parse_light(t_scn *scn, t_lights **lights, char *line)
@@ -46,12 +58,12 @@ int				rt_parse_window(t_scn *scn, char *line)
 	while (line[scn->i] == ' ' || line[scn->i] == '\t')
 		(scn->i)++;
 	if (ft_isdigit(line[scn->i]))
-		scn->win_W = rt_parse_toint(scn, line);
+		scn->win_w = rt_parse_toint(scn, line);
 	while (line[scn->i] == ' ' || line[scn->i] == '\t')
 		(scn->i)++;
 	if (ft_isdigit(line[scn->i]))
-		scn->win_H = rt_parse_toint(scn, line);
-	if (scn->win_W < 1 || scn->win_H < 1)
+		scn->win_h = rt_parse_toint(scn, line);
+	if (scn->win_w < 1 || scn->win_h < 1)
 		return (-1);
 	return (0);
 }

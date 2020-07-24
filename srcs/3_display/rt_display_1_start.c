@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rt_display_1_start.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/24 13:05:40 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:05:42 by slabelle         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "minirt.h"
 
 void			rt_display_pixel(t_scn *scn, t_intersect *intersect)
@@ -6,10 +18,10 @@ void			rt_display_pixel(t_scn *scn, t_intersect *intersect)
 	rt_display_getdiff(scn->lights, intersect);
 	rt_display_pixintens(scn, intersect);
 	mlx_pixel_put(scn->mlx_ptr, scn->win_ptr, scn->j,
-		(scn->win_H - scn->i - 1), rt_display_rgbtoi(
-		scn->pix_intens * scn->color->R / 255,
-		scn->pix_intens * scn->color->G / 255,
-		scn->pix_intens * scn->color->B / 255));
+		(scn->win_h - scn->i - 1), rt_display_rgbtoi(
+		scn->pix_intens * scn->color->r / 255,
+		scn->pix_intens * scn->color->g / 255,
+		scn->pix_intens * scn->color->b / 255));
 }
 
 void			rt_display_object(t_scn *scn, t_intersect *intersect)
@@ -45,9 +57,9 @@ void			rt_display_scene(t_scn *scn)
 		exit(-1);
 	scn->i = 0;
 	scn->j = 0;
-	while (scn->i < scn->win_H)
+	while (scn->i < scn->win_h)
 	{
-		while (scn->j < scn->win_W)
+		while (scn->j < scn->win_w)
 		{
 			rt_display_adjustcam(scn);
 			rt_display_object(scn, intersect);
@@ -65,7 +77,7 @@ void			rt_display_window(t_scn *scn)
 	ft_putendl_fd(
 		"Parsing ended successfully, let's see what we've got here ^^", 1);
 	scn->mlx_ptr = mlx_init();
-	scn->win_ptr = mlx_new_window(scn->mlx_ptr, scn->win_W, scn->win_H,
+	scn->win_ptr = mlx_new_window(scn->mlx_ptr, scn->win_w, scn->win_h,
 		scn->file_name);
 	rt_display_scene(scn);
 	mlx_hook(scn->win_ptr, 2, 1L << 0, rt_keys, scn);
