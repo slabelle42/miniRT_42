@@ -35,11 +35,15 @@ static void	rt_clear_scene_structs(t_scn *scn)
 void		rt_clear_scene(t_scn **scn,
 				t_cams *cams, t_lights *lights, t_objs *objs)
 {
-	if (scn && *scn && cams && lights && objs)
+	if (cams)
+		rt_clear_cameras(&cams);
+	if (lights)
+		rt_clear_lights(&lights);
+	if (objs)
+		rt_clear_objects(&objs);
+	if (scn && *scn)
 	{
 		rt_clear_cameras(&cams);
-		rt_clear_lights(&lights);
-		rt_clear_objects(&objs);
 		rt_clear_scene_structs(*scn);
 	}
 }

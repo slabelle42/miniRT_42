@@ -68,8 +68,7 @@ void			rt_display_window(t_scn *scn)
 	scn->win_ptr = mlx_new_window(scn->mlx_ptr, scn->win_W, scn->win_H,
 		scn->file_name);
 	rt_display_scene(scn);
-	rt_clear_scene(&scn, scn->cams, scn->lights, scn->objs);
-	mlx_hook(scn->win_ptr, 2, 1L << 0, rt_keys, 0);
-	mlx_hook(scn->win_ptr, 17, 1L << 17, rt_exit_ok, 0);
+	mlx_hook(scn->win_ptr, 2, 1L << 0, rt_keys, scn);
+	mlx_hook(scn->win_ptr, 17, 1L << 17, rt_exit_ok, scn);
 	mlx_loop(scn->mlx_ptr);
 }

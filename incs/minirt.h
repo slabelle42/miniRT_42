@@ -149,9 +149,10 @@ void				rt_math_normalize(t_vec *vec);
 void				rt_math_pos_norm(t_scn *scn, t_intersect *intersect);
 
 
-int					rt_exit_ok();
-void				rt_exit_ko();
-int					rt_keys(int key);
+void				rt_exit_ko_noscn(int error_nb);
+void				rt_exit_ko(int error_nb, t_scn *scn);
+int					rt_exit_ok(t_scn *scn);
+int					rt_keys(int key, t_scn *scn);
 
 
 #endif

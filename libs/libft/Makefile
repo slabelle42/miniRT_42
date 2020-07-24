@@ -20,6 +20,7 @@ SRC +=	ft_toupper.c
 SRC +=	ft_split.c
 SRC +=	ft_strchr.c
 SRC +=	ft_strdup.c
+SRC +=	ft_strend.c
 SRC +=	ft_strjoin.c
 SRC +=	ft_strlcat.c
 SRC +=	ft_strlcpy.c
