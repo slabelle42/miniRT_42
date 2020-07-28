@@ -65,8 +65,13 @@ typedef struct		s_objs
 typedef struct		s_scn
 {
 	char			*file_name;
+	int				line_nb;
 	int				win_h;
 	int				win_w;
+	double			amb_intens;
+	int				amb_r;
+	int				amb_g;
+	int				amb_b;
 	struct s_cams	*cams;
 	struct s_lights	*lights;
 	struct s_objs	*objs;
@@ -96,22 +101,22 @@ typedef struct		s_delta
 	double			delta;
 }					t_delta;
 
-int					rt_parse_line(t_scn *scn, char *line);
-int					rt_parse_window(t_scn *scn, char *line);
-int					rt_parse_camera(t_scn *scn, t_cams **cams, char *line);
-int					rt_parse_light(t_scn *scn, t_lights **lights, char *line);
+void				rt_parse_line(t_scn *scn, char *line);
+void				rt_parse_window(t_scn *scn, char *line);
+void				rt_parse_camera(t_scn *scn, t_cams **cams, char *line);
+void				rt_parse_light(t_scn *scn, t_lights **lights, char *line);
 
-int					rt_parse_sphere(t_scn *scn, t_objs **objs, char *line);
+void				rt_parse_sphere(t_scn *scn, t_objs **objs, char *line);
 
 int					rt_parse_toint(t_scn *scn, char *line);
 double				rt_parse_todouble(t_scn *scn, char *line);
-int					rt_parse_vector(t_scn *scn, t_vec *vec, char *line);
-int					rt_parse_color(t_scn *scn, t_color *color, char *line);
+void				rt_parse_vector(t_scn *scn, t_vec *vec, char *line);
+void				rt_parse_color(t_scn *scn, t_color *color, char *line);
 
 t_vec				*rt_init_vector(void);
-int					rt_fill_vector(t_scn *scn, t_vec *vec, char *line);
+void				rt_fill_vector(t_scn *scn, t_vec *vec, char *line);
 t_color				*rt_init_color(void);
-int					rt_fill_color(t_scn *scn, t_color *color, char *line);
+void				rt_fill_color(t_scn *scn, t_color *color, char *line);
 
 t_cams				*rt_init_camera(void);
 int					rt_add_camera(t_cams **cams, t_cams *new_cam);
@@ -154,8 +159,10 @@ double				rt_math_norm2(t_vec *vec);
 void				rt_math_normalize(t_vec *vec);
 void				rt_math_pos_norm(t_scn *scn, t_intersect *intersect);
 
-void				rt_exit_ko_noscn(int error_nb);
-void				rt_exit_ko(int error_nb, t_scn *scn);
+void				rt_exit_ko(int error_nb);
+void				rt_exit_ko_scn(int error_nb, t_scn *scn);
+void				rt_exit_ko_line(int error_nb, t_scn *scn, char *line);
+
 int					rt_exit_ok(t_scn *scn);
 int					rt_keys(int key, t_scn *scn);
 

@@ -20,16 +20,17 @@ static void	minirt(char **av)
 	char	*line;
 
 	if (!(ft_strend(av[1], ".rt")))
-		rt_exit_ko_noscn(2);
+		rt_exit_ko(2);
 	if ((fd = open(av[1], O_RDONLY)) == -1)
-		rt_exit_ko_noscn(3);
+		rt_exit_ko(3);
 	if (!(scn = rt_init_scene()))
-		rt_exit_ko(42, scn);
+		rt_exit_ko_scn(42, scn);
 	scn->file_name = av[1];
+	scn->line_nb = 0;
 	while ((ret = get_next_line(fd, &line)))
 	{
-		if ((rt_parse_line(scn, line)) == -1)
-			rt_exit_ko(42, scn);
+		(scn->line_nb)++;
+		rt_parse_line(scn, line);
 		free(line);
 	}
 	close(fd);
@@ -42,6 +43,6 @@ int			main(int ac, char **av)
 	if (ac == 2)
 		minirt(av);
 	else
-		rt_exit_ko_noscn(1);
+		rt_exit_ko(1);
 	return (0);
 }

@@ -12,24 +12,25 @@
 
 #include "minirt.h"
 
-int				rt_parse_sphere(t_scn *scn, t_objs **objs, char *line)
+void			rt_parse_sphere(t_scn *scn, t_objs **objs, char *line)
 {
 	t_objs		*tmp;
 
 	if (rt_add_object(objs, rt_init_object()) == -1)
-		return (-1);
+		rt_exit_ko_line(42, scn, line);
 	tmp = *objs;
 	while (tmp->next)
 		tmp = tmp->next;
 	scn->i = 2;
 	tmp->type = 's';
-	if (rt_parse_vector(scn, tmp->ori, line) == -1)
-		return (-1);
+	rt_parse_vector(scn, tmp->ori, line);
 	while (line[scn->i] == ' ' || line[scn->i] == '\t')
 		(scn->i)++;
 	tmp->size = rt_parse_todouble(scn, line);
-	if (rt_parse_color(scn, tmp->color, line) == -1)
-		return (-1);
+	rt_parse_color(scn, tmp->color, line);
+	if (tmp->color->r < 0 || tmp->color->r > 255
+		|| tmp->color->g < 0 || tmp->color->g > 255
+		|| tmp->color->b < 0 || tmp->color->b > 255)
+		rt_exit_ko_line(23, scn, line);
 	tmp = NULL;
-	return (0);
 }

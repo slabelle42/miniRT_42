@@ -50,22 +50,22 @@ double		rt_parse_todouble(t_scn *scn, char *line)
 	return (sign * d);
 }
 
-int			rt_parse_vector(t_scn *scn, t_vec *vec, char *line)
+void		rt_parse_vector(t_scn *scn, t_vec *vec, char *line)
 {
 	while (line[scn->i] == ' ' || line[scn->i] == '\t')
 		(scn->i)++;
 	if (ft_isdigit(line[scn->i]) || line[scn->i] == '-')
-		if (rt_fill_vector(scn, vec, line) == -1)
-			return (-1);
-	return (0);
+		rt_fill_vector(scn, vec, line);
+	else
+		rt_exit_ko_line(13, scn, line);
 }
 
-int			rt_parse_color(t_scn *scn, t_color *color, char *line)
+void		rt_parse_color(t_scn *scn, t_color *color, char *line)
 {
 	while (line[scn->i] == ' ' || line[scn->i] == '\t')
 		(scn->i)++;
 	if (ft_isdigit(line[scn->i]))
-		if (rt_fill_color(scn, color, line) == -1)
-			return (-1);
-	return (0);
+		rt_fill_color(scn, color, line);
+	else
+		rt_exit_ko_line(13, scn, line);
 }

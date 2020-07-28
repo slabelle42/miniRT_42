@@ -18,9 +18,12 @@ t_scn		*rt_init_scene(void)
 
 	if (!(scn = ft_memalloc(sizeof(t_scn))))
 		return (NULL);
-	scn->file_name = "";
 	scn->win_h = 0;
 	scn->win_w = 0;
+	scn->amb_intens = -1;
+	scn->amb_r = 0;
+	scn->amb_g = 0;
+	scn->amb_b = 0;
 	scn->cams = NULL;
 	scn->lights = NULL;
 	scn->objs = NULL;

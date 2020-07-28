@@ -19,7 +19,8 @@ SRCS += srcs/3_display/rt_display_1_start.c
 SRCS += srcs/3_display/rt_display_2_utils.c
 SRCS += srcs/4_math/rt_math_1_intersect.c
 SRCS += srcs/4_math/rt_math_2_utils.c
-SRCS += srcs/5_exit_and_keys/rt_exit_and_keys.c
+SRCS += srcs/5_exit_and_keys/rt_exit_1_ko.c
+SRCS += srcs/5_exit_and_keys/rt_exit_2_ok_and_keys.c
 SRCS += srcs/get_next_line/get_next_line.c
 SRCS += srcs/get_next_line/get_next_line_utils.c
 
