@@ -12,9 +12,9 @@
 
 #include "minirt.h"
 
-int			rt_parse_toint(t_scn *scn, char *line)
+int				rt_parse_toint(t_scn *scn, char *line)
 {
-	int		n;
+	int			n;
 
 	n = 0;
 	while (ft_isdigit(line[scn->i]))
@@ -25,10 +25,31 @@ int			rt_parse_toint(t_scn *scn, char *line)
 	return (n);
 }
 
-double		rt_parse_todouble(t_scn *scn, char *line)
+static double	rt_parse_todouble_float(t_scn *scn, char *line, int d)
 {
-	double	sign;
-	double	d;
+	double		f;
+	int			len;
+
+	(scn->i)++;
+	if (!(ft_isdigit(line[scn->i])))
+		rt_exit_ko_line(16, scn, line);
+	f = 0;
+	len = 0;
+	while (ft_isdigit(line[scn->i]))
+	{
+		f = (f * 10) + (line[scn->i] - '0');
+		(scn->i)++;
+		len++;
+	}
+	while (len-- > 0)
+		f *= 0.1;
+	return (d + f);
+}
+
+double			rt_parse_todouble(t_scn *scn, char *line)
+{
+	double		sign;
+	double		d;
 
 	sign = 1;
 	if (line[scn->i] == '-')
@@ -42,15 +63,12 @@ double		rt_parse_todouble(t_scn *scn, char *line)
 		d = (d * 10) + (line[scn->i] - '0');
 		(scn->i)++;
 	}
-	if (line[scn->i] == '.' && ft_isdigit(line[scn->i + 1]))
-	{
-		d += (line[scn->i] - '0') / 10;
-		scn->i += 2;
-	}
+	if (line[scn->i] == '.')
+		d = rt_parse_todouble_float(scn, line, d);
 	return (sign * d);
 }
 
-void		rt_parse_vector(t_scn *scn, t_vec *vec, char *line)
+void			rt_parse_vector(t_scn *scn, t_vec *vec, char *line)
 {
 	while (line[scn->i] == ' ' || line[scn->i] == '\t')
 		(scn->i)++;
@@ -60,7 +78,7 @@ void		rt_parse_vector(t_scn *scn, t_vec *vec, char *line)
 		rt_exit_ko_line(13, scn, line);
 }
 
-void		rt_parse_color(t_scn *scn, t_color *color, char *line)
+void			rt_parse_color(t_scn *scn, t_color *color, char *line)
 {
 	while (line[scn->i] == ' ' || line[scn->i] == '\t')
 		(scn->i)++;

@@ -25,9 +25,9 @@ void			rt_parse_light(t_scn *scn, t_lights **lights, char *line)
 	rt_parse_vector(scn, tmp->ori, line);
 	while (line[scn->i] == ' ' || line[scn->i] == '\t')
 		(scn->i)++;
-	tmp->intens = rt_parse_todouble(scn, line);
-//	if (tmp->intens < 0 || tmp->intens > 1)
-//		rt_exit_ko_line(22, scn, line);
+	tmp->intens = rt_parse_todouble(scn, line) * 1000;
+	if (tmp->intens < 0 || tmp->intens > 1000)
+		rt_exit_ko_line(22, scn, line);
 	tmp = NULL;
 }
 

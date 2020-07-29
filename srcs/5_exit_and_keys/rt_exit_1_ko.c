@@ -44,7 +44,9 @@ static void	rt_exit_ko_ten(int error_nb)
 		ft_putendl_fd("Error 14 : you must use , to separate values :o", 1);
 	else if (error_nb == 15)
 		ft_putendl_fd("Error 15 : unknown character before value :/", 1);
-	else if (error_nb > 15)
+	else if (error_nb == 16)
+		ft_putendl_fd("Error 16 : there is a . non-followed by a number :o", 1);
+	else if (error_nb > 16)
 		rt_exit_ko_twenty(error_nb);
 	exit(-1);
 }
