@@ -28,7 +28,7 @@ t_intersect		*rt_init_intersection(void)
 	return (intersect);
 }
 
-int				rt_clear_intersection(t_intersect **intersect,
+void			rt_clear_intersection(t_intersect **intersect,
 					t_vec *pos, t_vec *norm, t_vec *diff)
 {
 	if (intersect)
@@ -38,9 +38,7 @@ int				rt_clear_intersection(t_intersect **intersect,
 		free(diff);
 		free(*intersect);
 		*intersect = NULL;
-		return (0);
 	}
-	return (-1);
 }
 
 t_delta			*rt_init_delta(double a, double b, double c)

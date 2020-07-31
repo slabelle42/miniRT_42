@@ -41,13 +41,14 @@ double		rt_math_intersect(t_cams *cam, t_objs *obj)
 	double	solution;
 
 	if (!(diff = rt_init_vector()))
-		exit(-1);
+		return (-2);
 	diff->x = cam->ori->x - obj->ori->x;
 	diff->y = cam->ori->y - obj->ori->y;
 	diff->z = cam->ori->z - obj->ori->z;
-	if (!(delta = rt_init_delta(1, 2 * rt_math_dotproduct(cam->dir, diff),
+	if (!(delta = rt_init_delta(
+		1, 2 * rt_math_dotproduct(cam->dir, diff),
 		rt_math_norm2(diff) - obj->size * obj->size)))
-		exit(-1);
+		return (-2);
 	free(diff);
 	if (delta->delta < 0)
 	{

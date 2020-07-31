@@ -135,7 +135,7 @@ void				rt_clear_scene(t_scn **scn,
 						t_cams *cams, t_lights *lights, t_objs *objs);
 
 t_intersect			*rt_init_intersection(void);
-int					rt_clear_intersection(t_intersect **intersect,
+void				rt_clear_intersection(t_intersect **intersect,
 						t_vec *pos, t_vec *norm, t_vec *diff);
 t_delta				*rt_init_delta(double a, double b, double c);
 

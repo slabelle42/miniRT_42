@@ -41,6 +41,8 @@ static double	rt_parse_todouble_float(t_scn *scn, char *line, int d)
 		(scn->i)++;
 		len++;
 	}
+	if (len > 10)
+		rt_exit_ko_line(17, scn, line);
 	while (len-- > 0)
 		f *= 0.1;
 	return (d + f);

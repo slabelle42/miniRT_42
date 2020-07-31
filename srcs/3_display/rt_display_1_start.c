@@ -30,13 +30,15 @@ void			rt_display_object(t_scn *scn, t_intersect *intersect)
 	double		tmp_solution;
 
 	tmp = scn->objs;
-	intersect->solution = rt_math_intersect(scn->cams, tmp);
+	if ((intersect->solution = rt_math_intersect(scn->cams, tmp)) == -2)
+		rt_exit_ko_scn(42, scn);
 	if (intersect->solution > -1)
 		rt_display_getobjparams(scn, tmp);
 	while (tmp->next)
 	{
 		tmp = tmp->next;
-		tmp_solution = rt_math_intersect(scn->cams, tmp);
+		if ((tmp_solution = rt_math_intersect(scn->cams, tmp)) == -2)
+			rt_exit_ko_scn(42, scn);
 		if (intersect->solution < 0)
 			intersect->solution = tmp_solution;
 		else if (tmp_solution > -1 && tmp_solution < intersect->solution)
@@ -54,7 +56,7 @@ void			rt_display_scene(t_scn *scn)
 	t_intersect	*intersect;
 
 	if (!(intersect = rt_init_intersection()))
-		exit(-1);
+		rt_exit_ko_scn(42, scn);
 	scn->i = 0;
 	scn->j = 0;
 	while (scn->i < scn->win_h)
@@ -80,6 +82,8 @@ void			rt_display_window(t_scn *scn)
 	scn->win_ptr = mlx_new_window(scn->mlx_ptr, scn->win_w, scn->win_h,
 		scn->file_name);
 	rt_display_scene(scn);
+	ft_putendl_fd(
+		"Everything is displayed. Press ESC to quit or C to change camera", 1);
 	mlx_hook(scn->win_ptr, 2, 1L << 0, rt_keys, scn);
 	mlx_hook(scn->win_ptr, 17, 1L << 17, rt_exit_ok, scn);
 	mlx_loop(scn->mlx_ptr);
