@@ -25,8 +25,7 @@ static void	minirt(char **av)
 		rt_exit_ko(3);
 	if (!(scn = rt_init_scene()))
 		rt_exit_ko_scn(42, scn);
-	scn->file_name = av[1];
-	scn->line_nb = 0;
+	rt_fill_scene(scn, av[1]);
 	scn->mlx_ptr = mlx_init();
 	while ((ret = get_next_line(fd, &line)))
 	{

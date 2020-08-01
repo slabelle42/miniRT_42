@@ -41,11 +41,17 @@ t_scn		*rt_init_scene(void)
 	return (scn);
 }
 
+void		rt_fill_scene(t_scn *scn, char *file_name)
+{
+	scn->file_name = file_name;
+	scn->line_nb = 0;
+	scn->loop = 0;
+}
+
 static void	rt_clear_scene_structs(t_scn *scn)
 {
 	free(scn->ori);
 	free(scn->color);
-	free(scn);
 }
 
 void		rt_clear_scene(t_scn **scn,
@@ -59,7 +65,7 @@ void		rt_clear_scene(t_scn **scn,
 		rt_clear_objects(&objs);
 	if (scn && *scn)
 	{
-		rt_clear_cameras(&cams);
 		rt_clear_scene_structs(*scn);
+		free(*scn);
 	}
 }

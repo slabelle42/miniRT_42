@@ -58,13 +58,6 @@ void			rt_display_object(t_scn *scn, t_cams *cam,
 	obj = NULL;
 }
 
-static void		rt_display_message(t_scn *scn)
-{
-	ft_putstr_fd("--> Camera ", 1);
-	ft_putnbr_fd(scn->cams_current, 1);
-	ft_putendl_fd(" is displayed", 1);
-}
-
 void			rt_display_scene(t_scn *scn, t_cams **cams)
 {
 	t_intersect	*intersect;
@@ -88,9 +81,9 @@ void			rt_display_scene(t_scn *scn, t_cams **cams)
 		}
 		scn->j = 0;
 	}
-	rt_display_message(scn);
-	rt_clear_intersection(&intersect, intersect->pos,
-		intersect->norm, intersect->diff);
+	if (!scn->loop)
+		rt_display_message(scn);
+	rt_clear_intersection(&intersect);
 	cam = NULL;
 }
 
@@ -111,5 +104,6 @@ void			rt_display_window(t_scn *scn)
 	}
 	mlx_hook(scn->win_ptr, 2, 1L << 0, rt_keys, scn);
 	mlx_hook(scn->win_ptr, 17, 1L << 17, rt_exit_ok, scn);
+	mlx_loop_hook(scn->mlx_ptr, rt_display_loop, scn);
 	mlx_loop(scn->mlx_ptr);
 }

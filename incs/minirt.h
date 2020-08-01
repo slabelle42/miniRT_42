@@ -104,6 +104,7 @@ typedef struct		s_scn
 	void			*mlx_ptr;
 	void			*win_ptr;
 	void			*img_ptr;
+	int				loop;
 	int				i;
 	int				j;
 	double			pix_intens;
@@ -157,12 +158,12 @@ int					rt_add_object(t_objs **objs, t_objs *new_obj);
 void				rt_clear_objects(t_objs **objs);
 
 t_scn				*rt_init_scene(void);
+void				rt_fill_scene(t_scn *scn, char *file_name);
 void				rt_clear_scene(t_scn **scn,
 						t_cams *cams, t_lights *lights, t_objs *objs);
 
 t_intersect			*rt_init_intersection(void);
-void				rt_clear_intersection(t_intersect **intersect,
-						t_vec *pos, t_vec *norm, t_vec *diff);
+void				rt_clear_intersection(t_intersect **intersect);
 t_delta				*rt_init_delta(double a, double b, double c);
 
 void				rt_display_window(t_scn *scn);
@@ -177,6 +178,9 @@ void				rt_display_getobjparams(t_scn *scn, t_objs *obj);
 void				rt_display_getdiff(t_lights *light, t_intersect *intersect);
 void				rt_display_pixintens(t_scn *scn, t_intersect *intersect);
 int					rt_display_rgbtoi(int r, int g, int b);
+
+void				rt_display_message(t_scn *scn);
+int					rt_display_loop(t_scn *scn);
 
 double				rt_math_intersect(t_cams *cam, t_objs *obj);
 double				rt_math_dotproduct(t_vec *vec1, t_vec *vec2);

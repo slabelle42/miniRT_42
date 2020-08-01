@@ -28,16 +28,19 @@ t_intersect		*rt_init_intersection(void)
 	return (intersect);
 }
 
-void			rt_clear_intersection(t_intersect **intersect,
-					t_vec *pos, t_vec *norm, t_vec *diff)
+static void		rt_clear_intersection_structs(t_intersect *intersect)
 {
-	if (intersect)
+	free(intersect->pos);
+	free(intersect->norm);
+	free(intersect->diff);
+}
+
+void			rt_clear_intersection(t_intersect **intersect)
+{
+	if (intersect && *intersect)
 	{
-		free(pos);
-		free(norm);
-		free(diff);
+		rt_clear_intersection_structs(*intersect);
 		free(*intersect);
-		*intersect = NULL;
 	}
 }
 
