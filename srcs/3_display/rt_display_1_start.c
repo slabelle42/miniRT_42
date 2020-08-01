@@ -104,6 +104,6 @@ void			rt_display_window(t_scn *scn)
 	}
 	mlx_hook(scn->win_ptr, 2, 1L << 0, rt_keys, scn);
 	mlx_hook(scn->win_ptr, 17, 1L << 17, rt_exit_ok, scn);
-	mlx_loop_hook(scn->mlx_ptr, rt_display_loop, scn);
+	mlx_hook(scn->win_ptr, 12, 1L << 15, rt_display_loop, scn);
 	mlx_loop(scn->mlx_ptr);
 }

@@ -45,7 +45,8 @@ void		rt_fill_scene(t_scn *scn, char *file_name)
 {
 	scn->file_name = file_name;
 	scn->line_nb = 0;
-	scn->loop = 0;
+	scn->mlx_ptr = mlx_init();
+	scn->loop = 1;
 }
 
 static void	rt_clear_scene_structs(t_scn *scn)
