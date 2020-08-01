@@ -54,6 +54,9 @@ void			rt_parse_camera(t_scn *scn, t_cams **cams, char *line)
 
 void			rt_parse_window(t_scn *scn, char *line)
 {
+	int			x;
+	int			y;
+
 	scn->i = 1;
 	while (line[scn->i] == ' ' || line[scn->i] == '\t')
 		(scn->i)++;
@@ -69,6 +72,11 @@ void			rt_parse_window(t_scn *scn, char *line)
 		rt_exit_ko_line(14, scn, line);
 	if (scn->win_w < 1 || scn->win_h < 1)
 		rt_exit_ko_line(12, scn, line);
+	mlx_get_screen_size(scn->mlx_ptr, &x, &y);
+	if (scn->win_h > y)
+		scn->win_h = y;
+	if (scn->win_w > x)
+		scn->win_w = x;
 }
 
 void			rt_parse_line(t_scn *scn, char *line)

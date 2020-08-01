@@ -27,6 +27,7 @@ static void	minirt(char **av)
 		rt_exit_ko_scn(42, scn);
 	scn->file_name = av[1];
 	scn->line_nb = 0;
+	scn->mlx_ptr = mlx_init();
 	while ((ret = get_next_line(fd, &line)))
 	{
 		(scn->line_nb)++;

@@ -96,7 +96,6 @@ void			rt_display_scene(t_scn *scn, t_cams **cams)
 
 void			rt_display_window(t_scn *scn)
 {
-	scn->mlx_ptr = mlx_init();
 	scn->win_ptr = mlx_new_window(scn->mlx_ptr, scn->win_w, scn->win_h,
 		scn->file_name);
 	if (scn->cams_total > 0)

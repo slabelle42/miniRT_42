@@ -20,11 +20,25 @@ int			rt_exit_ok(t_scn *scn)
 	return (0);
 }
 
+static void	rt_keys_help()
+{
+	ft_putendl_fd(
+		"\nSure, let's have a look to a minimalist example .rt file ;)", 1);
+	ft_putendl_fd("--> Start of example", 1);
+	ft_putendl_fd("R\t1920\t1080", 1);
+	ft_putendl_fd("A\t0.5\t\t\t\t\t\t255,255,255", 1);
+	ft_putendl_fd("c\t0,0,0\t\t0,0,0\t\t60", 1);
+	ft_putendl_fd("c\t50,50,90\t0,0,0\t\t90", 1);
+	ft_putendl_fd("l\t15,70,-30\t\t\t0.3\t\t255,255,255", 1);
+	ft_putendl_fd("sp\t0,0,-55\t\t\t\t20\t\t0,255,0", 1);
+	ft_putendl_fd("--> End of example\n", 1);
+}
+
 int			rt_keys(int key, t_scn *scn)
 {
-	if (key == 65307 || key == 53)
+	if (key == KEY_LNX_ESC || key == KEY_MAC_ESC)
 		return (rt_exit_ok(scn));
-	if (key == 99)
+	if (key == KEY_LNX_C || key == KEY_MAC_C)
 	{
 		if (scn->cams_total == 1)
 		{
@@ -38,5 +52,7 @@ int			rt_keys(int key, t_scn *scn)
 			rt_display_scene(scn, &scn->cams);
 		}
 	}
+	if (key == KEY_LNX_H || key == KEY_MAC_H)
+		rt_keys_help();
 	return (0);
 }
