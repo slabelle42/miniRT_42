@@ -21,20 +21,12 @@
 #  define KEY_LNX_C 99
 # endif
 
-# ifndef KEY_LNX_H
-#  define KEY_LNX_H 104
-# endif
-
 # ifndef KEY_MAC_ESC
 #  define KEY_MAC_ESC 53
 # endif
 
 # ifndef KEY_MAC_C
 #  define KEY_MAC_C 8
-# endif
-
-# ifndef KEY_MAC_H
-#  define KEY_MAC_H 4
 # endif
 
 # include <fcntl.h>

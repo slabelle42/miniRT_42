@@ -89,19 +89,12 @@ void			rt_display_scene(t_scn *scn, t_cams **cams)
 
 void			rt_display_window(t_scn *scn)
 {
+	if (!scn->cams_total)
+		rt_exit_ko_scn(18, scn);
 	scn->win_ptr = mlx_new_window(scn->mlx_ptr, scn->win_w, scn->win_h,
 		scn->file_name);
-	if (scn->cams_total > 0)
-	{
-		rt_display_scene(scn, &scn->cams);
-		ft_putendl_fd(
-			"[ Commands: ESC = quit, C = change camera, H = help ]", 1);
-	}
-	else
-	{
-		ft_putstr_fd("No camera available, what a shame :p ", 1);
-		ft_putendl_fd("Press ESC to quit or H for help", 1);
-	}
+	rt_display_scene(scn, &scn->cams);
+	ft_putendl_fd("[ Commands: ESC = quit, C = change camera ]", 1);
 	mlx_hook(scn->win_ptr, 2, 1L << 0, rt_keys, scn);
 	mlx_hook(scn->win_ptr, 17, 1L << 17, rt_exit_ok, scn);
 	mlx_hook(scn->win_ptr, 12, 1L << 15, rt_display_loop, scn);
