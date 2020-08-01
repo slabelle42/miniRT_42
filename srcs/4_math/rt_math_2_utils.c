@@ -32,14 +32,14 @@ void		rt_math_normalize(t_vec *vec)
 	vec->z /= norm;
 }
 
-void		rt_math_pos_norm(t_scn *scn, t_intersect *intersect)
+void		rt_math_pos_norm(t_scn *scn, t_cams *cam, t_intersect *intersect)
 {
-	intersect->pos->x = scn->cams->ori->x
-		+ intersect->solution * scn->cams->dir->x;
-	intersect->pos->y = scn->cams->ori->y
-		+ intersect->solution * scn->cams->dir->y;
-	intersect->pos->z = scn->cams->ori->z
-		+ intersect->solution * scn->cams->dir->z;
+	intersect->pos->x = cam->ori->x
+		+ intersect->solution * cam->dir->x;
+	intersect->pos->y = cam->ori->y
+		+ intersect->solution * cam->dir->y;
+	intersect->pos->z = cam->ori->z
+		+ intersect->solution * cam->dir->z;
 	intersect->norm->x = intersect->pos->x - scn->ori->x;
 	intersect->norm->y = intersect->pos->y - scn->ori->y;
 	intersect->norm->z = intersect->pos->z - scn->ori->z;

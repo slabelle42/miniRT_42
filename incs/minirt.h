@@ -73,6 +73,8 @@ typedef struct		s_scn
 	int				amb_g;
 	int				amb_b;
 	struct s_cams	*cams;
+	int				cams_total;
+	int				cams_current;
 	struct s_lights	*lights;
 	struct s_objs	*objs;
 	void			*mlx_ptr;
@@ -140,11 +142,13 @@ void				rt_clear_intersection(t_intersect **intersect,
 t_delta				*rt_init_delta(double a, double b, double c);
 
 void				rt_display_window(t_scn *scn);
-void				rt_display_scene(t_scn *scn);
-void				rt_display_object(t_scn *scn, t_intersect *intersect);
-void				rt_display_pixel(t_scn *scn, t_intersect *intersect);
+void				rt_display_scene(t_scn *scn, t_cams **cams);
+void				rt_display_object(t_scn *scn, t_cams *cams,
+						t_intersect *intersect);
+void				rt_display_pixel(t_scn *scn, t_cams *cam,
+						t_intersect *intersect);
 
-void				rt_display_adjustcam(t_scn *scn);
+void				rt_display_adjustcam(t_scn *scn, t_cams *cam);
 void				rt_display_getobjparams(t_scn *scn, t_objs *obj);
 void				rt_display_getdiff(t_lights *light, t_intersect *intersect);
 void				rt_display_pixintens(t_scn *scn, t_intersect *intersect);
@@ -157,7 +161,8 @@ double				rt_math_solution(t_delta *delta);
 double				rt_math_fov(double fov);
 double				rt_math_norm2(t_vec *vec);
 void				rt_math_normalize(t_vec *vec);
-void				rt_math_pos_norm(t_scn *scn, t_intersect *intersect);
+void				rt_math_pos_norm(t_scn *scn, t_cams *cam,
+						t_intersect *intersect);
 
 void				rt_exit_ko(int error_nb);
 void				rt_exit_ko_scn(int error_nb, t_scn *scn);

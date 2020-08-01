@@ -12,12 +12,12 @@
 
 #include "minirt.h"
 
-void	rt_display_adjustcam(t_scn *scn)
+void	rt_display_adjustcam(t_scn *scn, t_cams *cam)
 {
-	scn->cams->dir->y = scn->i - scn->win_h / 2;
-	scn->cams->dir->x = scn->j - scn->win_w / 2;
-	scn->cams->dir->z = -scn->win_w / (2 * tan(scn->cams->fov / 2));
-	rt_math_normalize(scn->cams->dir);
+	cam->dir->y = scn->i - scn->win_h / 2;
+	cam->dir->x = scn->j - scn->win_w / 2;
+	cam->dir->z = -scn->win_w / (2 * tan(cam->fov / 2));
+	rt_math_normalize(cam->dir);
 }
 
 void	rt_display_getobjparams(t_scn *scn, t_objs *obj)

@@ -34,6 +34,8 @@ static void	minirt(char **av)
 		free(line);
 	}
 	close(fd);
+	ft_putendl_fd(
+		"Parsing ended successfully, let's see what we've got here ^^", 1);
 	rt_display_window(scn);
 }
 

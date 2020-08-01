@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int		rt_exit_ok(t_scn *scn)
+int			rt_exit_ok(t_scn *scn)
 {
 	rt_clear_scene(&scn, scn->cams, scn->lights, scn->objs);
 	ft_putendl_fd("Thanks for trying MiniRT :D", 1);
@@ -20,9 +20,23 @@ int		rt_exit_ok(t_scn *scn)
 	return (0);
 }
 
-int		rt_keys(int key, t_scn *scn)
+int			rt_keys(int key, t_scn *scn)
 {
 	if (key == 65307 || key == 53)
 		return (rt_exit_ok(scn));
+	if (key == 99)
+	{
+		if (scn->cams_total == 1)
+		{
+			ft_putstr_fd("Only 1 camera available, ", 1);
+			ft_putendl_fd("it's not gonna make a difference :o", 1);
+		}
+		else if (scn->cams_total > 1)
+		{
+			if (scn->cams_current == scn->cams_total)
+				scn->cams_current = 0;
+			rt_display_scene(scn, &scn->cams);
+		}
+	}
 	return (0);
 }

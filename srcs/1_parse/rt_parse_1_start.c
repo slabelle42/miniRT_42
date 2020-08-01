@@ -49,6 +49,7 @@ void			rt_parse_camera(t_scn *scn, t_cams **cams, char *line)
 	if (tmp->fov < 0 || tmp->fov > 180)
 		rt_exit_ko_line(21, scn, line);
 	tmp = NULL;
+	(scn->cams_total)++;
 }
 
 void			rt_parse_window(t_scn *scn, char *line)

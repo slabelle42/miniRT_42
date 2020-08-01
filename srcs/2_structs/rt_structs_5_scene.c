@@ -25,6 +25,8 @@ t_scn		*rt_init_scene(void)
 	scn->amb_g = 0;
 	scn->amb_b = 0;
 	scn->cams = NULL;
+	scn->cams_total = 0;
+	scn->cams_current = 0;
 	scn->lights = NULL;
 	scn->objs = NULL;
 	scn->mlx_ptr = NULL;
@@ -33,9 +35,8 @@ t_scn		*rt_init_scene(void)
 	scn->i = 0;
 	scn->j = 0;
 	scn->pix_intens = 0;
-	if (!(scn->ori = rt_init_vector()))
-		return (NULL);
-	if (!(scn->color = rt_init_color()))
+	if (!(scn->ori = rt_init_vector())
+		|| !(scn->color = rt_init_color()))
 		return (NULL);
 	return (scn);
 }
