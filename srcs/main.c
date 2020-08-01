@@ -23,9 +23,8 @@ static void	minirt(char **av)
 		rt_exit_ko(2);
 	if ((fd = open(av[1], O_RDONLY)) == -1)
 		rt_exit_ko(3);
-	if (!(scn = rt_init_scene()))
+	if (!(scn = rt_init_scene(av[1])))
 		rt_exit_ko_scn(42, scn);
-	rt_fill_scene(scn, av[1]);
 	while ((ret = get_next_line(fd, &line)))
 	{
 		(scn->line_nb)++;
@@ -33,6 +32,7 @@ static void	minirt(char **av)
 		free(line);
 	}
 	close(fd);
+	rt_parse_checks(scn);
 	ft_putendl_fd(
 		"Parsing ended successfully, let's see what we've got here ^^", 1);
 	rt_display_window(scn);

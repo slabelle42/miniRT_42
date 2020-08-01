@@ -23,6 +23,10 @@ static void	rt_exit_ko_twenty(int error_nb)
 		ft_putendl_fd("Error 22: light ratio limits are [0.0,1.0] :o", 1);
 	else if (error_nb == 23)
 		ft_putendl_fd("Error 23: color R,G,B limits are [0-255] :o", 1);
+	else if (error_nb == 30)
+		ft_putendl_fd("Error 30: no resolution in .rt file, try again :p", 1);
+	else if (error_nb == 31)
+		ft_putendl_fd("Error 31: no camera available, what a shame :p", 1);
 	else if (error_nb == 42)
 		ft_putendl_fd("Error 42: malloc fail D:", 1);
 	else
@@ -48,9 +52,7 @@ static void	rt_exit_ko_ten(int error_nb)
 		ft_putendl_fd("Error 16: there is a . non-followed by a number :o", 1);
 	else if (error_nb == 17)
 		ft_putendl_fd("Error 17: there is a limit of 10 digits, sorry :o", 1);
-	else if (error_nb == 18)
-		ft_putendl_fd("Error 18: no camera available, what a shame :p", 1);
-	else if (error_nb > 18)
+	else if (error_nb > 17)
 		rt_exit_ko_twenty(error_nb);
 	exit(-1);
 }

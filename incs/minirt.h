@@ -121,7 +121,7 @@ typedef struct		s_delta
 }					t_delta;
 
 void				rt_parse_line(t_scn *scn, char *line);
-void				rt_parse_window(t_scn *scn, char *line);
+void				rt_parse_resolution(t_scn *scn, char *line);
 void				rt_parse_camera(t_scn *scn, t_cams **cams, char *line);
 void				rt_parse_light(t_scn *scn, t_lights **lights, char *line);
 
@@ -131,6 +131,8 @@ int					rt_parse_toint(t_scn *scn, char *line);
 double				rt_parse_todouble(t_scn *scn, char *line);
 void				rt_parse_vector(t_scn *scn, t_vec *vec, char *line);
 void				rt_parse_color(t_scn *scn, t_color *color, char *line);
+
+void				rt_parse_checks(t_scn *scn);
 
 t_vec				*rt_init_vector(void);
 void				rt_fill_vector(t_scn *scn, t_vec *vec, char *line);
@@ -149,8 +151,7 @@ t_objs				*rt_init_object(void);
 int					rt_add_object(t_objs **objs, t_objs *new_obj);
 void				rt_clear_objects(t_objs **objs);
 
-t_scn				*rt_init_scene(void);
-void				rt_fill_scene(t_scn *scn, char *file_name);
+t_scn				*rt_init_scene(char *file_name);
 void				rt_clear_scene(t_scn **scn,
 						t_cams *cams, t_lights *lights, t_objs *objs);
 

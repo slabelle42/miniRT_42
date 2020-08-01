@@ -9,6 +9,7 @@ SRCS = srcs/main.c
 SRCS += srcs/1_parse/rt_parse_1_start.c
 SRCS += srcs/1_parse/rt_parse_2_objects.c
 SRCS += srcs/1_parse/rt_parse_3_utils.c
+SRCS += srcs/1_parse/rt_parse_4_checks.c
 SRCS += srcs/2_structs/rt_structs_1_base.c
 SRCS += srcs/2_structs/rt_structs_2_camera.c
 SRCS += srcs/2_structs/rt_structs_3_light.c

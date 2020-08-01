@@ -52,11 +52,13 @@ void			rt_parse_camera(t_scn *scn, t_cams **cams, char *line)
 	(scn->cams_total)++;
 }
 
-void			rt_parse_window(t_scn *scn, char *line)
+void			rt_parse_resolution(t_scn *scn, char *line)
 {
 	int			x;
 	int			y;
 
+	scn->win_h = 0;
+	scn->win_w = 0;
 	scn->i = 1;
 	while (line[scn->i] == ' ' || line[scn->i] == '\t')
 		(scn->i)++;
@@ -83,8 +85,8 @@ void			rt_parse_line(t_scn *scn, char *line)
 {
 	if (line[0] == '\n' || line[0] == '\0')
 		return ;
-	else if (line[0] == 'R' && scn->win_w == 0 && scn->win_h == 0)
-		rt_parse_window(scn, line);
+	else if (line[0] == 'R' && scn->win_w == -1 && scn->win_h == -1)
+		rt_parse_resolution(scn, line);
 	else if (line[0] == 'R')
 		rt_exit_ko_line(11, scn, line);
 //	else if (line[0] == 'A' && scn->amb_intens == -1)
