@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_parse_3_utils.c                                 :+:      :+:    :+:   */
+/*   rt_parse_3_utils_1.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -16,13 +16,19 @@ int				rt_parse_toint(t_scn *scn, char *line)
 {
 	int			n;
 
-	n = 0;
-	while (ft_isdigit(line[scn->i]))
+	if (ft_isdigit(line[scn->i]))
 	{
-		n = (n * 10) + (line[scn->i] - '0');
-		(scn->i)++;
+		n = 0;
+		while (ft_isdigit(line[scn->i]))
+		{
+			n = (n * 10) + (line[scn->i] - '0');
+			(scn->i)++;
+		}
+		return (n);
 	}
-	return (n);
+	else
+		rt_exit_ko_line(13, scn, line);
+	return (-1);
 }
 
 static double	rt_parse_todouble_float(t_scn *scn, char *line, int d)
@@ -59,21 +65,26 @@ double			rt_parse_todouble(t_scn *scn, char *line)
 		sign = -1;
 		(scn->i)++;
 	}
-	d = 0;
-	while (ft_isdigit(line[scn->i]))
+	if (ft_isdigit(line[scn->i]))
 	{
-		d = (d * 10) + (line[scn->i] - '0');
-		(scn->i)++;
+		d = 0;
+		while (ft_isdigit(line[scn->i]))
+		{
+			d = (d * 10) + (line[scn->i] - '0');
+			(scn->i)++;
+		}
+		if (line[scn->i] == '.')
+			d = rt_parse_todouble_float(scn, line, d);
+		return (sign * d);
 	}
-	if (line[scn->i] == '.')
-		d = rt_parse_todouble_float(scn, line, d);
-	return (sign * d);
+	else
+		rt_exit_ko_line(13, scn, line);
+	return (-1);
 }
 
 void			rt_parse_vector(t_scn *scn, t_vec *vec, char *line)
 {
-	while (line[scn->i] == ' ' || line[scn->i] == '\t')
-		(scn->i)++;
+	rt_parse_move(scn, line);
 	if (ft_isdigit(line[scn->i]) || line[scn->i] == '-')
 		rt_fill_vector(scn, vec, line);
 	else
@@ -82,8 +93,7 @@ void			rt_parse_vector(t_scn *scn, t_vec *vec, char *line)
 
 void			rt_parse_color(t_scn *scn, t_color *color, char *line)
 {
-	while (line[scn->i] == ' ' || line[scn->i] == '\t')
-		(scn->i)++;
+	rt_parse_move(scn, line);
 	if (ft_isdigit(line[scn->i]))
 		rt_fill_color(scn, color, line);
 	else

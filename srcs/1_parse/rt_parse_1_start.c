@@ -15,8 +15,9 @@
 void			rt_parse_shadow(t_scn *scn, char *line)
 {
 	scn->i = 2;
-	while (line[scn->i] == ' ' || line[scn->i] == '\t')
-		(scn->i)++;
+	rt_parse_move(scn, line);
+	if (line[scn->i] == '\0')
+		rt_exit_ko_line(19, scn, line);
 	if (line[scn->i] == '0')
 		scn->shad = 0;
 	else
@@ -33,9 +34,11 @@ void			rt_parse_light(t_scn *scn, t_lights **lights, char *line)
 	while (tmp->next)
 		tmp = tmp->next;
 	scn->i = 1;
+	rt_parse_move(scn, line);
+	if (line[scn->i] == '\0')
+		rt_exit_ko_line(19, scn, line);
 	rt_parse_vector(scn, tmp->ori, line);
-	while (line[scn->i] == ' ' || line[scn->i] == '\t')
-		(scn->i)++;
+	rt_parse_move(scn, line);
 	tmp->intens = rt_parse_todouble(scn, line) * 1000;
 	if (tmp->intens < 0 || tmp->intens > 1000)
 		rt_exit_ko_line(22, scn, line);
@@ -52,10 +55,12 @@ void			rt_parse_camera(t_scn *scn, t_cams **cams, char *line)
 	while (tmp->next)
 		tmp = tmp->next;
 	scn->i = 1;
+	rt_parse_move(scn, line);
+	if (line[scn->i] == '\0')
+		rt_exit_ko_line(19, scn, line);
 	rt_parse_vector(scn, tmp->ori, line);
 	rt_parse_vector(scn, tmp->dir, line);
-	while (line[scn->i] == ' ' || line[scn->i] == '\t')
-		(scn->i)++;
+	rt_parse_move(scn, line);
 	tmp->fov = rt_math_fov(rt_parse_toint(scn, line));
 	if (tmp->fov < 0 || tmp->fov > 180)
 		rt_exit_ko_line(21, scn, line);
@@ -71,18 +76,18 @@ void			rt_parse_resolution(t_scn *scn, char *line)
 	scn->win_h = 0;
 	scn->win_w = 0;
 	scn->i = 1;
-	while (line[scn->i] == ' ' || line[scn->i] == '\t')
-		(scn->i)++;
+	rt_parse_move(scn, line);
+	if (line[scn->i] == '\0')
+		rt_exit_ko_line(19, scn, line);
 	if (ft_isdigit(line[scn->i]))
 		scn->win_w = rt_parse_toint(scn, line);
 	else
-		rt_exit_ko_line(14, scn, line);
-	while (line[scn->i] == ' ' || line[scn->i] == '\t')
-		(scn->i)++;
+		rt_exit_ko_line(13, scn, line);
+	rt_parse_move(scn, line);
 	if (ft_isdigit(line[scn->i]))
 		scn->win_h = rt_parse_toint(scn, line);
 	else
-		rt_exit_ko_line(14, scn, line);
+		rt_exit_ko_line(13, scn, line);
 	if (scn->win_w < 1 || scn->win_h < 1)
 		rt_exit_ko_line(12, scn, line);
 	mlx_get_screen_size(scn->mlx_ptr, &x, &y);
