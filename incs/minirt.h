@@ -120,6 +120,15 @@ typedef struct		s_delta
 	double			delta;
 }					t_delta;
 
+typedef struct		s_shad
+{
+	t_cams			*ray;
+	t_intersect		*intersect;
+	t_vec			*diff;
+	double			d_light2;
+	double			d_obj2;
+}					t_shad;
+
 typedef struct		s_img
 {
 	void			*img;
@@ -168,6 +177,9 @@ t_intersect			*rt_init_intersection(void);
 void				rt_clear_intersection(t_intersect **intersect);
 t_delta				*rt_init_delta(double a, double b, double c);
 
+t_shad				*rt_init_shadow(void);
+void				rt_clear_shadow(t_shad **shad);
+
 t_img				*rt_init_image(void);
 
 void				rt_display_window(t_scn *scn);
@@ -177,6 +189,12 @@ void				rt_display_object(t_scn *scn, t_cams *cams,
 						t_intersect *intersect);
 void				rt_display_pixel(t_scn *scn, t_cams *cam,
 						t_intersect *intersect);
+
+int					rt_display_shadow(t_scn *scn, t_intersect *intersect);
+void				rt_display_shadow_getrayparams(t_scn *scn,
+						t_intersect *intersect, t_cams *ray);
+double				rt_display_shadow_getdistance(t_vec *ori,
+						t_intersect *intersect, t_shad *shad);
 
 void				rt_display_adjustcam(t_scn *scn, t_cams *cam);
 void				rt_display_getobjparams(t_scn *scn, t_objs *obj);

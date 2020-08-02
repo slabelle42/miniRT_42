@@ -21,18 +21,21 @@ void			rt_display_pixel(t_scn *scn, t_cams *cam,
 	{
 		rt_math_pos_norm(scn, cam, intersect);
 		rt_display_getdiff(scn->lights, intersect);
-		rt_display_pixintens(scn, intersect);
-		dst = scn->img->addr
-			+ ((scn->win_h - scn->i - 1) * scn->img->line_length
-			+ scn->j * (scn->img->bits_per_pixel / 8));
-		*(unsigned int*)dst = rt_display_rgbtoi(
-			scn->pix_intens * scn->color->r / 255,
-			scn->pix_intens * scn->color->g / 255,
-			scn->pix_intens * scn->color->b / 255);
+		if (!rt_display_shadow(scn, intersect))
+		{
+			rt_display_pixintens(scn, intersect);
+			dst = scn->img->addr
+				+ ((scn->win_h - scn->i - 1) * scn->img->line_length
+				+ scn->j * (scn->img->bits_per_pixel / 8));
+			*(unsigned int*)dst = rt_display_rgbtoi(
+				scn->pix_intens * scn->color->r / 255,
+				scn->pix_intens * scn->color->g / 255,
+				scn->pix_intens * scn->color->b / 255);
+			return ;
+		}
 	}
-	else
-		mlx_pixel_put(scn->mlx_ptr, scn->win_ptr, scn->j,
-			(scn->win_h - scn->i - 1), 0);
+	mlx_pixel_put(scn->mlx_ptr, scn->win_ptr, scn->j,
+		(scn->win_h - scn->i - 1), 0);
 }
 
 void			rt_display_object(t_scn *scn, t_cams *cam,
@@ -58,7 +61,6 @@ void			rt_display_object(t_scn *scn, t_cams *cam,
 		if (intersect->solution > -1 && intersect->solution == obj_solution)
 			rt_display_getobjparams(scn, obj);
 	}
-	rt_display_pixel(scn, cam, intersect);
 	obj = NULL;
 }
 
@@ -82,11 +84,10 @@ void			rt_display_scene(t_scn *scn, t_cams **cams)
 		{
 			rt_display_adjustcam(scn, cam);
 			rt_display_object(scn, cam, intersect);
+			rt_display_pixel(scn, cam, intersect);
 		}
 		scn->j = 0;
 	}
-	if (!scn->loop)
-		rt_display_message(scn);
 	rt_clear_intersection(&intersect);
 	cam = NULL;
 }
@@ -97,6 +98,8 @@ void			rt_display_image(t_scn *scn)
 	scn->img->addr = mlx_get_data_addr(scn->img->img, &scn->img->bits_per_pixel,
 		&scn->img->line_length, &scn->img->endian);
 	rt_display_scene(scn, &scn->cams);
+	if (!scn->loop)
+		rt_display_message(scn);
 	mlx_put_image_to_window(scn->mlx_ptr, scn->win_ptr, scn->img->img, 0, 0);
 }
 
