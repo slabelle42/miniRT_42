@@ -16,6 +16,7 @@ SRCS += srcs/2_structs/rt_structs_3_light.c
 SRCS += srcs/2_structs/rt_structs_4_object.c
 SRCS += srcs/2_structs/rt_structs_5_scene.c
 SRCS += srcs/2_structs/rt_structs_6_math.c
+SRCS += srcs/2_structs/rt_structs_7_image.c
 SRCS += srcs/3_display/rt_display_1_start.c
 SRCS += srcs/3_display/rt_display_2_utils_1.c
 SRCS += srcs/3_display/rt_display_2_utils_2.c

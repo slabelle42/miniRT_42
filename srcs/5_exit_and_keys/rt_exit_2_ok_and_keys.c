@@ -36,7 +36,7 @@ int			rt_keys(int key, t_scn *scn)
 			scn->loop = 0;
 			if (scn->cams_current == scn->cams_total)
 				scn->cams_current = 0;
-			rt_display_scene(scn, &scn->cams);
+			rt_display_image(scn);
 		}
 	}
 	return (0);

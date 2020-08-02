@@ -15,16 +15,20 @@
 void			rt_display_pixel(t_scn *scn, t_cams *cam,
 					t_intersect *intersect)
 {
+	char		*dst;
+
 	if (intersect->solution > -1)
 	{
 		rt_math_pos_norm(scn, cam, intersect);
 		rt_display_getdiff(scn->lights, intersect);
 		rt_display_pixintens(scn, intersect);
-		mlx_pixel_put(scn->mlx_ptr, scn->win_ptr, scn->j,
-			(scn->win_h - scn->i - 1), rt_display_rgbtoi(
+		dst = scn->img->addr
+			+ ((scn->win_h - scn->i - 1) * scn->img->line_length
+			+ scn->j * (scn->img->bits_per_pixel / 8));
+		*(unsigned int*)dst = rt_display_rgbtoi(
 			scn->pix_intens * scn->color->r / 255,
 			scn->pix_intens * scn->color->g / 255,
-			scn->pix_intens * scn->color->b / 255));
+			scn->pix_intens * scn->color->b / 255);
 	}
 	else
 		mlx_pixel_put(scn->mlx_ptr, scn->win_ptr, scn->j,
@@ -87,11 +91,20 @@ void			rt_display_scene(t_scn *scn, t_cams **cams)
 	cam = NULL;
 }
 
+void			rt_display_image(t_scn *scn)
+{
+	scn->img->img = mlx_new_image(scn->mlx_ptr, scn->win_w, scn->win_h);
+	scn->img->addr = mlx_get_data_addr(scn->img->img, &scn->img->bits_per_pixel,
+		&scn->img->line_length, &scn->img->endian);
+	rt_display_scene(scn, &scn->cams);
+	mlx_put_image_to_window(scn->mlx_ptr, scn->win_ptr, scn->img->img, 0, 0);
+}
+
 void			rt_display_window(t_scn *scn)
 {
 	scn->win_ptr = mlx_new_window(scn->mlx_ptr, scn->win_w, scn->win_h,
 		scn->file_name);
-	rt_display_scene(scn, &scn->cams);
+	rt_display_image(scn);
 	ft_putendl_fd("[ Commands: ESC = quit, C = change camera ]", 1);
 	mlx_hook(scn->win_ptr, 2, 1L << 0, rt_keys, scn);
 	mlx_hook(scn->win_ptr, 17, 1L << 17, rt_exit_ok, scn);

@@ -41,7 +41,8 @@ t_scn		*rt_init_scene(char *file_name)
 	scn->objs = NULL;
 	scn->mlx_ptr = mlx_init();
 	scn->win_ptr = NULL;
-	scn->img_ptr = NULL;
+	if (!(scn->img = rt_init_image()))
+		return (NULL);
 	if (!(scn->ori = rt_init_vector()))
 		return (NULL);
 	if (!(scn->color = rt_init_color()))
@@ -52,6 +53,7 @@ t_scn		*rt_init_scene(char *file_name)
 
 static void	rt_clear_scene_structs(t_scn *scn)
 {
+	free(scn->img);
 	free(scn->ori);
 	free(scn->color);
 }

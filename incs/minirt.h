@@ -95,7 +95,7 @@ typedef struct		s_scn
 	struct s_objs	*objs;
 	void			*mlx_ptr;
 	void			*win_ptr;
-	void			*img_ptr;
+	struct s_img	*img;
 	int				loop;
 	int				i;
 	int				j;
@@ -119,6 +119,15 @@ typedef struct		s_delta
 	double			c;
 	double			delta;
 }					t_delta;
+
+typedef struct		s_img
+{
+	void			*img;
+	char			*addr;
+	int				bits_per_pixel;
+	int				line_length;
+	int				endian;
+}					t_img;
 
 void				rt_parse_line(t_scn *scn, char *line);
 void				rt_parse_resolution(t_scn *scn, char *line);
@@ -159,7 +168,10 @@ t_intersect			*rt_init_intersection(void);
 void				rt_clear_intersection(t_intersect **intersect);
 t_delta				*rt_init_delta(double a, double b, double c);
 
+t_img				*rt_init_image(void);
+
 void				rt_display_window(t_scn *scn);
+void				rt_display_image(t_scn *scn);
 void				rt_display_scene(t_scn *scn, t_cams **cams);
 void				rt_display_object(t_scn *scn, t_cams *cams,
 						t_intersect *intersect);
