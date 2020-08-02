@@ -12,6 +12,17 @@
 
 #include "minirt.h"
 
+void			rt_parse_shadow(t_scn *scn, char *line)
+{
+	scn->i = 2;
+	while (line[scn->i] == ' ' || line[scn->i] == '\t')
+		(scn->i)++;
+	if (line[scn->i] == '0')
+		scn->shad = 0;
+	else
+		rt_exit_ko_line(18, scn, line);
+}
+
 void			rt_parse_light(t_scn *scn, t_lights **lights, char *line)
 {
 	t_lights	*tmp;
@@ -99,6 +110,8 @@ void			rt_parse_line(t_scn *scn, char *line)
 		rt_parse_light(scn, &scn->lights, line);
 	else if (line[0] == 's' && line[1] == 'p')
 		rt_parse_sphere(scn, &scn->objs, line);
+	else if (line[0] == 's' && line[1] == 'h')
+		rt_parse_shadow(scn, line);
 //	else
 //		rt_exit_ko_line(10, scn, line);
 }

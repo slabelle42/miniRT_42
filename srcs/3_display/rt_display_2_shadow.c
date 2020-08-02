@@ -35,12 +35,14 @@ void			rt_display_shadow_getrayparams(t_scn *scn,
 
 int				rt_display_shadow(t_scn *scn, t_intersect *intersect)
 {
-	t_shad		*shad;
 	int			ret;
+	t_shad		*shad;
 
+	ret = 0;
+	if (scn->shad == 0)
+		return (ret);
 	if (!(shad = rt_init_shadow()))
 		rt_exit_ko_scn(42, scn);
-	ret = 0;
 	rt_display_shadow_getrayparams(scn, intersect, shad->ray);
 	rt_display_object(scn, shad->ray, shad->intersect);
 	if (shad->intersect->solution > -1)

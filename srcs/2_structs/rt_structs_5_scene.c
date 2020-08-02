@@ -16,6 +16,7 @@ static void	rt_init_scene_utils(t_scn *scn)
 {
 	scn->cams_total = 0;
 	scn->cams_current = 0;
+	scn->shad = 1;
 	scn->loop = 0;
 	scn->i = 0;
 	scn->j = 0;

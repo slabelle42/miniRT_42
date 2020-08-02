@@ -93,6 +93,7 @@ typedef struct		s_scn
 	int				cams_current;
 	struct s_lights	*lights;
 	struct s_objs	*objs;
+	int				shad;
 	void			*mlx_ptr;
 	void			*win_ptr;
 	struct s_img	*img;
@@ -142,6 +143,7 @@ void				rt_parse_line(t_scn *scn, char *line);
 void				rt_parse_resolution(t_scn *scn, char *line);
 void				rt_parse_camera(t_scn *scn, t_cams **cams, char *line);
 void				rt_parse_light(t_scn *scn, t_lights **lights, char *line);
+void				rt_parse_shadow(t_scn *scn, char *line);
 
 void				rt_parse_sphere(t_scn *scn, t_objs **objs, char *line);
 
