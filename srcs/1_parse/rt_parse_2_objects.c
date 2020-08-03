@@ -22,13 +22,12 @@ void			rt_parse_sphere(t_scn *scn, t_objs **objs, char *line)
 	while (tmp->next)
 		tmp = tmp->next;
 	scn->i = 2;
-	rt_parse_move(scn, line);
-	if (line[scn->i] == '\0')
-		rt_exit_ko_line(19, scn, line);
 	tmp->type = 's';
+	rt_parse_move(scn, line);
 	rt_parse_vector(scn, tmp->ori, line);
 	rt_parse_move(scn, line);
 	tmp->size = rt_parse_todouble(scn, line);
+	rt_parse_move(scn, line);
 	rt_parse_color(scn, tmp->color, line);
 	if (tmp->color->r < 0 || tmp->color->r > 255
 		|| tmp->color->g < 0 || tmp->color->g > 255

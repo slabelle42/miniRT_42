@@ -16,8 +16,6 @@ void			rt_parse_shadow(t_scn *scn, char *line)
 {
 	scn->i = 2;
 	rt_parse_move(scn, line);
-	if (line[scn->i] == '\0')
-		rt_exit_ko_line(19, scn, line);
 	if (line[scn->i] == '0')
 		scn->shad = 0;
 	else
@@ -35,8 +33,6 @@ void			rt_parse_light(t_scn *scn, t_lights **lights, char *line)
 		tmp = tmp->next;
 	scn->i = 1;
 	rt_parse_move(scn, line);
-	if (line[scn->i] == '\0')
-		rt_exit_ko_line(19, scn, line);
 	rt_parse_vector(scn, tmp->ori, line);
 	rt_parse_move(scn, line);
 	tmp->intens = rt_parse_todouble(scn, line) * 1000;
@@ -56,9 +52,8 @@ void			rt_parse_camera(t_scn *scn, t_cams **cams, char *line)
 		tmp = tmp->next;
 	scn->i = 1;
 	rt_parse_move(scn, line);
-	if (line[scn->i] == '\0')
-		rt_exit_ko_line(19, scn, line);
 	rt_parse_vector(scn, tmp->ori, line);
+	rt_parse_move(scn, line);
 	rt_parse_vector(scn, tmp->dir, line);
 	rt_parse_move(scn, line);
 	tmp->fov = rt_math_fov(rt_parse_toint(scn, line));
@@ -77,8 +72,6 @@ void			rt_parse_resolution(t_scn *scn, char *line)
 	scn->win_w = 0;
 	scn->i = 1;
 	rt_parse_move(scn, line);
-	if (line[scn->i] == '\0')
-		rt_exit_ko_line(19, scn, line);
 	if (ft_isdigit(line[scn->i]))
 		scn->win_w = rt_parse_toint(scn, line);
 	else

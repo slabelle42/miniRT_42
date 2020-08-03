@@ -84,7 +84,6 @@ double			rt_parse_todouble(t_scn *scn, char *line)
 
 void			rt_parse_vector(t_scn *scn, t_vec *vec, char *line)
 {
-	rt_parse_move(scn, line);
 	if (ft_isdigit(line[scn->i]) || line[scn->i] == '-')
 		rt_fill_vector(scn, vec, line);
 	else
@@ -93,7 +92,6 @@ void			rt_parse_vector(t_scn *scn, t_vec *vec, char *line)
 
 void			rt_parse_color(t_scn *scn, t_color *color, char *line)
 {
-	rt_parse_move(scn, line);
 	if (ft_isdigit(line[scn->i]))
 		rt_fill_color(scn, color, line);
 	else

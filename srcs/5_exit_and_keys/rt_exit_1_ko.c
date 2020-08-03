@@ -55,7 +55,7 @@ static void	rt_exit_ko_ten(int error_nb)
 	else if (error_nb == 18)
 		ft_putendl_fd("Error 18: unknown value, sh can only be set to 0 :o", 1);
 	else if (error_nb == 19)
-		ft_putendl_fd("Error 19: empty line after element type :o", 1);
+		ft_putendl_fd("Error 19: missing information in this element :o", 1);
 	else if (error_nb > 19)
 		rt_exit_ko_twenty(error_nb);
 	exit(-1);
