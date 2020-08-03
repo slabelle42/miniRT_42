@@ -12,8 +12,8 @@
 
 #include "minirt.h"
 
-double			rt_display_shadow_getdistance(t_vec *ori,
-					t_intersect *intersect, t_shad *shad)
+static double	rt_shadow_getdistance(t_vec *ori, t_intersect *intersect,
+					t_shad *shad)
 {
 	shad->diff->x = ori->x - intersect->pos->x;
 	shad->diff->y = ori->y - intersect->pos->y;
@@ -21,12 +21,20 @@ double			rt_display_shadow_getdistance(t_vec *ori,
 	return (rt_math_norm2(shad->diff));
 }
 
-void			rt_display_shadow_getrayparams(t_scn *scn,
-					t_intersect *intersect, t_cams *ray)
+static void		rt_shadow_epsilon(t_vec *ori, t_vec *norm)
 {
-	ray->ori->x = intersect->pos->x + 0.01 * intersect->norm->x;
-	ray->ori->y = intersect->pos->y + 0.01 * intersect->norm->y;
-	ray->ori->z = intersect->pos->z + 0.01 * intersect->norm->z;
+	ori->x += 0.01 * norm->x;
+	ori->y += 0.01 * norm->y;
+	ori->z += 0.01 * norm->z;
+}
+
+static void		rt_shadow_getrayparams(t_scn *scn, t_intersect *intersect,
+					t_cams *ray)
+{
+	ray->ori->x = intersect->pos->x;
+	ray->ori->y = intersect->pos->y;
+	ray->ori->z = intersect->pos->z;
+	rt_shadow_epsilon(ray->ori, intersect->norm);
 	ray->dir->x = scn->lights->ori->x - intersect->pos->x;
 	ray->dir->y = scn->lights->ori->y - intersect->pos->y;
 	ray->dir->z = scn->lights->ori->z - intersect->pos->z;
@@ -43,14 +51,13 @@ int				rt_display_shadow(t_scn *scn, t_intersect *intersect)
 		return (ret);
 	if (!(shad = rt_init_shadow()))
 		rt_exit_ko_scn(42, scn);
-	rt_display_shadow_getrayparams(scn, intersect, shad->ray);
+	rt_shadow_getrayparams(scn, intersect, shad->ray);
 	rt_display_object(scn, shad->ray, shad->intersect);
 	if (shad->intersect->solution > -1)
 	{
-		shad->d_light2 = rt_display_shadow_getdistance(scn->lights->ori,
-			intersect, shad);
-		shad->d_obj2 = rt_display_shadow_getdistance(scn->ori,
-			intersect, shad);
+		shad->d_light2 = rt_shadow_getdistance(scn->lights->ori, intersect,
+			shad);
+		shad->d_obj2 = rt_shadow_getdistance(scn->ori, intersect, shad);
 		if (shad->d_obj2 < shad->d_light2)
 			ret = 1;
 	}

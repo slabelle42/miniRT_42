@@ -107,8 +107,8 @@ void			rt_display_window(t_scn *scn)
 {
 	scn->win_ptr = mlx_new_window(scn->mlx_ptr, scn->win_w, scn->win_h,
 		scn->file_name);
-	mlx_string_put(scn->mlx_ptr, scn->win_ptr, scn->win_w / 2, scn->win_h / 2,
-		rt_display_rgbtoi(0, 255, 0), "Loading..");
+	mlx_string_put(scn->mlx_ptr, scn->win_ptr, scn->win_w / 2 - 20,
+		scn->win_h / 2, rt_display_rgbtoi(0, 255, 0), "Loading..");
 	rt_display_image(scn);
 	ft_putendl_fd("[ Commands: ESC = quit, C = change camera ]", 1);
 	mlx_hook(scn->win_ptr, 2, 1L << 0, rt_keys, scn);

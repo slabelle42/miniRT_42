@@ -31,7 +31,7 @@ int				rt_parse_toint(t_scn *scn, char *line)
 	return (-1);
 }
 
-static double	rt_parse_todouble_float(t_scn *scn, char *line, int d)
+static double	rt_todouble_float(t_scn *scn, char *line, int d)
 {
 	double		f;
 	int			len;
@@ -74,7 +74,7 @@ double			rt_parse_todouble(t_scn *scn, char *line)
 			(scn->i)++;
 		}
 		if (line[scn->i] == '.')
-			d = rt_parse_todouble_float(scn, line, d);
+			d = rt_todouble_float(scn, line, d);
 		return (sign * d);
 	}
 	else

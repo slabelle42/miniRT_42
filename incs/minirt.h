@@ -195,10 +195,6 @@ void				rt_display_pixel(t_scn *scn, t_cams *cam,
 						t_intersect *intersect);
 
 int					rt_display_shadow(t_scn *scn, t_intersect *intersect);
-void				rt_display_shadow_getrayparams(t_scn *scn,
-						t_intersect *intersect, t_cams *ray);
-double				rt_display_shadow_getdistance(t_vec *ori,
-						t_intersect *intersect, t_shad *shad);
 
 void				rt_display_adjustcam(t_scn *scn, t_cams *cam);
 void				rt_display_getobjparams(t_scn *scn, t_objs *obj);
