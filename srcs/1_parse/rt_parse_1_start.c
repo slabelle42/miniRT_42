@@ -35,8 +35,8 @@ void			rt_parse_light(t_scn *scn, t_lights **lights, char *line)
 	rt_parse_move(scn, line);
 	rt_parse_vector(scn, tmp->ori, line);
 	rt_parse_move(scn, line);
-	tmp->intens = rt_parse_todouble(scn, line) * 1000;
-	if (tmp->intens < 0 || tmp->intens > 1000)
+	tmp->intens = rt_parse_todouble(scn, line) * 500;
+	if (tmp->intens < 0 || tmp->intens > 500)
 		rt_exit_ko_line(22, scn, line);
 	tmp = NULL;
 }

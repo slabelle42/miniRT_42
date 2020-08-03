@@ -28,9 +28,9 @@ void			rt_display_pixel(t_scn *scn, t_cams *cam,
 				+ ((scn->win_h - scn->i - 1) * scn->img->line_length
 				+ scn->j * (scn->img->bits_per_pixel / 8));
 			*(unsigned int*)dst = rt_display_rgbtoi(
-				scn->pix_intens * scn->color->r / 255,
-				scn->pix_intens * scn->color->g / 255,
-				scn->pix_intens * scn->color->b / 255);
+				pow(scn->pix_intens * 500 * scn->color->r / 255, 1 / 2.2),
+				pow(scn->pix_intens * 500 * scn->color->g / 255, 1 / 2.2),
+				pow(scn->pix_intens * 500 * scn->color->b / 255, 1 / 2.2));
 			return ;
 		}
 	}
