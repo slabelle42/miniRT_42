@@ -34,8 +34,10 @@ void			rt_display_pixel(t_scn *scn, t_cams *cam,
 			return ;
 		}
 	}
-	mlx_pixel_put(scn->mlx_ptr, scn->win_ptr, scn->j,
-		(scn->win_h - scn->i - 1), 0);
+	dst = scn->img->addr
+		+ ((scn->win_h - scn->i - 1) * scn->img->line_length
+		+ scn->j * (scn->img->bits_per_pixel / 8));
+	*(unsigned int*)dst = 0;
 }
 
 void			rt_display_object(t_scn *scn, t_cams *cam,
@@ -101,6 +103,7 @@ void			rt_display_image(t_scn *scn)
 	if (!scn->loop)
 		rt_display_message(scn);
 	mlx_put_image_to_window(scn->mlx_ptr, scn->win_ptr, scn->img->img, 0, 0);
+	mlx_destroy_image(scn->mlx_ptr, scn->img->img);
 }
 
 void			rt_display_window(t_scn *scn)
