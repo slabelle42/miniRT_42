@@ -48,14 +48,14 @@ void			rt_display_object(t_scn *scn, t_cams *cam,
 
 	obj = scn->objs;
 	if ((intersect->solution = rt_math_intersect(cam, obj)) == -2)
-		rt_exit_ko_scn(42, scn);
+		rt_exit_ko_scn(ERR_MALLOC, scn);
 	if (intersect->solution > -1)
 		rt_display_getobjparams(scn, obj);
 	while (obj->next)
 	{
 		obj = obj->next;
 		if ((obj_solution = rt_math_intersect(cam, obj)) == -2)
-			rt_exit_ko_scn(42, scn);
+			rt_exit_ko_scn(ERR_MALLOC, scn);
 		if (intersect->solution < 0)
 			intersect->solution = obj_solution;
 		else if (obj_solution > -1 && obj_solution < intersect->solution)
@@ -72,7 +72,7 @@ void			rt_display_scene(t_scn *scn, t_cams **cams)
 	t_cams		*cam;
 
 	if (!(intersect = rt_init_intersection()))
-		rt_exit_ko_scn(42, scn);
+		rt_exit_ko_scn(ERR_MALLOC, scn);
 	(scn->cams_current)++;
 	scn->i = 1;
 	cam = *cams;

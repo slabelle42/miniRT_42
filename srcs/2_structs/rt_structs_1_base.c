@@ -29,23 +29,23 @@ void		rt_fill_vector(t_scn *scn, t_vec *vec, char *line)
 	if (ft_isdigit(line[scn->i]) || line[scn->i] == '-')
 		vec->x = rt_parse_todouble(scn, line);
 	else
-		rt_exit_ko_line(13, scn, line);
+		rt_exit_ko_line(ERR_INFO_UNKN_OUT, scn, line);
 	if (line[scn->i] == ',')
 		(scn->i)++;
 	else
-		rt_exit_ko_line(14, scn, line);
+		rt_exit_ko_line(ERR_INFO_COMMA, scn, line);
 	if (ft_isdigit(line[scn->i]) || line[scn->i] == '-')
 		vec->y = rt_parse_todouble(scn, line);
 	else
-		rt_exit_ko_line(15, scn, line);
+		rt_exit_ko_line(ERR_INFO_UNKN_IN, scn, line);
 	if (line[scn->i] == ',')
 		(scn->i)++;
 	else
-		rt_exit_ko_line(14, scn, line);
+		rt_exit_ko_line(ERR_INFO_COMMA, scn, line);
 	if (ft_isdigit(line[scn->i]) || line[scn->i] == '-')
 		vec->z = rt_parse_todouble(scn, line);
 	else
-		rt_exit_ko_line(15, scn, line);
+		rt_exit_ko_line(ERR_INFO_UNKN_IN, scn, line);
 }
 
 t_color		*rt_init_color(void)
@@ -65,21 +65,21 @@ void		rt_fill_color(t_scn *scn, t_color *color, char *line)
 	if (ft_isdigit(line[scn->i]))
 		color->r = rt_parse_toint(scn, line);
 	else
-		rt_exit_ko_line(13, scn, line);
+		rt_exit_ko_line(ERR_INFO_UNKN_OUT, scn, line);
 	if (line[scn->i] == ',')
 		(scn->i)++;
 	else
-		rt_exit_ko_line(14, scn, line);
+		rt_exit_ko_line(ERR_INFO_COMMA, scn, line);
 	if (ft_isdigit(line[scn->i]))
 		color->g = rt_parse_toint(scn, line);
 	else
-		rt_exit_ko_line(15, scn, line);
+		rt_exit_ko_line(ERR_INFO_UNKN_IN, scn, line);
 	if (line[scn->i] == ',')
 		(scn->i)++;
 	else
-		rt_exit_ko_line(14, scn, line);
+		rt_exit_ko_line(ERR_INFO_COMMA, scn, line);
 	if (ft_isdigit(line[scn->i]))
 		color->b = rt_parse_toint(scn, line);
 	else
-		rt_exit_ko_line(15, scn, line);
+		rt_exit_ko_line(ERR_INFO_UNKN_IN, scn, line);
 }

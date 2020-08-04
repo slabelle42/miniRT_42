@@ -27,7 +27,7 @@ int				rt_parse_toint(t_scn *scn, char *line)
 		return (n);
 	}
 	else
-		rt_exit_ko_line(13, scn, line);
+		rt_exit_ko_line(ERR_INFO_UNKN_OUT, scn, line);
 	return (-1);
 }
 
@@ -38,7 +38,7 @@ static double	rt_todouble_float(t_scn *scn, char *line, int d)
 
 	(scn->i)++;
 	if (!(ft_isdigit(line[scn->i])))
-		rt_exit_ko_line(16, scn, line);
+		rt_exit_ko_line(ERR_INFO_DOT, scn, line);
 	f = 0;
 	len = 0;
 	while (ft_isdigit(line[scn->i]))
@@ -48,7 +48,7 @@ static double	rt_todouble_float(t_scn *scn, char *line, int d)
 		len++;
 	}
 	if (len > 10)
-		rt_exit_ko_line(17, scn, line);
+		rt_exit_ko_line(ERR_INFO_DIGIT, scn, line);
 	while (len-- > 0)
 		f *= 0.1;
 	return (d + f);
@@ -78,7 +78,7 @@ double			rt_parse_todouble(t_scn *scn, char *line)
 		return (sign * d);
 	}
 	else
-		rt_exit_ko_line(13, scn, line);
+		rt_exit_ko_line(ERR_INFO_UNKN_OUT, scn, line);
 	return (-1);
 }
 
@@ -87,7 +87,7 @@ void			rt_parse_vector(t_scn *scn, t_vec *vec, char *line)
 	if (ft_isdigit(line[scn->i]) || line[scn->i] == '-')
 		rt_fill_vector(scn, vec, line);
 	else
-		rt_exit_ko_line(13, scn, line);
+		rt_exit_ko_line(ERR_INFO_UNKN_OUT, scn, line);
 }
 
 void			rt_parse_color(t_scn *scn, t_color *color, char *line)
@@ -95,5 +95,5 @@ void			rt_parse_color(t_scn *scn, t_color *color, char *line)
 	if (ft_isdigit(line[scn->i]))
 		rt_fill_color(scn, color, line);
 	else
-		rt_exit_ko_line(13, scn, line);
+		rt_exit_ko_line(ERR_INFO_UNKN_OUT, scn, line);
 }

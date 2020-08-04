@@ -25,8 +25,10 @@ SRCS += srcs/3_display/rt_display_3_utils_1.c
 SRCS += srcs/3_display/rt_display_3_utils_2.c
 SRCS += srcs/4_math/rt_math_1_intersect.c
 SRCS += srcs/4_math/rt_math_2_utils.c
-SRCS += srcs/5_exit_and_keys/rt_exit_1_ko.c
-SRCS += srcs/5_exit_and_keys/rt_exit_2_ok_and_keys.c
+SRCS += srcs/5_exit_and_keys/rt_exit_1_ko_1_errors.c
+SRCS += srcs/5_exit_and_keys/rt_exit_1_ko_2_utils.c
+SRCS += srcs/5_exit_and_keys/rt_exit_2_ok.c
+SRCS += srcs/5_exit_and_keys/rt_exit_3_keys.c
 SRCS += srcs/get_next_line/get_next_line.c
 SRCS += srcs/get_next_line/get_next_line_utils.c
 

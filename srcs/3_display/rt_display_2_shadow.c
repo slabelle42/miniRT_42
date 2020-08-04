@@ -50,7 +50,7 @@ int				rt_display_shadow(t_scn *scn, t_intersect *intersect)
 	if (scn->shad == 0)
 		return (ret);
 	if (!(shad = rt_init_shadow()))
-		rt_exit_ko_scn(42, scn);
+		rt_exit_ko_scn(ERR_MALLOC, scn);
 	rt_shadow_getrayparams(scn, intersect, shad->ray);
 	rt_display_object(scn, shad->ray, shad->intersect);
 	if (shad->intersect->solution > -1)

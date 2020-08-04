@@ -13,21 +13,35 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# ifndef KEY_LNX_ESC
-#  define KEY_LNX_ESC 65307
-# endif
+# define KEY_LNX_ESC		65307
+# define KEY_LNX_C			99
+# define KEY_MAC_ESC		53
+# define KEY_MAC_C			8
 
-# ifndef KEY_LNX_C
-#  define KEY_LNX_C 99
-# endif
+# define ERR_FILE_NAME_MISS	1
+# define ERR_FILE_NAME_RT	2
+# define ERR_FILE_NAME_UNKN	3
+# define ERR_FILE_RES		4
+# define ERR_FILE_CAM		5
 
-# ifndef KEY_MAC_ESC
-#  define KEY_MAC_ESC 53
-# endif
+# define ERR_ELEM_UNKN		10
+# define ERR_ELEM_UNIQ		11
+# define ERR_ELEM_MISS		12
 
-# ifndef KEY_MAC_C
-#  define KEY_MAC_C 8
-# endif
+# define ERR_INFO_UNKN_OUT	20
+# define ERR_INFO_UNKN_IN	21
+# define ERR_INFO_COMMA		22
+# define ERR_INFO_DOT		23
+# define ERR_INFO_DIGIT		24
+# define ERR_INFO_NULL		25
+# define ERR_INFO_SHAD		39
+
+# define ERR_LIMIT_AMB		31
+# define ERR_LIMIT_FOV		32
+# define ERR_LIMIT_LIGHT	33
+# define ERR_LIMIT_COLOR	34
+
+# define ERR_MALLOC			42
 
 # include <fcntl.h>
 # include <math.h>
@@ -216,10 +230,13 @@ void				rt_math_pos_norm(t_scn *scn, t_cams *cam,
 						t_intersect *intersect);
 
 void				rt_exit_ko(int error_nb);
+
 void				rt_exit_ko_scn(int error_nb, t_scn *scn);
 void				rt_exit_ko_line(int error_nb, t_scn *scn, char *line);
+void				rt_exit_ko_message(int error_nb, char *message);
 
 int					rt_exit_ok(t_scn *scn);
+
 int					rt_keys(int key, t_scn *scn);
 
 #endif

@@ -17,7 +17,7 @@ void			rt_parse_sphere(t_scn *scn, t_objs **objs, char *line)
 	t_objs		*tmp;
 
 	if (rt_add_object(objs, rt_init_object()) == -1)
-		rt_exit_ko_line(42, scn, line);
+		rt_exit_ko_line(ERR_MALLOC, scn, line);
 	tmp = *objs;
 	while (tmp->next)
 		tmp = tmp->next;
@@ -32,6 +32,6 @@ void			rt_parse_sphere(t_scn *scn, t_objs **objs, char *line)
 	if (tmp->color->r < 0 || tmp->color->r > 255
 		|| tmp->color->g < 0 || tmp->color->g > 255
 		|| tmp->color->b < 0 || tmp->color->b > 255)
-		rt_exit_ko_line(23, scn, line);
+		rt_exit_ko_line(ERR_LIMIT_COLOR, scn, line);
 	tmp = NULL;
 }

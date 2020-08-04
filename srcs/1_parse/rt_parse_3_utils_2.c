@@ -17,5 +17,5 @@ void	rt_parse_move(t_scn *scn, char *line)
 	while (line[scn->i] == ' ' || line[scn->i] == '\t')
 		(scn->i)++;
 	if (line[scn->i] == '\0')
-		rt_exit_ko_line(19, scn, line);
+		rt_exit_ko_line(ERR_ELEM_MISS, scn, line);
 }

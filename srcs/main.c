@@ -20,11 +20,11 @@ static void	minirt(char **av)
 	char	*line;
 
 	if (!(ft_strend(av[1], ".rt")))
-		rt_exit_ko(2);
+		rt_exit_ko(ERR_FILE_NAME_RT);
 	if ((fd = open(av[1], O_RDONLY)) == -1)
-		rt_exit_ko(3);
+		rt_exit_ko(ERR_FILE_NAME_UNKN);
 	if (!(scn = rt_init_scene(av[1])))
-		rt_exit_ko_scn(42, scn);
+		rt_exit_ko_scn(ERR_MALLOC, scn);
 	while ((ret = get_next_line(fd, &line)))
 	{
 		(scn->line_nb)++;
@@ -44,6 +44,6 @@ int			main(int ac, char **av)
 	if (ac == 2)
 		minirt(av);
 	else
-		rt_exit_ko(1);
+		rt_exit_ko(ERR_FILE_NAME_MISS);
 	return (0);
 }
