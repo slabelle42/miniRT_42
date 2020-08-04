@@ -23,6 +23,8 @@
 # define ERR_FILE_NAME_UNKN	3
 # define ERR_FILE_RES		4
 # define ERR_FILE_CAM		5
+# define ERR_FILE_LIGHT		6
+# define ERR_FILE_OBJ		7
 
 # define ERR_ELEM_UNKN		10
 # define ERR_ELEM_UNIQ		11

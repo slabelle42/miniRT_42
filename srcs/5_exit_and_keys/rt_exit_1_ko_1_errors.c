@@ -76,7 +76,11 @@ void		rt_exit_ko(int error_nb)
 		rt_exit_ko_message(error_nb, "no resolution in .rt file, try again :p");
 	else if (error_nb == ERR_FILE_CAM)
 		rt_exit_ko_message(error_nb, "no camera available, what a shame :p");
-	else if (error_nb > ERR_FILE_CAM)
+	else if (error_nb == ERR_FILE_LIGHT)
+		rt_exit_ko_message(error_nb, "no light to see, it's too sad :p");
+	else if (error_nb == ERR_FILE_OBJ)
+		rt_exit_ko_message(error_nb, "no object to show, be more creative :p");
+	else if (error_nb > ERR_FILE_OBJ)
 		rt_exit_ko_element(error_nb);
 	exit(-1);
 }
