@@ -38,6 +38,12 @@ void			rt_parse_light(t_scn *scn, t_lights **lights, char *line)
 	tmp->intens = rt_parse_todouble(scn, line) * 500;
 	if (tmp->intens < 0 || tmp->intens > 500)
 		rt_exit_ko_line(ERR_LIMIT_LIGHT, scn, line);
+	rt_parse_move(scn, line);
+	rt_parse_color(scn, tmp->color, line);
+	if (tmp->color->r < 0 || tmp->color->r > 255
+		|| tmp->color->g < 0 || tmp->color->g > 255
+		|| tmp->color->b < 0 || tmp->color->b > 255)
+		rt_exit_ko_line(ERR_LIMIT_COLOR, scn, line);
 	tmp = NULL;
 }
 
