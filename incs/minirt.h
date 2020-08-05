@@ -210,13 +210,15 @@ void				rt_display_object(t_scn *scn, t_cams *cams,
 void				rt_display_pixel(t_scn *scn, t_cams *cam,
 						t_intersect *intersect);
 
+void				rt_display_light(t_scn *scn, t_intersect *intersect);
+
 int					rt_display_shadow(t_scn *scn, t_intersect *intersect);
 
 void				rt_display_adjustcam(t_scn *scn, t_cams *cam);
 void				rt_display_getobjparams(t_scn *scn, t_objs *obj);
 void				rt_display_getdiff(t_lights *light, t_intersect *intersect);
 void				rt_display_pixintens(t_scn *scn, t_intersect *intersect);
-int					rt_display_rgbtoi(int r, int g, int b);
+int					rt_display_getcolor(t_scn *scn);
 
 void				rt_display_message(t_scn *scn);
 int					rt_display_loop(t_scn *scn);

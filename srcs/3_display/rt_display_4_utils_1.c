@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_display_3_utils_1.c                             :+:      :+:    :+:   */
+/*   rt_display_4_utils_1.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -49,7 +49,14 @@ void	rt_display_pixintens(t_scn *scn, t_intersect *intersect)
 		scn->pix_intens = 255;
 }
 
-int		rt_display_rgbtoi(int r, int g, int b)
+int		rt_display_getcolor(t_scn *scn)
 {
-	return (65536 * r + 256 * g + b);
+	int	r;
+	int	g;
+	int	b;
+
+	r = pow(scn->pix_intens * 500 * scn->color->r / 255, 1 / 2.2);
+	g = pow(scn->pix_intens * 500 * scn->color->g / 255, 1 / 2.2);
+	b = pow(scn->pix_intens * 500 * scn->color->b / 255, 1 / 2.2);
+	return (r * 65536 + g * 256 + b);
 }

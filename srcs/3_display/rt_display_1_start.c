@@ -17,20 +17,16 @@ void			rt_display_pixel(t_scn *scn, t_cams *cam,
 {
 	char		*dst;
 
+	rt_math_pos_norm(scn, cam, intersect);
+	rt_display_light(scn, intersect);
 	if (intersect->solution > -1)
 	{
-		rt_math_pos_norm(scn, cam, intersect);
-		rt_display_getdiff(scn->lights, intersect);
 		if (!rt_display_shadow(scn, intersect))
 		{
-			rt_display_pixintens(scn, intersect);
 			dst = scn->img->addr
 				+ ((scn->win_h - scn->i - 1) * scn->img->line_length
 				+ scn->j * (scn->img->bits_per_pixel / 8));
-			*(unsigned int*)dst = rt_display_rgbtoi(
-				pow(scn->pix_intens * 500 * scn->color->r / 255, 1 / 2.2),
-				pow(scn->pix_intens * 500 * scn->color->g / 255, 1 / 2.2),
-				pow(scn->pix_intens * 500 * scn->color->b / 255, 1 / 2.2));
+			*(unsigned int*)dst = rt_display_getcolor(scn);
 			return ;
 		}
 	}
@@ -111,7 +107,7 @@ void			rt_display_window(t_scn *scn)
 	scn->win_ptr = mlx_new_window(scn->mlx_ptr, scn->win_w, scn->win_h,
 		scn->file_name);
 	mlx_string_put(scn->mlx_ptr, scn->win_ptr, scn->win_w / 2 - 20,
-		scn->win_h / 2, rt_display_rgbtoi(0, 255, 0), "Loading..");
+		scn->win_h / 2, 255 * 256, "Loading..");
 	rt_display_image(scn);
 	ft_putendl_fd("[ Commands: ESC = quit, C = change camera ]", 1);
 	mlx_hook(scn->win_ptr, 2, 1L << 0, rt_keys, scn);
