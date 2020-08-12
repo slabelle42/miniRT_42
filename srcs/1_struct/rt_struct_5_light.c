@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_structs_3_light.c                               :+:      :+:    :+:   */
+/*   rt_struct_5_light.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/24 13:04:54 by slabelle          #+#    #+#             */
-/*   Updated: 2020/07/24 13:04:55 by slabelle         ###   ########.fr       */
+/*   Created: 2020/07/24 13:05:09 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:05:10 by slabelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_lights		*rt_init_light(void)
+t_light		*rt_init_light(void)
 {
-	t_lights	*light;
+	t_light	*light;
 
-	if (!(light = ft_memalloc(sizeof(t_lights))))
-		return (NULL);
-	if (!(light->ori = rt_init_vector()))
-		return (NULL);
-	light->intens = 0;
-	if (!(light->color = rt_init_color()))
-		return (NULL);
+	if (!(light = malloc(sizeof(t_light))))
+		rt_exit(ERR_MALLOC);
+	light->ori = rt_init_info3();
+	light->intens = 0.0;
+	light->color = rt_init_info3();
 	light->next = NULL;
 	return (light);
 }
 
-int				rt_add_light(t_lights **lights, t_lights *new_light)
+int			rt_add_light(t_light **lights, t_light *new_light)
 {
-	t_lights	*tmp;
+	t_light	*tmp;
 
 	if (lights && new_light)
 	{
@@ -47,19 +45,19 @@ int				rt_add_light(t_lights **lights, t_lights *new_light)
 	return (-1);
 }
 
-static void		rt_delone_light(t_lights *lights)
+static void	rt_delone_light(t_light *light)
 {
-	if (lights)
+	if (light)
 	{
-		free(lights->ori);
-		free(lights->color);
-		free(lights);
+		free(light->ori);
+		free(light->color);
+		free(light);
 	}
 }
 
-void			rt_clear_lights(t_lights **lights)
+void		rt_clear_lights(t_light **lights)
 {
-	t_lights	*tmp;
+	t_light	*tmp;
 
 	if (lights && *lights)
 	{

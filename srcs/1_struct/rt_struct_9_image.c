@@ -1,28 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_display_4_utils_2.c                             :+:      :+:    :+:   */
+/*   rt_struct_9_image.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/01 17:53:37 by slabelle          #+#    #+#             */
-/*   Updated: 2020/08/01 17:53:41 by slabelle         ###   ########.fr       */
+/*   Created: 2020/08/02 10:55:16 by slabelle          #+#    #+#             */
+/*   Updated: 2020/08/02 10:56:11 by slabelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_display_message(t_scn *scn)
+t_img		*rt_init_image(void)
 {
-	scn->loop = 1;
-	ft_putstr_fd("--> Camera ", 1);
-	ft_putnbr_fd(scn->cams_current, 1);
-	ft_putendl_fd(" is displayed", 1);
-}
+	t_img	*img;
 
-int		rt_display_loop(t_scn *scn)
-{
-	(scn->cams_current)--;
-	rt_display_image(scn);
-	return (0);
+	if (!(img = ft_memalloc(sizeof(t_img))))
+		return (NULL);
+	img->img = NULL;
+	img->addr = NULL;
+	img->bits_per_pixel = 0;
+	img->line_length = 0;
+	img->endian = 0;
+	return (img);
 }

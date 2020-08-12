@@ -13,138 +13,110 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
-# define KEY_LNX_ESC		65307
-# define KEY_LNX_C			99
-# define KEY_MAC_ESC		53
-# define KEY_MAC_C			8
+# define KEYLINUX_ESC	65307
+# define KEYLINUX_C		99
+# define KEYMAC_ESC		53
+# define KEYMAC_C		8
 
-# define ERR_FILE_NAME_MISS	1
-# define ERR_FILE_NAME_RT	2
-# define ERR_FILE_NAME_UNKN	3
-# define ERR_FILE_RES		4
-# define ERR_FILE_CAM		5
-# define ERR_FILE_LIGHT		6
-# define ERR_FILE_OBJ		7
-
-# define ERR_ELEM_UNKN		10
-# define ERR_ELEM_UNIQ		11
-# define ERR_ELEM_MISS		12
-
-# define ERR_INFO_UNKN_OUT	20
-# define ERR_INFO_UNKN_IN	21
-# define ERR_INFO_COMMA		22
-# define ERR_INFO_DOT		23
-# define ERR_INFO_DIGIT		24
-# define ERR_INFO_NULL		25
-# define ERR_INFO_SHAD		39
-
-# define ERR_LIMIT_AMB		31
-# define ERR_LIMIT_FOV		32
-# define ERR_LIMIT_LIGHT	33
-# define ERR_LIMIT_COLOR	34
-
-# define ERR_MALLOC			42
+# define ERR_AC			-1
+# define ERR_FILE_RT	-2
+# define ERR_FILE_UNKN	-3
+# define ERR_ELEM_UNIQ	-4
+# define ERR_ELEM_UNKN	-5
+# define ERR_ELEM_MISS	-6
+# define ERR_ELEM_WRG	-7
+# define ERR_INFO_NULL	-8
+# define ERR_INFO_DIGIT	-9
+# define ERR_LIMIT		-10
+# define ERR_SHAD		-11
+# define ERR_MALLOC		-99
 
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
-
 # include "mlx.h"
 # include "libft.h"
 # include "get_next_line.h"
 
-typedef struct		s_vec
+typedef struct		s_file
 {
-	double			x;
-	double			y;
-	double			z;
-}					t_vec;
+	char			*name;
+	int				fd;
+	int				ret;
+	char			*line;
+	int				line_nb;
+}					t_file;
 
-typedef struct		s_color
+typedef struct		s_info3
 {
-	int				r;
-	int				g;
-	int				b;
-}					t_color;
+	double			x_r;
+	double			y_g;
+	double			z_b;
+}					t_info3;
 
-typedef struct		s_cams
+typedef struct		s_amb
 {
-	t_vec			*ori;
-	t_vec			*dir;
-	double			fov;
-	struct s_cams	*next;
-}					t_cams;
-
-typedef struct		s_lights
-{
-	t_vec			*ori;
 	double			intens;
-	t_color			*color;
-	struct s_lights	*next;
-}					t_lights;
+	t_info3			*color;
+}					t_amb;
 
-typedef struct		s_objs
+typedef struct		s_cam
+{
+	t_info3			*ori;
+	t_info3			*vec;
+	double			fov;
+	struct s_cam	*next;
+}					t_cam;
+
+typedef struct		s_light
+{
+	t_info3			*ori;
+	double			intens;
+	t_info3			*color;
+	struct s_light	*next;
+}					t_light;
+
+typedef struct		s_obj
 {
 	char			type;
-	t_vec			*ori;
-	double			size;
-	t_color			*color;
-	struct s_objs	*next;
-}					t_objs;
+	t_info3			*ori;
+	t_info3			*vec;
+	double			size1;
+	double			size2;
+	t_info3			*color;
+	struct s_obj	*next;
+}					t_obj;
+
+typedef struct		s_ray
+{
+	t_info3			*ori;
+	t_info3			*dir;
+}					t_ray;
+
+typedef struct		s_hit
+{
+	t_info3			*ori;
+	t_info3			*norm;
+	t_info3			*color;
+}					t_hit;
 
 typedef struct		s_scn
 {
-	char			*file_name;
-	int				line_nb;
-	int				win_h;
-	int				win_w;
-	double			amb_intens;
-	int				amb_r;
-	int				amb_g;
-	int				amb_b;
-	struct s_cams	*cams;
-	int				cams_total;
-	int				cams_current;
-	struct s_lights	*lights;
-	struct s_objs	*objs;
-	int				shad;
-	void			*mlx_ptr;
-	void			*win_ptr;
-	struct s_img	*img;
-	int				loop;
-	int				i;
-	int				j;
-	double			pix_intens;
-	t_vec			*ori;
-	t_color			*color;
+	int				win_x;
+	int				win_y;
+	t_amb			*amb;
+	t_cam			*cams;
+	int				cam_nb;
+	int				cam_current;
+	t_light			*lights;
+	t_obj			*objs;
+	int				is_shad;
+	t_ray			*ray_light;
+	t_ray			*ray_shad;
+	t_hit			*hit;
 }					t_scn;
-
-typedef struct		s_intersect
-{
-	double			solution;
-	t_vec			*pos;
-	t_vec			*norm;
-	t_vec			*diff;
-}					t_intersect;
-
-typedef struct		s_delta
-{
-	double			a;
-	double			b;
-	double			c;
-	double			delta;
-}					t_delta;
-
-typedef struct		s_shad
-{
-	t_cams			*ray;
-	t_intersect		*intersect;
-	t_vec			*diff;
-	double			d_light2;
-	double			d_obj2;
-}					t_shad;
 
 typedef struct		s_img
 {
@@ -155,92 +127,86 @@ typedef struct		s_img
 	int				endian;
 }					t_img;
 
-void				rt_parse_line(t_scn *scn, char *line);
-void				rt_parse_resolution(t_scn *scn, char *line);
-void				rt_parse_camera(t_scn *scn, t_cams **cams, char *line);
-void				rt_parse_light(t_scn *scn, t_lights **lights, char *line);
-void				rt_parse_shadow(t_scn *scn, char *line);
+typedef struct		s_rt
+{
+	t_file			*file;
+	t_scn			*scn;
+	t_img			*img;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	int				i;
+	int				j;
+	int				loop;
+}					t_rt;
 
-void				rt_parse_sphere(t_scn *scn, t_objs **objs, char *line);
+void				clear_rt(t_rt **rt, t_scn *scn);
 
-int					rt_parse_toint(t_scn *scn, char *line);
-double				rt_parse_todouble(t_scn *scn, char *line);
-void				rt_parse_vector(t_scn *scn, t_vec *vec, char *line);
-void				rt_parse_color(t_scn *scn, t_color *color, char *line);
-
-void				rt_parse_move(t_scn *scn, char *line);
-
-void				rt_parse_checks(t_scn *scn);
-
-t_vec				*rt_init_vector(void);
-void				rt_fill_vector(t_scn *scn, t_vec *vec, char *line);
-t_color				*rt_init_color(void);
-void				rt_fill_color(t_scn *scn, t_color *color, char *line);
-
-t_cams				*rt_init_camera(void);
-int					rt_add_camera(t_cams **cams, t_cams *new_cam);
-void				rt_clear_cameras(t_cams **cams);
-
-t_lights			*rt_init_light(void);
-int					rt_add_light(t_lights **lights, t_lights *new_light);
-void				rt_clear_lights(t_lights **lights);
-
-t_objs				*rt_init_object(void);
-int					rt_add_object(t_objs **objs, t_objs *new_obj);
-void				rt_clear_objects(t_objs **objs);
-
-t_scn				*rt_init_scene(char *file_name);
-void				rt_clear_scene(t_scn **scn,
-						t_cams *cams, t_lights *lights, t_objs *objs);
-
-t_intersect			*rt_init_intersection(void);
-void				rt_clear_intersection(t_intersect **intersect);
-t_delta				*rt_init_delta(double a, double b, double c);
-
-t_shad				*rt_init_shadow(void);
-void				rt_clear_shadow(t_shad **shad);
-
+t_file				*rt_init_file(void);
+t_info3				*rt_init_info3(void);
+void				rt_copy_info3(t_info3 *info3, t_info3 *cpy);
+t_amb				*rt_init_ambiance(void);
+void				rt_clear_ambiance(t_amb *amb);
+t_cam				*rt_init_camera(void);
+int					rt_add_camera(t_cam **cams, t_cam *new_cam);
+void				rt_clear_cameras(t_cam **cams);
+t_light				*rt_init_light(void);
+int					rt_add_light(t_light **lights, t_light *new_light);
+void				rt_clear_lights(t_light **lights);
+t_obj				*rt_init_object(void);
+int					rt_add_object(t_obj **objs, t_obj *new_obj);
+void				rt_clear_objects(t_obj **objs);
+t_ray				*rt_init_ray(void);
+void				rt_clear_ray(t_ray *ray);
+t_hit				*rt_init_hit(void);
+void				rt_clear_hit(t_hit *hit);
+t_scn				*rt_init_scene(void);
+void				rt_clear_scene_elements(t_amb *amb, t_cam *cams,
+						t_light *lights, t_obj *objs);
+void				rt_clear_scene(t_scn **scn, t_ray *ray_light,
+						t_ray *ray_shad, t_hit *hit);
 t_img				*rt_init_image(void);
 
-void				rt_display_window(t_scn *scn);
-void				rt_display_image(t_scn *scn);
-void				rt_display_scene(t_scn *scn, t_cams **cams);
-void				rt_display_object(t_scn *scn, t_cams *cams,
-						t_intersect *intersect);
-void				rt_display_pixel(t_scn *scn, t_cams *cam,
-						t_intersect *intersect);
+void				rt_parse(t_rt *rt, t_file *file);
+void				rt_parse_resolution(t_rt *rt, t_scn *scn, char *line);
+void				rt_parse_ambiance(t_rt *rt, t_amb *amb, char *line);
+void				rt_parse_camera(t_rt *rt, t_cam **cams, char *line);
+void				rt_parse_light(t_rt *rt, t_light **lights, char *line);
+void				rt_parse_shadow(t_rt *rt, t_scn *scn, char *line);
+void				rt_parse_sphere(t_rt *rt, t_obj **objs, char *line);
+void				rt_parse_move(t_rt *rt, char *line);
+int					rt_parse_atoi(t_rt *rt, char *line);
+double				rt_parse_atod(t_rt *rt, char *line);
+void				rt_parse_info3(t_rt *rt, t_info3 *info3, char *line);
+void				rt_parse_exit(t_rt *rt, int error_nb);
+void				rt_parse_checks(t_rt *rt);
 
-void				rt_display_light(t_scn *scn, t_intersect *intersect);
+void				rt_image(t_rt *rt, t_cam **cams, int start);
+void				rt_window(t_rt *rt, t_scn *scn, int start);
+t_obj				*rt_image_getobjhit(t_scn *scn);
+double				rt_image_tryhit(t_ray *ray, t_obj *obj);
+t_info3				*rt_image_getcolor(t_scn *scn, t_amb *amb, t_obj *obj_hit);
+void				rt_math_normalize(t_info3 *info3);
+double				rt_math_cosine(t_info3 *info3a, t_info3 *info3b);
+double				rt_math_lambertian(t_hit *hit, t_light *light);
+void				rt_info3_add(t_info3 *info3a, t_info3 *info3b);
+void				rt_info3_mul(t_info3 *info3a, t_info3 *info3b);
+t_info3				*rt_info3_diff(t_info3 *info3a, t_info3 *info3b);
+double				rt_info3_dot(t_info3 *info3a, t_info3 *info3b);
+void				rt_info3_limit(t_info3 *info3, double limit);
+void				rt_image_adjustray(t_rt *rt, t_scn *scn, t_ray *ray,
+						t_cam *cam);
+double				rt_image_rgbtoi(t_info3 *color);
+double				rt_image_getdistance(t_info3 *info3a, t_info3 *info3b);
+t_info3				*rt_image_getintensity(t_info3 *color, double intens);
+void				rt_image_getmessage(t_rt *rt, t_scn *scn);
+double				rt_image_tryhit_sphere(t_ray *ray, t_obj *obj);
+void				rt_image_gethitpoint_sphere(t_hit *hit, t_ray *ray,
+						t_obj *obj_hit);
 
-int					rt_display_shadow(t_scn *scn, t_intersect *intersect);
+int					rt_keys(int key, t_rt *rt);
+int					rt_quit(t_rt *rt);
+int					rt_loop(t_rt *rt);
 
-void				rt_display_adjustcam(t_scn *scn, t_cams *cam);
-void				rt_display_getobjparams(t_scn *scn, t_objs *obj);
-void				rt_display_getdiff(t_lights *light, t_intersect *intersect);
-void				rt_display_pixintens(t_scn *scn, t_intersect *intersect);
-int					rt_display_getcolor(t_scn *scn);
-
-void				rt_display_message(t_scn *scn);
-int					rt_display_loop(t_scn *scn);
-
-double				rt_math_intersect(t_cams *cam, t_objs *obj);
-double				rt_math_dotproduct(t_vec *vec1, t_vec *vec2);
-double				rt_math_solution(t_delta *delta);
-
-double				rt_math_fov(double fov);
-double				rt_math_norm2(t_vec *vec);
-void				rt_math_normalize(t_vec *vec);
-void				rt_math_pos_norm(t_scn *scn, t_cams *cam,
-						t_intersect *intersect);
-
-void				rt_exit_ko(int error_nb);
-
-void				rt_exit_ko_scn(int error_nb, t_scn *scn);
-void				rt_exit_ko_line(int error_nb, t_scn *scn, char *line);
-void				rt_exit_ko_message(int error_nb, char *message);
-
-int					rt_exit_ok(t_scn *scn);
-
-int					rt_keys(int key, t_scn *scn);
+void				rt_exit(int error_nb);
 
 #endif

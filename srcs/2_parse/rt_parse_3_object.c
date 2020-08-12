@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_parse_2_objects.c                               :+:      :+:    :+:   */
+/*   rt_parse_3_object.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,26 +12,26 @@
 
 #include "minirt.h"
 
-void			rt_parse_sphere(t_scn *scn, t_objs **objs, char *line)
+void		rt_parse_sphere(t_rt *rt, t_obj **objs, char *line)
 {
-	t_objs		*tmp;
+	t_obj	*tmp;
 
-	if (rt_add_object(objs, rt_init_object()) == -1)
-		rt_exit_ko_line(ERR_MALLOC, scn, line);
+	if (rt_add_object(objs, rt_init_object()) < 0)
+		rt_parse_exit(rt, ERR_MALLOC);
 	tmp = *objs;
 	while (tmp->next)
 		tmp = tmp->next;
-	scn->i = 2;
+	rt->i = 2;
 	tmp->type = 's';
-	rt_parse_move(scn, line);
-	rt_parse_vector(scn, tmp->ori, line);
-	rt_parse_move(scn, line);
-	tmp->size = rt_parse_todouble(scn, line);
-	rt_parse_move(scn, line);
-	rt_parse_color(scn, tmp->color, line);
-	if (tmp->color->r < 0 || tmp->color->r > 255
-		|| tmp->color->g < 0 || tmp->color->g > 255
-		|| tmp->color->b < 0 || tmp->color->b > 255)
-		rt_exit_ko_line(ERR_LIMIT_COLOR, scn, line);
+	rt_parse_move(rt, line);
+	rt_parse_info3(rt, tmp->ori, line);
+	rt_parse_move(rt, line);
+	tmp->size1 = rt_parse_atod(rt, line);
+	rt_parse_move(rt, line);
+	rt_parse_info3(rt, tmp->color, line);
+	if (tmp->color->x_r < 0 || tmp->color->x_r > 255
+		|| tmp->color->y_g < 0 || tmp->color->y_g > 255
+		|| tmp->color->z_b < 0 || tmp->color->z_b > 255)
+		rt_parse_exit(rt, ERR_LIMIT);
 	tmp = NULL;
 }

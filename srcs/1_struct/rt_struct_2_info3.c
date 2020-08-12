@@ -1,19 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_display_3_shadow.c                              :+:      :+:    :+:   */
+/*   rt_struct_2_info3.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/08/02 17:51:41 by slabelle          #+#    #+#             */
-/*   Updated: 2020/08/02 17:51:47 by slabelle         ###   ########.fr       */
+/*   Created: 2020/07/24 13:04:46 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:04:48 by slabelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_display_light(t_scn *scn, t_intersect *intersect)
+t_info3		*rt_init_info3(void)
 {
-	rt_display_getdiff(scn->lights, intersect);
-	rt_display_pixintens(scn, intersect);
+	t_info3	*info3;
+
+	if (!(info3 = ft_memalloc(sizeof(t_info3))))
+		rt_exit(ERR_MALLOC);
+	info3->x_r = 0.0;
+	info3->y_g = 0.0;
+	info3->z_b = 0.0;
+	return (info3);
+}
+
+void		rt_copy_info3(t_info3 *info3, t_info3 *cpy)
+{
+	cpy->x_r = info3->x_r;
+	cpy->y_g = info3->y_g;
+	cpy->z_b = info3->z_b;
 }

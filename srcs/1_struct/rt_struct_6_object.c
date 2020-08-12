@@ -1,36 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_structs_4_object.c                              :+:      :+:    :+:   */
+/*   rt_struct_6_object.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/24 13:05:00 by slabelle          #+#    #+#             */
-/*   Updated: 2020/07/24 13:05:02 by slabelle         ###   ########.fr       */
+/*   Created: 2020/07/24 13:05:15 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:05:16 by slabelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_objs			*rt_init_object(void)
+t_obj		*rt_init_object(void)
 {
-	t_objs		*obj;
+	t_obj	*obj;
 
-	if (!(obj = ft_memalloc(sizeof(t_objs))))
-		return (NULL);
-	obj->type = ' ';
-	if (!(obj->ori = rt_init_vector()))
-		return (NULL);
-	obj->size = 0;
-	if (!(obj->color = rt_init_color()))
-		return (NULL);
+	if (!(obj = ft_memalloc(sizeof(t_obj))))
+		rt_exit(ERR_MALLOC);
+	obj->type = 'x';
+	obj->ori = rt_init_info3();
+	obj->vec = rt_init_info3();
+	obj->size1 = 0.0;
+	obj->size2 = 0.0;
+	obj->color = rt_init_info3();
 	obj->next = NULL;
 	return (obj);
 }
 
-int				rt_add_object(t_objs **objs, t_objs *new_obj)
+int			rt_add_object(t_obj **objs, t_obj *new_obj)
 {
-	t_objs		*tmp;
+	t_obj	*tmp;
 
 	if (objs && new_obj)
 	{
@@ -48,19 +48,20 @@ int				rt_add_object(t_objs **objs, t_objs *new_obj)
 	return (-1);
 }
 
-static void		rt_delone_object(t_objs *objs)
+static void	rt_delone_object(t_obj *obj)
 {
-	if (objs)
+	if (obj)
 	{
-		free(objs->ori);
-		free(objs->color);
-		free(objs);
+		free(obj->ori);
+		free(obj->vec);
+		free(obj->color);
+		free(obj);
 	}
 }
 
-void			rt_clear_objects(t_objs **objs)
+void		rt_clear_objects(t_obj **objs)
 {
-	t_objs		*tmp;
+	t_obj	*tmp;
 
 	if (objs && *objs)
 	{

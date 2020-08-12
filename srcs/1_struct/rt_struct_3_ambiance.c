@@ -1,21 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_parse_3_utils_2.c                               :+:      :+:    :+:   */
+/*   rt_struct_3_ambiance.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/24 13:03:51 by slabelle          #+#    #+#             */
-/*   Updated: 2020/07/24 13:04:08 by slabelle         ###   ########.fr       */
+/*   Created: 2020/07/24 13:04:54 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:04:55 by slabelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-void	rt_parse_move(t_scn *scn, char *line)
+t_amb		*rt_init_ambiance(void)
 {
-	while (line[scn->i] == ' ' || line[scn->i] == '\t')
-		(scn->i)++;
-	if (line[scn->i] == '\0')
-		rt_exit_ko_line(ERR_ELEM_MISS, scn, line);
+	t_amb	*amb;
+
+	if (!(amb = ft_memalloc(sizeof(t_amb))))
+		rt_exit(ERR_MALLOC);
+	amb->intens = -1.0;
+	amb->color = rt_init_info3();
+	return (amb);
+}
+
+void		rt_clear_ambiance(t_amb *amb)
+{
+	if (amb)
+	{
+		free(amb->color);
+		free(amb);
+	}
 }

@@ -1,35 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_structs_2_camera.c                              :+:      :+:    :+:   */
+/*   rt_struct_4_camera.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/24 13:04:46 by slabelle          #+#    #+#             */
-/*   Updated: 2020/07/24 13:04:48 by slabelle         ###   ########.fr       */
+/*   Created: 2020/07/24 13:05:00 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:05:02 by slabelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minirt.h"
 
-t_cams			*rt_init_camera(void)
+t_cam		*rt_init_camera(void)
 {
-	t_cams		*cam;
+	t_cam	*cam;
 
-	if (!(cam = ft_memalloc(sizeof(t_cams))))
-		return (NULL);
-	if (!(cam->ori = rt_init_vector()))
-		return (NULL);
-	if (!(cam->dir = rt_init_vector()))
-		return (NULL);
-	cam->fov = 0;
+	if (!(cam = ft_memalloc(sizeof(t_cam))))
+		rt_exit(ERR_MALLOC);
+	cam->ori = rt_init_info3();
+	cam->vec = rt_init_info3();
+	cam->fov = 0.0;
 	cam->next = NULL;
 	return (cam);
 }
 
-int				rt_add_camera(t_cams **cams, t_cams *new_cam)
+int			rt_add_camera(t_cam **cams, t_cam *new_cam)
 {
-	t_cams		*tmp;
+	t_cam	*tmp;
 
 	if (cams && new_cam)
 	{
@@ -47,19 +45,19 @@ int				rt_add_camera(t_cams **cams, t_cams *new_cam)
 	return (-1);
 }
 
-static void		rt_delone_camera(t_cams *cams)
+static void	rt_delone_camera(t_cam *cam)
 {
-	if (cams)
+	if (cam)
 	{
-		free(cams->ori);
-		free(cams->dir);
-		free(cams);
+		free(cam->ori);
+		free(cam->vec);
+		free(cam);
 	}
 }
 
-void			rt_clear_cameras(t_cams **cams)
+void		rt_clear_cameras(t_cam **cams)
 {
-	t_cams		*tmp;
+	t_cam	*tmp;
 
 	if (cams && *cams)
 	{
