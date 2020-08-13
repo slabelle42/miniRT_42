@@ -12,12 +12,13 @@
 
 #include "minirt.h"
 
-void		clear_rt(t_rt **rt, t_scn *scn)
+void		clear_rt(t_rt **rt, t_scn *scn, t_hit *hit)
 {
 	if (rt && *rt)
 	{
 		rt_clear_scene_elements(scn->amb, scn->cams, scn->lights, scn->objs);
-		rt_clear_scene(&scn, scn->ray_light, scn->ray_shad, scn->hit);
+		rt_clear_scene(&scn);
+		rt_clear_hit(hit);
 		free(*rt);
 	}
 }
@@ -30,6 +31,7 @@ static t_rt	*init_rt(void)
 		rt_exit(ERR_MALLOC);
 	rt->file = rt_init_file();
 	rt->scn = rt_init_scene();
+	rt->hit = rt_init_hit();
 	rt->img = rt_init_image();
 	rt->mlx_ptr = NULL;
 	rt->win_ptr = NULL;

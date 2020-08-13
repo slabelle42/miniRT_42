@@ -37,7 +37,7 @@ int		rt_keys(int key, t_rt *rt)
 int		rt_quit(t_rt *rt)
 {
 	mlx_destroy_window(rt->mlx_ptr, rt->win_ptr);
-	clear_rt(&rt, rt->scn);
+	clear_rt(&rt, rt->scn, rt->hit);
 	rt_exit(0);
 	return (0);
 }

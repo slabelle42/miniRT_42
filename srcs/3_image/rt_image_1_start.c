@@ -23,7 +23,7 @@ static void	rt_image_pixeltoimage(t_rt *rt, t_scn *scn, t_img *img,
 	*(unsigned int*)dst = rt_image_rgbtoi(pixel_color);
 }
 
-static void	rt_image_scan(t_rt *rt, t_scn *scn, t_cam *cam)
+static void	rt_image_scan(t_rt *rt, t_scn *scn, t_hit *hit, t_cam *cam)
 {
 	t_obj	*obj_hit;
 	t_info3	*pixel_color;
@@ -34,9 +34,9 @@ static void	rt_image_scan(t_rt *rt, t_scn *scn, t_cam *cam)
 		rt->j = 0;
 		while (rt->j < scn->win_x)
 		{
-			rt_image_adjustray(rt, scn, scn->ray_light, cam);
-			if ((obj_hit = rt_image_getobjhit(scn)))
-				pixel_color = rt_image_getcolor(scn, scn->amb, obj_hit);
+			rt_image_adjustray(rt, scn, cam, hit->ray_light);
+			if ((obj_hit = rt_image_getobjhit(scn, hit)))
+				pixel_color = rt_image_getcolor(scn, scn->amb, hit, obj_hit);
 			else
 				pixel_color = rt_init_info3();
 			rt_image_pixeltoimage(rt, scn, rt->img, pixel_color);
@@ -76,7 +76,7 @@ void		rt_image(t_rt *rt, t_cam **cams, int start)
 	cam = *cams;
 	while ((rt->i)++ < rt->scn->cam_current)
 		cam = cam->next;
-	rt_image_scan(rt, rt->scn, cam);
+	rt_image_scan(rt, rt->scn, rt->hit, cam);
 	cam = NULL;
 	if (start)
 		ft_putendl_fd("done!", 1);

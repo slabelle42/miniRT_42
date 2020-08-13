@@ -22,7 +22,7 @@ static t_info3	*rt_image_getlightcolor(t_hit *hit, t_light *light)
 	return (light_color);
 }
 
-static int		rt_image_checkshadow(t_scn *scn, t_ray *ray, t_obj *obj_hit,
+static int		rt_image_checkshadow(t_scn *scn, t_hit *hit, t_obj *obj_hit,
 					t_light *light)
 {
 	int			ret;
@@ -35,16 +35,15 @@ static int		rt_image_checkshadow(t_scn *scn, t_ray *ray, t_obj *obj_hit,
 	obj = scn->objs;
 	while (obj && !ret)
 	{
-		if (obj != obj_hit)
+		solution = rt_image_tryhit(hit, hit->ray_shad, obj);
+		if (obj != obj_hit && solution > -1)
 		{
-			solution = rt_image_tryhit(ray, obj);
-			if (solution > -1)
-			{
-				light_distance = rt_image_getdistance(ray->ori, light->ori);
-				obj_distance = rt_image_getdistance(ray->ori, obj->ori);
-				if (obj_distance < light_distance)
-					ret = 1;
-			}
+			light_distance = rt_image_getdistance(
+				hit->ori, hit->diff, light->ori);
+			obj_distance = rt_image_getdistance(
+				hit->ori, hit->diff, obj->ori);
+			if (obj_distance < light_distance)
+				ret = 1;
 		}
 		obj = obj->next;
 	}
@@ -52,10 +51,10 @@ static int		rt_image_checkshadow(t_scn *scn, t_ray *ray, t_obj *obj_hit,
 	return (ret);
 }
 
-static t_info3	*rt_image_getlightscolor(t_scn *scn, t_obj *obj_hit)
+static t_info3	*rt_image_getlightscolor(t_scn *scn, t_hit *hit, t_ray *ray,
+					t_obj *obj_hit)
 {
 	t_light		*light;
-	t_info3		*diff;
 	t_info3		*light_color;
 	t_info3		*pixel_color;
 
@@ -63,15 +62,14 @@ static t_info3	*rt_image_getlightscolor(t_scn *scn, t_obj *obj_hit)
 	pixel_color = rt_init_info3();
 	while (light)
 	{
-		rt_copy_info3(scn->hit->ori, scn->ray_shad->ori);
-		diff = rt_info3_diff(light->ori, scn->hit->ori);
-		rt_math_normalize(diff);
-		rt_copy_info3(diff, scn->ray_shad->dir);
-		free(diff);
-		if (!rt_image_checkshadow(scn, scn->ray_shad, obj_hit, light)
+		rt_copy_info3(hit->ori, ray->ori);
+		rt_info3_diff(light->ori, hit->ori, hit->diff);
+		rt_math_normalize(hit->diff);
+		rt_copy_info3(hit->diff, ray->dir);
+		if (!rt_image_checkshadow(scn, hit, obj_hit, light)
 			|| !scn->is_shad)
 		{
-			light_color = rt_image_getlightcolor(scn->hit, light);
+			light_color = rt_image_getlightcolor(hit, light);
 			rt_info3_add(pixel_color, light_color);
 			free(light_color);
 		}
@@ -87,17 +85,18 @@ static void		rt_image_gethitpoint(t_hit *hit, t_ray *ray, t_obj *obj_hit)
 		rt_image_gethitpoint_sphere(hit, ray, obj_hit);
 }
 
-t_info3			*rt_image_getcolor(t_scn *scn, t_amb *amb, t_obj *obj_hit)
+t_info3			*rt_image_getcolor(t_scn *scn, t_amb *amb, t_hit *hit,
+					t_obj *obj_hit)
 {
 	t_info3		*pixel_color;
 	t_info3		*amb_color;
 	t_info3		*obj_color;
 
-	rt_image_gethitpoint(scn->hit, scn->ray_light, obj_hit);
-	pixel_color = rt_image_getlightscolor(scn, obj_hit);
+	rt_image_gethitpoint(hit, hit->ray_light, obj_hit);
+	pixel_color = rt_image_getlightscolor(scn, hit, hit->ray_shad, obj_hit);
 	amb_color = rt_image_getintensity(amb->color, amb->intens);
 	rt_info3_add(pixel_color, amb_color);
-	obj_color = rt_image_getintensity(scn->hit->color, 1.0);
+	obj_color = rt_image_getintensity(hit->color, 1.0);
 	rt_info3_mul(pixel_color, obj_color);
 	rt_info3_limit(pixel_color, 1.0);
 	free(amb_color);

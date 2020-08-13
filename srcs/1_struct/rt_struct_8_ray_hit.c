@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_struct_7_ray_hit.c                              :+:      :+:    :+:   */
+/*   rt_struct_8_ray_hit.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -39,9 +39,12 @@ t_hit		*rt_init_hit(void)
 
 	if (!(hit = ft_memalloc(sizeof(t_hit))))
 		rt_exit(ERR_MALLOC);
+	hit->ray_light = rt_init_ray();
+	hit->ray_shad = rt_init_ray();
 	hit->ori = rt_init_info3();
 	hit->norm = rt_init_info3();
 	hit->color = rt_init_info3();
+	hit->diff = rt_init_info3();
 	return (hit);
 }
 
@@ -49,9 +52,12 @@ void		rt_clear_hit(t_hit *hit)
 {
 	if (hit)
 	{
+		rt_clear_ray(hit->ray_light);
+		rt_clear_ray(hit->ray_shad);
 		free(hit->ori);
 		free(hit->norm);
 		free(hit->color);
+		free(hit->diff);
 		free(hit);
 	}
 }

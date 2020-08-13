@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-void		rt_image_adjustray(t_rt *rt, t_scn *scn, t_ray *ray, t_cam *cam)
+void		rt_image_adjustray(t_rt *rt, t_scn *scn, t_cam *cam, t_ray *ray)
 {
 	ray->ori->x_r = cam->ori->x_r;
 	ray->ori->y_g = cam->ori->y_g;
@@ -35,14 +35,13 @@ double		rt_image_rgbtoi(t_info3 *color)
 	return (r * 65536 + g * 256 + b);
 }
 
-double		rt_image_getdistance(t_info3 *info3a, t_info3 *info3b)
+double		rt_image_getdistance(t_info3 *ray_ori, t_info3 *diff,
+				t_info3 *thing_ori)
 {
-	t_info3	*diff;
 	double	norm2;
 
-	diff = rt_info3_diff(info3b, info3a);
+	rt_info3_diff(thing_ori, ray_ori, diff);
 	norm2 = rt_info3_dot(diff, diff);
-	free(diff);
 	return (norm2);
 }
 

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_struct_8_scene.c                                :+:      :+:    :+:   */
+/*   rt_struct_7_scene.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -27,9 +27,6 @@ t_scn		*rt_init_scene(void)
 	scn->lights = NULL;
 	scn->objs = NULL;
 	scn->is_shad = 1;
-	scn->ray_light = rt_init_ray();
-	scn->ray_shad = rt_init_ray();
-	scn->hit = rt_init_hit();
 	return (scn);
 }
 
@@ -42,14 +39,8 @@ void		rt_clear_scene_elements(t_amb *amb, t_cam *cams, t_light *lights,
 	rt_clear_objects(&objs);
 }
 
-void		rt_clear_scene(t_scn **scn, t_ray *ray_light, t_ray *ray_shad,
-				t_hit *hit)
+void		rt_clear_scene(t_scn **scn)
 {
 	if (scn && *scn)
-	{
-		rt_clear_ray(ray_light);
-		rt_clear_ray(ray_shad);
-		rt_clear_hit(hit);
 		free(*scn);
-	}
 }
