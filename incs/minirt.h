@@ -196,7 +196,7 @@ void				rt_info3_limit(t_info3 *info3, double limit);
 void				rt_image_adjustray(t_rt *rt, t_scn *scn, t_cam *cam,
 						t_ray *ray);
 double				rt_image_rgbtoi(t_info3 *color);
-double				rt_image_getdistance(t_info3 *ray_ori, t_info3 *thing_ori);
+double				rt_image_getdistance(t_info3 *hit_ori, t_info3 *light_ori);
 t_info3				*rt_image_getintensity(t_info3 *color, double intens);
 void				rt_image_getmessage(t_rt *rt, t_scn *scn);
 double				rt_image_tryhit_sphere(t_ray *ray, t_obj *obj);

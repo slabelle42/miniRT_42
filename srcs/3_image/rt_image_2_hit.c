@@ -16,7 +16,7 @@ double		rt_image_tryhit(t_ray *ray, t_obj *obj)
 {
 	if (obj->type == 's')
 		return (rt_image_tryhit_sphere(ray, obj));
-	return (1000.0);
+	return (1000000.0);
 }
 
 t_obj		*rt_image_getobjhit(t_scn *scn, t_hit *hit)
@@ -28,7 +28,7 @@ t_obj		*rt_image_getobjhit(t_scn *scn, t_hit *hit)
 
 	obj = scn->objs;
 	obj_hit = NULL;
-	solution = 1000.0;
+	solution = 1000000.0;
 	while (obj)
 	{
 		obj_solution = rt_image_tryhit(hit->ray_light, obj);

@@ -27,20 +27,18 @@ static int		rt_image_checkshadow(t_scn *scn, t_hit *hit, t_obj *obj_hit,
 {
 	int			ret;
 	t_obj		*obj;
-	double		solution;
 	double		light_distance;
 	double		obj_distance;
 
 	ret = 0;
 	obj = scn->objs;
+	light_distance = rt_image_getdistance(hit->ori, light->ori);
 	while (obj && !ret)
 	{
-		solution = rt_image_tryhit(hit->ray_shad, obj);
-		if (obj != obj_hit && solution > -1)
+		if (obj != obj_hit)
 		{
-			light_distance = rt_image_getdistance(hit->ori, light->ori);
-			obj_distance = rt_image_getdistance(hit->ori, obj->ori);
-			if (obj_distance < light_distance)
+			obj_distance = rt_image_tryhit(hit->ray_shad, obj);
+			if (obj_distance < light_distance && obj_distance > 0.000001)
 				ret = 1;
 		}
 		obj = obj->next;
