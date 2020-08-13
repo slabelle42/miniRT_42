@@ -20,6 +20,22 @@ void	rt_parse_exit(t_rt *rt, int error_nb)
 	rt_exit(error_nb);
 }
 
+void	rt_parse_colorlimits(t_rt *rt, t_info3 *color)
+{
+	if (color->x_r < 0 || color->x_r > 255
+		|| color->y_g < 0 || color->y_g > 255
+		|| color->z_b < 0 || color->z_b > 255)
+		rt_parse_exit(rt, ERR_LIMIT);
+}
+
+void	rt_parse_veclimits(t_rt *rt, t_info3 *vec)
+{
+	if (vec->x_r < -1 || vec->x_r > 1
+		|| vec->y_g < -1 || vec->y_g > 1
+		|| vec->z_b < -1 || vec->z_b > 1)
+		rt_parse_exit(rt, ERR_LIMIT);
+}
+
 void	rt_parse_checks(t_rt *rt)
 {
 	if (rt->scn->win_x < 0 || rt->scn->win_y < 0

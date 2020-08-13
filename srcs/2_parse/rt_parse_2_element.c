@@ -34,57 +34,52 @@ void		rt_parse_ambiance(t_rt *rt, t_amb *amb, char *line)
 		rt_parse_exit(rt, ERR_LIMIT);
 	rt_parse_move(rt, line);
 	rt_parse_info3(rt, amb->color, line);
-	if (amb->color->x_r < 0 || amb->color->x_r > 255
-		|| amb->color->y_g < 0 || amb->color->y_g > 255
-		|| amb->color->z_b < 0 || amb->color->z_b > 255)
-		rt_parse_exit(rt, ERR_LIMIT);
+	rt_parse_colorlimits(rt, amb->color);
 }
 
 void		rt_parse_camera(t_rt *rt, t_cam **cams, char *line)
 {
-	t_cam	*tmp;
+	t_cam	*cam;
 
 	if (rt_add_camera(cams, rt_init_camera()) < 0)
 		rt_parse_exit(rt, ERR_MALLOC);
-	tmp = *cams;
-	while (tmp->next)
-		tmp = tmp->next;
+	cam = *cams;
+	while (cam->next)
+		cam = cam->next;
 	rt->i = 1;
 	rt_parse_move(rt, line);
-	rt_parse_info3(rt, tmp->ori, line);
+	rt_parse_info3(rt, cam->ori, line);
 	rt_parse_move(rt, line);
-	rt_parse_info3(rt, tmp->vec, line);
+	rt_parse_info3(rt, cam->vec, line);
+	rt_parse_veclimits(rt, cam->vec);
 	rt_parse_move(rt, line);
-	tmp->fov = rt_parse_atoi(rt, line) * M_PI / 180;
-	if (tmp->fov < 0 || tmp->fov > 180)
+	cam->fov = rt_parse_atoi(rt, line) * M_PI / 180;
+	if (cam->fov < 0 || cam->fov > 180)
 		rt_parse_exit(rt, ERR_LIMIT);
-	tmp = NULL;
+	cam = NULL;
 	(rt->scn->cam_nb)++;
 }
 
 void		rt_parse_light(t_rt *rt, t_light **lights, char *line)
 {
-	t_light	*tmp;
+	t_light	*light;
 
 	if (rt_add_light(lights, rt_init_light()) < 0)
 		rt_parse_exit(rt, ERR_MALLOC);
-	tmp = *lights;
-	while (tmp->next)
-		tmp = tmp->next;
+	light = *lights;
+	while (light->next)
+		light = light->next;
 	rt->i = 1;
 	rt_parse_move(rt, line);
-	rt_parse_info3(rt, tmp->ori, line);
+	rt_parse_info3(rt, light->ori, line);
 	rt_parse_move(rt, line);
-	tmp->intens = rt_parse_atod(rt, line);
-	if (tmp->intens < 0 || tmp->intens > 1)
+	light->intens = rt_parse_atod(rt, line);
+	if (light->intens < 0 || light->intens > 1)
 		rt_parse_exit(rt, ERR_LIMIT);
 	rt_parse_move(rt, line);
-	rt_parse_info3(rt, tmp->color, line);
-	if (tmp->color->x_r < 0 || tmp->color->x_r > 255
-		|| tmp->color->y_g < 0 || tmp->color->y_g > 255
-		|| tmp->color->z_b < 0 || tmp->color->z_b > 255)
-		rt_parse_exit(rt, ERR_LIMIT);
-	tmp = NULL;
+	rt_parse_info3(rt, light->color, line);
+	rt_parse_colorlimits(rt, light->color);
+	light = NULL;
 }
 
 void		rt_parse_shadow(t_rt *rt, t_scn *scn, char *line)

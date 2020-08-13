@@ -12,6 +12,22 @@
 
 #include "minirt.h"
 
+static void	rt_parse_objects(t_rt *rt, char *line)
+{
+	if (line[0] == 's' && line[1] == 'p')
+		rt_parse_sphere(rt, &rt->scn->objs, line);
+	else if (line[0] == 'p' && line[1] == 'l')
+		rt_parse_plane(rt, &rt->scn->objs, line);
+	else if (line[0] == 's' && line[1] == 'q')
+		rt_parse_square(rt, &rt->scn->objs, line);
+	else if (line[0] == 'c' && line[1] == 'y')
+		rt_parse_cylinder(rt, &rt->scn->objs, line);
+	else if (line[0] == 't' && line[1] == 'r')
+		rt_parse_triangle(rt, &rt->scn->objs, line);
+	else
+		rt_parse_exit(rt, ERR_ELEM_UNKN);
+}
+
 static void	rt_parse_line(t_rt *rt, char *line)
 {
 	if (line[0] == '\n' || line[0] == '\0')
@@ -28,12 +44,10 @@ static void	rt_parse_line(t_rt *rt, char *line)
 		rt_parse_camera(rt, &rt->scn->cams, line);
 	else if (line[0] == 'l')
 		rt_parse_light(rt, &rt->scn->lights, line);
-	else if (line[0] == 's' && line[1] == 'p')
-		rt_parse_sphere(rt, &rt->scn->objs, line);
 	else if (line[0] == 's' && line[1] == 'h')
 		rt_parse_shadow(rt, rt->scn, line);
 	else
-		rt_parse_exit(rt, ERR_ELEM_UNKN);
+		rt_parse_objects(rt, line);
 }
 
 void		rt_parse(t_rt *rt, t_file *file)

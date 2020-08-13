@@ -30,3 +30,10 @@ void		rt_copy_info3(t_info3 *info3, t_info3 *cpy)
 	cpy->y_g = info3->y_g;
 	cpy->z_b = info3->z_b;
 }
+
+void		rt_fill_info3(t_info3 *info3, double a, double b, double c)
+{
+	info3->x_r = a;
+	info3->y_g = b;
+	info3->z_b = c;
+}

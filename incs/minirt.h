@@ -83,6 +83,7 @@ typedef struct		s_obj
 	char			type;
 	t_info3			*ori;
 	t_info3			*vec;
+	t_info3			*tri;
 	double			size1;
 	double			size2;
 	t_info3			*color;
@@ -144,6 +145,7 @@ void				clear_rt(t_rt **rt, t_scn *scn, t_hit *hit);
 t_file				*rt_init_file(void);
 t_info3				*rt_init_info3(void);
 void				rt_copy_info3(t_info3 *info3, t_info3 *cpy);
+void				rt_fill_info3(t_info3 *info3, double a, double b, double c);
 t_amb				*rt_init_ambiance(void);
 void				rt_clear_ambiance(t_amb *amb);
 t_cam				*rt_init_camera(void);
@@ -172,11 +174,17 @@ void				rt_parse_camera(t_rt *rt, t_cam **cams, char *line);
 void				rt_parse_light(t_rt *rt, t_light **lights, char *line);
 void				rt_parse_shadow(t_rt *rt, t_scn *scn, char *line);
 void				rt_parse_sphere(t_rt *rt, t_obj **objs, char *line);
+void				rt_parse_plane(t_rt *rt, t_obj **objs, char *line);
+void				rt_parse_square(t_rt *rt, t_obj **objs, char *line);
+void				rt_parse_cylinder(t_rt *rt, t_obj **objs, char *line);
+void				rt_parse_triangle(t_rt *rt, t_obj **objs, char *line);
 void				rt_parse_move(t_rt *rt, char *line);
 int					rt_parse_atoi(t_rt *rt, char *line);
 double				rt_parse_atod(t_rt *rt, char *line);
 void				rt_parse_info3(t_rt *rt, t_info3 *info3, char *line);
 void				rt_parse_exit(t_rt *rt, int error_nb);
+void				rt_parse_colorlimits(t_rt *rt, t_info3 *color);
+void				rt_parse_veclimits(t_rt *rt, t_info3 *vec);
 void				rt_parse_checks(t_rt *rt);
 
 void				rt_image(t_rt *rt, t_cam **cams, int start);
@@ -193,6 +201,10 @@ void				rt_info3_mul(t_info3 *info3a, t_info3 *info3b);
 t_info3				*rt_info3_diff(t_info3 *info3a, t_info3 *info3b);
 double				rt_info3_dot(t_info3 *info3a, t_info3 *info3b);
 void				rt_info3_limit(t_info3 *info3, double limit);
+void				rt_image_rotation_x(t_info3 *info3, double alpha);
+void				rt_image_rotation_y(t_info3 *info3, double beta);
+void				rt_image_rotation_z(t_info3 *info3, double gamma);
+t_info3				*rt_image_rotation_xyz(t_info3 *vec);
 void				rt_image_adjustray(t_rt *rt, t_scn *scn, t_cam *cam,
 						t_ray *ray);
 double				rt_image_rgbtoi(t_info3 *color);
@@ -201,6 +213,9 @@ t_info3				*rt_image_getintensity(t_info3 *color, double intens);
 void				rt_image_getmessage(t_rt *rt, t_scn *scn);
 double				rt_image_tryhit_sphere(t_ray *ray, t_obj *obj);
 void				rt_image_gethitpoint_sphere(t_hit *hit, t_ray *ray,
+						t_obj *obj_hit);
+double				rt_image_tryhit_plane(t_ray *ray, t_obj *obj);
+void				rt_image_gethitpoint_plane(t_hit *hit, t_ray *ray,
 						t_obj *obj_hit);
 int					rt_keys(int key, t_rt *rt);
 int					rt_quit(t_rt *rt);

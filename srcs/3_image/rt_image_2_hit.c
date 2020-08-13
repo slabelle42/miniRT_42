@@ -16,6 +16,14 @@ double		rt_image_tryhit(t_ray *ray, t_obj *obj)
 {
 	if (obj->type == 's')
 		return (rt_image_tryhit_sphere(ray, obj));
+	if (obj->type == 'p')
+		return (rt_image_tryhit_plane(ray, obj));
+// 	if (obj->type == 'q')
+// 		return (rt_image_tryhit_square(ray, obj));
+// 	if (obj->type == 'y')
+// 		return (rt_image_tryhit_cylinder(ray, obj));
+// 	if (obj->type == 't')
+// 		return (rt_image_tryhit_triangle(ray, obj));
 	return (1000000.0);
 }
 
