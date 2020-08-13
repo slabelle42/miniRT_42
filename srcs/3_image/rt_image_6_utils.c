@@ -35,13 +35,14 @@ double		rt_image_rgbtoi(t_info3 *color)
 	return (r * 65536 + g * 256 + b);
 }
 
-double		rt_image_getdistance(t_info3 *ray_ori, t_info3 *diff,
-				t_info3 *thing_ori)
+double		rt_image_getdistance(t_info3 *ray_ori, t_info3 *thing_ori)
 {
+	t_info3	*diff;
 	double	norm2;
 
-	rt_info3_diff(thing_ori, ray_ori, diff);
+	diff = rt_info3_diff(thing_ori, ray_ori);
 	norm2 = rt_info3_dot(diff, diff);
+	free(diff);
 	return (norm2);
 }
 

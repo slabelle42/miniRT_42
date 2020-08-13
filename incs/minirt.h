@@ -115,7 +115,6 @@ typedef struct		s_hit
 	t_info3			*ori;
 	t_info3			*norm;
 	t_info3			*color;
-	t_info3			*diff;
 }					t_hit;
 
 typedef struct		s_img
@@ -183,7 +182,7 @@ void				rt_parse_checks(t_rt *rt);
 void				rt_image(t_rt *rt, t_cam **cams, int start);
 void				rt_window(t_rt *rt, t_scn *scn, int start);
 t_obj				*rt_image_getobjhit(t_scn *scn, t_hit *hit);
-double				rt_image_tryhit(t_hit *hit, t_ray *ray, t_obj *obj);
+double				rt_image_tryhit(t_ray *ray, t_obj *obj);
 t_info3				*rt_image_getcolor(t_scn *scn, t_amb *amb, t_hit *hit,
 						t_obj *obj_hit);
 void				rt_math_normalize(t_info3 *info3);
@@ -191,21 +190,18 @@ double				rt_math_cosine(t_info3 *info3a, t_info3 *info3b);
 double				rt_math_lambertian(t_hit *hit, t_light *light);
 void				rt_info3_add(t_info3 *info3a, t_info3 *info3b);
 void				rt_info3_mul(t_info3 *info3a, t_info3 *info3b);
-void				rt_info3_diff(t_info3 *info3a, t_info3 *info3b,
-						t_info3 *diff);
+t_info3				*rt_info3_diff(t_info3 *info3a, t_info3 *info3b);
 double				rt_info3_dot(t_info3 *info3a, t_info3 *info3b);
 void				rt_info3_limit(t_info3 *info3, double limit);
 void				rt_image_adjustray(t_rt *rt, t_scn *scn, t_cam *cam,
 						t_ray *ray);
 double				rt_image_rgbtoi(t_info3 *color);
-double				rt_image_getdistance(t_info3 *ray_ori, t_info3 *diff,
-						t_info3 *thing_ori);
+double				rt_image_getdistance(t_info3 *ray_ori, t_info3 *thing_ori);
 t_info3				*rt_image_getintensity(t_info3 *color, double intens);
 void				rt_image_getmessage(t_rt *rt, t_scn *scn);
-double				rt_image_tryhit_sphere(t_hit *hit, t_ray *ray, t_obj *obj);
+double				rt_image_tryhit_sphere(t_ray *ray, t_obj *obj);
 void				rt_image_gethitpoint_sphere(t_hit *hit, t_ray *ray,
 						t_obj *obj_hit);
-
 int					rt_keys(int key, t_rt *rt);
 int					rt_quit(t_rt *rt);
 int					rt_loop(t_rt *rt);

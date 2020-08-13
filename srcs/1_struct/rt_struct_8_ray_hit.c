@@ -44,7 +44,6 @@ t_hit		*rt_init_hit(void)
 	hit->ori = rt_init_info3();
 	hit->norm = rt_init_info3();
 	hit->color = rt_init_info3();
-	hit->diff = rt_init_info3();
 	return (hit);
 }
 
@@ -57,7 +56,6 @@ void		rt_clear_hit(t_hit *hit)
 		free(hit->ori);
 		free(hit->norm);
 		free(hit->color);
-		free(hit->diff);
 		free(hit);
 	}
 }

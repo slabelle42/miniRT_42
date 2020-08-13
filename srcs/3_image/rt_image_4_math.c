@@ -36,12 +36,14 @@ double		rt_math_cosine(t_info3 *info3a, t_info3 *info3b)
 
 double		rt_math_lambertian(t_hit *hit, t_light *light)
 {
+	t_info3	*diff;
 	double	dot;
 	double	intens;
 
-	rt_info3_diff(light->ori, hit->ori, hit->diff);
-	rt_math_normalize(hit->diff);
-	dot = rt_info3_dot(hit->diff, hit->norm);
+	diff = rt_info3_diff(light->ori, hit->ori);
+	rt_math_normalize(diff);
+	dot = rt_info3_dot(diff, hit->norm);
+	free(diff);
 	intens = (dot > 0) ? dot : 0.0;
 	intens *= light->intens;
 	return (intens);
