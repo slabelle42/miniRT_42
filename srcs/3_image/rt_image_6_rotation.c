@@ -45,12 +45,14 @@ void		rt_image_rotation_z(t_info3 *info3, double gamma)
 	info3->y_g = y;
 }
 
-t_info3		*rt_image_rotation_xyz(t_info3 *vec)
+t_info3		*rt_image_rotation_xyz(double x, double y, double z, t_info3 *vec)
 {
 	t_info3	*rot;
 
 	rot = rt_init_info3();
-	rot->z_b = 1.0;
+	rot->x_r = x;
+	rot->y_g = y;
+	rot->z_b = z;
 	rt_image_rotation_x(rot, vec->x_r);
 	rt_image_rotation_y(rot, vec->y_g);
 	rt_image_rotation_z(rot, vec->z_b);

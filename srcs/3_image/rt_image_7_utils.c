@@ -14,13 +14,27 @@
 
 void		rt_image_adjustray(t_rt *rt, t_scn *scn, t_cam *cam, t_ray *ray)
 {
+	t_info3	*dir;
+	t_info3	*rot;
+	t_info3	*corrected;
+
 	ray->ori->x_r = cam->ori->x_r;
 	ray->ori->y_g = cam->ori->y_g;
 	ray->ori->z_b = cam->ori->z_b;
-	ray->dir->y_g = rt->i - scn->win_y / 2;
-	ray->dir->x_r = rt->j - scn->win_x / 2;
-	ray->dir->z_b = -scn->win_x / (2 * tan(cam->fov / 2));
-	rt_math_normalize(ray->dir);
+	dir = rt_init_info3();
+	dir->x_r = rt->j - scn->win_x / 2;
+	dir->y_g = rt->i - scn->win_y / 2;
+	dir->z_b = -scn->win_x / (2 * tan(cam->fov / 2));
+	rt_math_normalize(dir);
+	corrected = rt_init_info3();
+	corrected->x_r = cam->vec->y_g;
+	corrected->y_g = -cam->vec->x_r;
+	corrected->z_b = cam->vec->z_b;
+	rot = rt_image_rotation_xyz(dir->x_r, dir->y_g, dir->z_b, corrected);
+	free(dir);
+	free(corrected);
+	rt_copy_info3(rot, ray->dir);
+	free(rot);
 }
 
 double		rt_image_rgbtoi(t_info3 *color)

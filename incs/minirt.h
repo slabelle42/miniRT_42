@@ -204,7 +204,8 @@ void				rt_info3_limit(t_info3 *info3, double limit);
 void				rt_image_rotation_x(t_info3 *info3, double alpha);
 void				rt_image_rotation_y(t_info3 *info3, double beta);
 void				rt_image_rotation_z(t_info3 *info3, double gamma);
-t_info3				*rt_image_rotation_xyz(t_info3 *vec);
+t_info3				*rt_image_rotation_xyz(double x, double y, double z,
+						t_info3 *vec);
 void				rt_image_adjustray(t_rt *rt, t_scn *scn, t_cam *cam,
 						t_ray *ray);
 double				rt_image_rgbtoi(t_info3 *color);

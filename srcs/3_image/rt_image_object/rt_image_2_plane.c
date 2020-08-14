@@ -17,7 +17,7 @@ static t_info3	*rt_image_getnormal_plane(t_ray *ray, t_obj *obj)
 	t_info3		*norm_rot;
 	t_info3		*norm_inv;
 
-	norm_rot = rt_image_rotation_xyz(obj->vec);
+	norm_rot = rt_image_rotation_xyz(0.0, 0.0, 1.0, obj->vec);
 	if (rt_math_cosine(norm_rot, ray->dir) > 0)
 	{
 		norm_inv = rt_init_info3();
