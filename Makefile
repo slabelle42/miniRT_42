@@ -29,6 +29,7 @@ SRCS += srcs/3_image/rt_image_6_rotation.c
 SRCS += srcs/3_image/rt_image_7_utils.c
 SRCS += srcs/3_image/rt_image_object/rt_image_1_sphere.c
 SRCS += srcs/3_image/rt_image_object/rt_image_2_plane.c
+SRCS += srcs/3_image/rt_image_object/rt_image_3_square.c
 SRCS += srcs/4_keys/rt_keys.c
 SRCS += srcs/5_exit/rt_exit.c
 SRCS += srcs/get_next_line/get_next_line.c

@@ -12,14 +12,14 @@
 
 #include "minirt.h"
 
-double		rt_image_tryhit(t_ray *ray, t_obj *obj)
+double		rt_image_tryhit(t_hit *hit, t_ray *ray, t_obj *obj)
 {
 	if (obj->type == 's')
 		return (rt_image_tryhit_sphere(ray, obj));
 	if (obj->type == 'p')
 		return (rt_image_tryhit_plane(ray, obj));
-// 	if (obj->type == 'q')
-// 		return (rt_image_tryhit_square(ray, obj));
+	if (obj->type == 'q')
+		return (rt_image_tryhit_square(hit, ray, obj));
 // 	if (obj->type == 'y')
 // 		return (rt_image_tryhit_cylinder(ray, obj));
 // 	if (obj->type == 't')
@@ -39,7 +39,7 @@ t_obj		*rt_image_getobjhit(t_scn *scn, t_hit *hit)
 	solution = 1000000.0;
 	while (obj)
 	{
-		obj_solution = rt_image_tryhit(hit->ray_light, obj);
+		obj_solution = rt_image_tryhit(hit, hit->ray_light, obj);
 		if (obj_solution < solution && obj_solution > -1)
 		{
 			solution = obj_solution;

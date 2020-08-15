@@ -190,7 +190,7 @@ void				rt_parse_checks(t_rt *rt);
 void				rt_image(t_rt *rt, t_cam **cams, int start);
 void				rt_window(t_rt *rt, t_scn *scn, int start);
 t_obj				*rt_image_getobjhit(t_scn *scn, t_hit *hit);
-double				rt_image_tryhit(t_ray *ray, t_obj *obj);
+double				rt_image_tryhit(t_hit *hit, t_ray *ray, t_obj *obj);
 t_info3				*rt_image_getcolor(t_scn *scn, t_amb *amb, t_hit *hit,
 						t_obj *obj_hit);
 void				rt_math_normalize(t_info3 *info3);
@@ -218,6 +218,11 @@ void				rt_image_gethitpoint_sphere(t_hit *hit, t_ray *ray,
 double				rt_image_tryhit_plane(t_ray *ray, t_obj *obj);
 void				rt_image_gethitpoint_plane(t_hit *hit, t_ray *ray,
 						t_obj *obj_hit);
+t_info3				*rt_image_getnormal_plane(t_ray *ray, t_obj *obj);
+double				rt_image_tryhit_square(t_hit *hit, t_ray *ray, t_obj *obj);
+void				rt_image_gethitpoint_square(t_hit *hit, t_ray *ray,
+						t_obj *obj_hit);
+
 int					rt_keys(int key, t_rt *rt);
 int					rt_quit(t_rt *rt);
 int					rt_loop(t_rt *rt);

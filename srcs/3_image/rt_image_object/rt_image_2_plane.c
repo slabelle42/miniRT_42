@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-static t_info3	*rt_image_getnormal_plane(t_ray *ray, t_obj *obj)
+t_info3			*rt_image_getnormal_plane(t_ray *ray, t_obj *obj)
 {
 	t_info3		*norm_rot;
 	t_info3		*norm_inv;

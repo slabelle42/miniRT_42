@@ -90,6 +90,8 @@ void		rt_window(t_rt *rt, t_scn *scn, int start)
 	if (start)
 	{
 		ft_putendl_fd("[ Commands: ESC = quit, C = change camera ]", 1);
+		if (scn->amb->intens == 0)
+			ft_putendl_fd("\n  /!\\  Ambient light intensity is 0\n", 1);
 		rt->win_ptr = mlx_new_window(rt->mlx_ptr, scn->win_x, scn->win_y,
 			rt->file->name);
 		mlx_hook(rt->win_ptr, 2, 1L << 0, rt_keys, rt);
