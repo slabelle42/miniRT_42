@@ -29,8 +29,8 @@ static int		rt_image_checkinside_square(t_info3 *hit_ori, t_obj *obj)
 	res2 = rt_info3_dot(diff, rot) / sqrt(rt_info3_dot(rot, rot));
 	free(rot);
 	free(diff);
-	if (res1 >= -obj->size1 && res1 <= obj->size1
-		&& res2 >= -obj->size1 && res2 <= obj->size1)
+	if (res1 >= -obj->size1 / 2 && res1 <= obj->size1 / 2
+		&& res2 >= -obj->size1 / 2 && res2 <= obj->size1 / 2)
 		return (1);
 	return (0);
 }
