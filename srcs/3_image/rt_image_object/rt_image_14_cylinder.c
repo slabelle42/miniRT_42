@@ -23,8 +23,8 @@ static t_info3	*rt_image_getnormal_cylinder(t_ray *ray, t_info3 *axis,
 	dot3 = rt_init_info3();
 	rt_fill_info3(dot3, dot, dot, dot);
 	rt_info3_mul(axis, dot3);
-	norm = rt_info3_diff(diff, dot3);
 	free(dot3);
+	norm = rt_info3_diff(diff, axis);
 	rt_math_normalize(norm);
 	if (rt_math_cosine(norm, ray->dir) > 0)
 	{
@@ -59,9 +59,8 @@ static int		rt_image_checklimits_cylinder(t_hit *hit, t_obj *obj,
 		free(up);
 		dot = rt_info3_dot(axis, diff) <= 0;
 		free(diff);
-		return (dot);
 	}
-	return (0);
+	return (dot);
 }
 
 static t_info3	*rt_image_getabc_cylinder(t_ray *ray, double radius,

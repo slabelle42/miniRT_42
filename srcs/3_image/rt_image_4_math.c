@@ -80,6 +80,6 @@ double		rt_math_solution_cylinder(double a, double b, double c,
 	solution1 = (-b - sqrt(delta)) / (2 * a);
 	solution2 = (-b + sqrt(delta)) / (2 * a);
 	if (max_solution)
-		return (solution1 <= solution2 ? solution1 : solution2);
-	return (solution1 >= solution2 ? solution1 : solution2);
+		return (solution1 >= solution2 ? solution1 : solution2);
+	return (solution1 <= solution2 ? solution1 : solution2);
 }
