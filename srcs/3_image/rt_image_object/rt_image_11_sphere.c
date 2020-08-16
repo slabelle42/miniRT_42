@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_image_1_sphere.c                                :+:      :+:    :+:   */
+/*   rt_image_11_sphere.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,24 +11,6 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
-
-static double	rt_image_getsolution_sphere(double a, double b, double c)
-{
-	double		delta;
-	double		solution1;
-	double		solution2;
-
-	delta = b * b - 4 * a * c;
-	if (delta < 0)
-		return (-1);
-	solution1 = (-b - sqrt(delta)) / (2 * a);
-	solution2 = (-b + sqrt(delta)) / (2 * a);
-	if (solution2 < 0)
-		return (-1);
-	if (solution1 > 0)
-		return (solution1);
-	return (solution2);
-}
 
 double			rt_image_tryhit_sphere(t_ray *ray, t_obj *obj)
 {
@@ -42,7 +24,7 @@ double			rt_image_tryhit_sphere(t_ray *ray, t_obj *obj)
 	b = 2 * rt_info3_dot(ray->dir, diff);
 	c = rt_info3_dot(diff, diff) - obj->size1 * obj->size1;
 	free(diff);
-	return (rt_image_getsolution_sphere(a, b, c));
+	return (rt_math_solution_sphere(a, b, c));
 }
 
 void			rt_image_gethitpoint_sphere(t_hit *hit, t_ray *ray,
@@ -52,9 +34,7 @@ void			rt_image_gethitpoint_sphere(t_hit *hit, t_ray *ray,
 	t_info3		*diff;
 
 	solution = rt_image_tryhit_sphere(ray, obj_hit);
-	hit->ori->x_r = ray->ori->x_r + ray->dir->x_r * solution;
-	hit->ori->y_g = ray->ori->y_g + ray->dir->y_g * solution;
-	hit->ori->z_b = ray->ori->z_b + ray->dir->z_b * solution;
+	rt_image_getorigin(hit->ori, ray, solution);
 	diff = rt_info3_diff(hit->ori, obj_hit->ori);
 	rt_math_normalize(diff);
 	if (rt_math_cosine(diff, ray->dir) > 0)

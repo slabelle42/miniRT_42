@@ -37,16 +37,11 @@ void		rt_image_adjustray(t_rt *rt, t_scn *scn, t_cam *cam, t_ray *ray)
 	free(rot);
 }
 
-double		rt_image_rgbtoi(t_info3 *color)
+void		rt_image_getorigin(t_info3 *hit_ori, t_ray *ray, double solution)
 {
-	int		r;
-	int		g;
-	int		b;
-
-	r = pow(color->x_r * 255 * 500, 1 / 2.2);
-	g = pow(color->y_g * 255 * 500, 1 / 2.2);
-	b = pow(color->z_b * 255 * 500, 1 / 2.2);
-	return (r * 65536 + g * 256 + b);
+	hit_ori->x_r = ray->ori->x_r + ray->dir->x_r * solution;
+	hit_ori->y_g = ray->ori->y_g + ray->dir->y_g * solution;
+	hit_ori->z_b = ray->ori->z_b + ray->dir->z_b * solution;
 }
 
 double		rt_image_getdistance(t_info3 *hit_ori, t_info3 *light_ori)
@@ -72,10 +67,14 @@ t_info3		*rt_image_getintensity(t_info3 *color, double intens)
 	return (color_intens);
 }
 
-void		rt_image_getmessage(t_rt *rt, t_scn *scn)
+double		rt_image_rgbtoi(t_info3 *color)
 {
-	rt->loop = 1;
-	ft_putstr_fd("--> Camera ", 1);
-	ft_putnbr_fd(scn->cam_current, 1);
-	ft_putendl_fd(" is displayed", 1);
+	int		r;
+	int		g;
+	int		b;
+
+	r = pow(color->x_r * 255 * 500, 1 / 2.2);
+	g = pow(color->y_g * 255 * 500, 1 / 2.2);
+	b = pow(color->z_b * 255 * 500, 1 / 2.2);
+	return (r * 65536 + g * 256 + b);
 }

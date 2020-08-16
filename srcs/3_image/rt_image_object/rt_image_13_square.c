@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_image_3_square.c                                :+:      :+:    :+:   */
+/*   rt_image_13_square.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -46,9 +46,7 @@ double			rt_image_tryhit_square(t_hit *hit, t_ray *ray, t_obj *obj)
 	solution = rt_info3_dot(diff, norm) / rt_info3_dot(ray->dir, norm);
 	free(norm);
 	free(diff);
-	hit->ori->x_r = ray->ori->x_r + ray->dir->x_r * solution;
-	hit->ori->y_g = ray->ori->y_g + ray->dir->y_g * solution;
-	hit->ori->z_b = ray->ori->z_b + ray->dir->z_b * solution;
+	rt_image_getorigin(hit->ori, ray, solution);
 	if (rt_image_checkinside_square(hit->ori, obj))
 		return (solution);
 	return (-1.0);
@@ -61,9 +59,7 @@ void			rt_image_gethitpoint_square(t_hit *hit, t_ray *ray,
 	t_info3		*norm;
 
 	solution = rt_image_tryhit_square(hit, ray, obj_hit);
-	hit->ori->x_r = ray->ori->x_r + ray->dir->x_r * solution;
-	hit->ori->y_g = ray->ori->y_g + ray->dir->y_g * solution;
-	hit->ori->z_b = ray->ori->z_b + ray->dir->z_b * solution;
+	rt_image_getorigin(hit->ori, ray, solution);
 	norm = rt_image_getnormal_plane(ray, obj_hit);
 	if (rt_math_cosine(norm, ray->dir) > 0)
 	{

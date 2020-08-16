@@ -35,7 +35,7 @@ static int		rt_image_checkshadow(t_scn *scn, t_hit *hit, t_obj *obj_hit,
 	light_distance = rt_image_getdistance(hit->ori, light->ori);
 	while (obj && !ret)
 	{
-		if (obj != obj_hit)
+		if (obj != obj_hit || obj->type == 'y')
 		{
 			obj_distance = rt_image_tryhit(hit, hit->ray_shad, obj);
 			if (obj_distance < light_distance && obj_distance > 0.000001)
@@ -85,8 +85,8 @@ static void		rt_image_gethitpoint(t_hit *hit, t_ray *ray, t_obj *obj_hit)
 		rt_image_gethitpoint_plane(hit, ray, obj_hit);
 	if (obj_hit->type == 'q')
 		rt_image_gethitpoint_square(hit, ray, obj_hit);
-// 	if (obj_hit->type == 'y')
-// 		rt_image_gethitpoint_cylinder(hit, ray, obj_hit);
+ 	if (obj_hit->type == 'y')
+ 		rt_image_gethitpoint_cylinder(hit, ray, obj_hit);
 // 	if (obj_hit->type == 't')
 // 		rt_image_gethitpoint_triangle(hit, ray, obj_hit);
 }

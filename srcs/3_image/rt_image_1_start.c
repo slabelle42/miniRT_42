@@ -86,7 +86,12 @@ void		rt_image(t_rt *rt, t_cam **cams, int start)
 void		rt_window(t_rt *rt, t_scn *scn, int start)
 {
 	if (!rt->loop)
-		rt_image_getmessage(rt, scn);
+	{
+		rt->loop = 1;
+		ft_putstr_fd("--> Camera ", 1);
+		ft_putnbr_fd(scn->cam_current, 1);
+		ft_putendl_fd(" is displayed", 1);
+	}
 	if (start)
 	{
 		ft_putendl_fd("[ Commands: ESC = quit, C = change camera ]", 1);

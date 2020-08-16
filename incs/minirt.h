@@ -196,6 +196,9 @@ t_info3				*rt_image_getcolor(t_scn *scn, t_amb *amb, t_hit *hit,
 void				rt_math_normalize(t_info3 *info3);
 double				rt_math_cosine(t_info3 *info3a, t_info3 *info3b);
 double				rt_math_lambertian(t_hit *hit, t_light *light);
+double				rt_math_solution_sphere(double a, double b, double c);
+double				rt_math_solution_cylinder(double a, double b, double c,
+						int max_solution);
 void				rt_info3_add(t_info3 *info3a, t_info3 *info3b);
 void				rt_info3_mul(t_info3 *info3a, t_info3 *info3b);
 t_info3				*rt_info3_diff(t_info3 *info3a, t_info3 *info3b);
@@ -208,10 +211,11 @@ t_info3				*rt_image_rotation_xyz(double x, double y, double z,
 						t_info3 *vec);
 void				rt_image_adjustray(t_rt *rt, t_scn *scn, t_cam *cam,
 						t_ray *ray);
-double				rt_image_rgbtoi(t_info3 *color);
+void				rt_image_getorigin(t_info3 *hit_ori, t_ray *ray,
+						double solution);
 double				rt_image_getdistance(t_info3 *hit_ori, t_info3 *light_ori);
 t_info3				*rt_image_getintensity(t_info3 *color, double intens);
-void				rt_image_getmessage(t_rt *rt, t_scn *scn);
+double				rt_image_rgbtoi(t_info3 *color);
 double				rt_image_tryhit_sphere(t_ray *ray, t_obj *obj);
 void				rt_image_gethitpoint_sphere(t_hit *hit, t_ray *ray,
 						t_obj *obj_hit);
@@ -221,6 +225,10 @@ void				rt_image_gethitpoint_plane(t_hit *hit, t_ray *ray,
 t_info3				*rt_image_getnormal_plane(t_ray *ray, t_obj *obj);
 double				rt_image_tryhit_square(t_hit *hit, t_ray *ray, t_obj *obj);
 void				rt_image_gethitpoint_square(t_hit *hit, t_ray *ray,
+						t_obj *obj_hit);
+double				rt_image_tryhit_cylinder(t_hit *hit, t_ray *ray,
+						t_obj *obj);
+void				rt_image_gethitpoint_cylinder(t_hit *hit, t_ray *ray,
 						t_obj *obj_hit);
 
 int					rt_keys(int key, t_rt *rt);

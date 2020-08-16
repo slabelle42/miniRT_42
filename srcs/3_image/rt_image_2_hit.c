@@ -20,8 +20,8 @@ double		rt_image_tryhit(t_hit *hit, t_ray *ray, t_obj *obj)
 		return (rt_image_tryhit_plane(ray, obj));
 	if (obj->type == 'q')
 		return (rt_image_tryhit_square(hit, ray, obj));
-// 	if (obj->type == 'y')
-// 		return (rt_image_tryhit_cylinder(ray, obj));
+ 	if (obj->type == 'y')
+ 		return (rt_image_tryhit_cylinder(hit, ray, obj));
 // 	if (obj->type == 't')
 // 		return (rt_image_tryhit_triangle(ray, obj));
 	return (1000000.0);

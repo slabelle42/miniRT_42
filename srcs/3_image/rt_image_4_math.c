@@ -48,3 +48,38 @@ double		rt_math_lambertian(t_hit *hit, t_light *light)
 	intens *= light->intens;
 	return (intens);
 }
+
+double		rt_math_solution_sphere(double a, double b, double c)
+{
+	double	delta;
+	double	solution1;
+	double	solution2;
+
+	delta = b * b - 4 * a * c;
+	if (delta < 0)
+		return (-1);
+	solution1 = (-b - sqrt(delta)) / (2 * a);
+	solution2 = (-b + sqrt(delta)) / (2 * a);
+	if (solution2 < 0)
+		return (-1);
+	if (solution1 > 0)
+		return (solution1);
+	return (solution2);
+}
+
+double		rt_math_solution_cylinder(double a, double b, double c,
+				int max_solution)
+{
+	double	delta;
+	double	solution1;
+	double	solution2;
+
+	delta = b * b - 4 * a * c;
+	if (delta < 0)
+		return (-1);
+	solution1 = (-b - sqrt(delta)) / (2 * a);
+	solution2 = (-b + sqrt(delta)) / (2 * a);
+	if (max_solution)
+		return (solution1 <= solution2 ? solution1 : solution2);
+	return (solution1 >= solution2 ? solution1 : solution2);
+}

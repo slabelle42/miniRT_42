@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_image_2_plane.c                                 :+:      :+:    :+:   */
+/*   rt_image_12_plane.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -53,9 +53,7 @@ void			rt_image_gethitpoint_plane(t_hit *hit, t_ray *ray,
 	t_info3		*norm;
 
 	solution = rt_image_tryhit_plane(ray, obj_hit);
-	hit->ori->x_r = ray->ori->x_r + ray->dir->x_r * solution;
-	hit->ori->y_g = ray->ori->y_g + ray->dir->y_g * solution;
-	hit->ori->z_b = ray->ori->z_b + ray->dir->z_b * solution;
+	rt_image_getorigin(hit->ori, ray, solution);
 	norm = rt_image_getnormal_plane(ray, obj_hit);
 	rt_copy_info3(norm, hit->norm);
 	free(norm);
