@@ -90,6 +90,8 @@ void		rt_window(t_rt *rt, t_scn *scn, int start)
 		rt->loop = 1;
 		ft_putstr_fd("--> Camera ", 1);
 		ft_putnbr_fd(scn->cam_current, 1);
+		ft_putstr_fd("/", 1);
+		ft_putnbr_fd(scn->cam_nb, 1);
 		ft_putendl_fd(" is displayed", 1);
 	}
 	if (start)
