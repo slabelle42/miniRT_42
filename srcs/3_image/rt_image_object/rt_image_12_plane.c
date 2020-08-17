@@ -14,20 +14,16 @@
 
 t_info3			*rt_image_getnormal_plane(t_ray *ray, t_obj *obj)
 {
-	t_info3		*norm_rot;
-	t_info3		*norm_inv;
+	t_info3		*norm;
 
-	norm_rot = rt_image_rotation_xyz(0.0, 0.0, 1.0, obj->vec);
-	if (rt_math_cosine(norm_rot, ray->dir) > 0)
+	norm = rt_image_rotation_xyz(0.0, 0.0, 1.0, obj->vec);
+	if (rt_math_cosine(norm, ray->dir) > 0)
 	{
-		norm_inv = rt_init_info3();
-		rt_fill_info3(norm_inv, -1.0, -1.0, -1.0);
-		rt_info3_mul(norm_inv, norm_rot);
-		free(norm_rot);
-		return (norm_inv);
+		norm->x_r *= -1.0;
+		norm->y_g *= -1.0;
+		norm->z_b *= -1.0;
 	}
-	else
-		return (norm_rot);
+	return (norm);
 }
 
 double			rt_image_tryhit_plane(t_ray *ray, t_obj *obj)
