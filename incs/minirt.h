@@ -83,7 +83,9 @@ typedef struct		s_obj
 	char			type;
 	t_info3			*ori;
 	t_info3			*vec;
-	t_info3			*tri;
+	t_info3			*a;
+	t_info3			*b;
+	t_info3			*c;
 	double			size1;
 	double			size2;
 	t_info3			*color;
@@ -229,6 +231,10 @@ void				rt_image_gethitpoint_square(t_hit *hit, t_ray *ray,
 double				rt_image_tryhit_cylinder(t_hit *hit, t_ray *ray,
 						t_obj *obj);
 void				rt_image_gethitpoint_cylinder(t_hit *hit, t_ray *ray,
+						t_obj *obj_hit);
+double				rt_image_tryhit_triangle(t_hit *hit, t_ray *ray,
+						t_obj *obj);
+void				rt_image_gethitpoint_triangle(t_hit *hit, t_ray *ray,
 						t_obj *obj_hit);
 
 int					rt_keys(int key, t_rt *rt);

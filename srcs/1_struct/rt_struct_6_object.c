@@ -21,7 +21,9 @@ t_obj		*rt_init_object(void)
 	obj->type = 'x';
 	obj->ori = rt_init_info3();
 	obj->vec = rt_init_info3();
-	obj->tri = rt_init_info3();
+	obj->a = rt_init_info3();
+	obj->b = rt_init_info3();
+	obj->c = rt_init_info3();
 	obj->size1 = 0.0;
 	obj->size2 = 0.0;
 	obj->color = rt_init_info3();
@@ -55,7 +57,9 @@ static void	rt_delone_object(t_obj *obj)
 	{
 		free(obj->ori);
 		free(obj->vec);
-		free(obj->tri);
+		free(obj->a);
+		free(obj->b);
+		free(obj->c);
 		free(obj->color);
 		free(obj);
 	}

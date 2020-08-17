@@ -45,7 +45,9 @@ static void	rt_parse_correct(t_rt *rt)
 	need_correct = 0;
 	while (obj)
 	{
-		if (obj->type == 'p' || obj->type == 'y')
+		if (obj->type == 'p'
+			|| obj->type == 'y'
+			|| obj->type == 't')
 			need_correct = 1;
 		obj = obj->next;
 	}

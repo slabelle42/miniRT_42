@@ -117,11 +117,11 @@ void		rt_parse_triangle(t_rt *rt, t_obj **objs, char *line)
 	rt->i = 2;
 	obj->type = 't';
 	rt_parse_move(rt, line);
-	rt_parse_info3(rt, obj->ori, line);
+	rt_parse_info3(rt, obj->a, line);
 	rt_parse_move(rt, line);
-	rt_parse_info3(rt, obj->vec, line);
+	rt_parse_info3(rt, obj->b, line);
 	rt_parse_move(rt, line);
-	rt_parse_info3(rt, obj->tri, line);
+	rt_parse_info3(rt, obj->c, line);
 	rt_parse_move(rt, line);
 	rt_parse_info3(rt, obj->color, line);
 	rt_parse_colorlimits(rt, obj->color);

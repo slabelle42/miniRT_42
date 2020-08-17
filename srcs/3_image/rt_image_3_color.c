@@ -87,8 +87,8 @@ static void		rt_image_gethitpoint(t_hit *hit, t_ray *ray, t_obj *obj_hit)
 		rt_image_gethitpoint_square(hit, ray, obj_hit);
 	if (obj_hit->type == 'y')
 		rt_image_gethitpoint_cylinder(hit, ray, obj_hit);
-// 	if (obj_hit->type == 't')
-// 		rt_image_gethitpoint_triangle(hit, ray, obj_hit);
+	if (obj_hit->type == 't')
+		rt_image_gethitpoint_triangle(hit, ray, obj_hit);
 }
 
 t_info3			*rt_image_getcolor(t_scn *scn, t_amb *amb, t_hit *hit,
