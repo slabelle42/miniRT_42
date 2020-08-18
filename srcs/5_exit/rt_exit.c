@@ -20,15 +20,9 @@ static void	rt_exit_displayerror(int error_nb, char *message)
 	ft_putendl_fd(message, 1);
 }
 
-static char	*rt_exit_getmessage(int error_nb)
+static char	*rt_exit_getmore(int error_nb)
 {
-	if (error_nb == ERR_AC)
-		return ("wrong number of arguments :'(");
-	else if (error_nb == ERR_FILE_RT)
-		return ("wrong file type :'( I need a .rt file");
-	else if (error_nb == ERR_FILE_UNKN)
-		return ("wrong file name :'( I can't find it");
-	else if (error_nb == ERR_ELEM_UNIQ)
+	if (error_nb == ERR_ELEM_UNIQ)
 		return ("R and A elements must be unique :o");
 	else if (error_nb == ERR_ELEM_UNKN)
 		return ("unknown element in .rt file :/");
@@ -46,7 +40,20 @@ static char	*rt_exit_getmessage(int error_nb)
 		return ("unknown value, sh must be set to 0 :o");
 	else if (error_nb == ERR_MALLOC)
 		return ("malloc fail D:");
+	else if (error_nb == ERR_MLX)
+		return ("minilibx fail D:");
 	return ("not specified... yet ;)");
+}
+
+static char	*rt_exit_getmessage(int error_nb)
+{
+	if (error_nb == ERR_AC)
+		return ("wrong number of arguments :'(");
+	else if (error_nb == ERR_FILE_RT)
+		return ("wrong file type :'( I need a .rt file");
+	else if (error_nb == ERR_FILE_UNKN)
+		return ("wrong file name :'( I can't find it");
+	return (rt_exit_getmore(error_nb));
 }
 
 void		rt_exit(int error_nb)

@@ -48,16 +48,22 @@ static void	rt_image_scan(t_rt *rt, t_scn *scn, t_hit *hit, t_cam *cam)
 	}
 }
 
-static void	rt_image_init(t_rt *rt, t_scn *scn, t_img *img)
+static void	rt_image_init(t_rt *rt, t_scn *scn, t_img *img, int start)
 {
 	int		max_x;
 	int		max_y;
 
-	rt->mlx_ptr = mlx_init();
-	img->img = mlx_new_image(
-		rt->mlx_ptr, scn->win_x, scn->win_y);
-	img->addr = mlx_get_data_addr(
-		img->img, &img->bits_per_pixel, &img->line_length, &img->endian);
+	if (start)
+	{
+		if (!(rt->mlx_ptr = mlx_init()))
+			rt_exit(ERR_MLX);
+	}
+	if (!(img->img = mlx_new_image(
+		rt->mlx_ptr, scn->win_x, scn->win_y)))
+		rt_exit(ERR_MLX);
+	if (!(img->addr = mlx_get_data_addr(
+		img->img, &img->bits_per_pixel, &img->line_length, &img->endian)))
+		rt_exit(ERR_MLX);
 	mlx_get_screen_size(
 		rt->mlx_ptr, &max_x, &max_y);
 	if (scn->win_x > max_x)
@@ -71,7 +77,7 @@ void		rt_image(t_rt *rt, t_cam **cams, int start)
 	t_cam	*cam;
 
 	(rt->scn->cam_current)++;
-	rt_image_init(rt, rt->scn, rt->img);
+	rt_image_init(rt, rt->scn, rt->img, start);
 	rt->i = 1;
 	cam = *cams;
 	while ((rt->i)++ < rt->scn->cam_current)
@@ -99,8 +105,9 @@ void		rt_window(t_rt *rt, t_scn *scn, int start)
 		ft_putendl_fd("[ Commands: ESC = quit, C = change camera ]", 1);
 		if (scn->amb->intens == 0)
 			ft_putendl_fd("\n  /!\\  Ambient light intensity is 0\n", 1);
-		rt->win_ptr = mlx_new_window(rt->mlx_ptr, scn->win_x, scn->win_y,
-			rt->file->name);
+		if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, scn->win_x, scn->win_y,
+			rt->file->name)))
+			rt_exit(ERR_MLX);
 		mlx_hook(rt->win_ptr, 2, 1L << 0, rt_keys, rt);
 		mlx_hook(rt->win_ptr, 17, 1L << 17, rt_quit, rt);
 		mlx_hook(rt->win_ptr, 12, 1L << 15, rt_loop, rt);

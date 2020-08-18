@@ -12,7 +12,7 @@
 
 #include "minirt.h"
 
-int		rt_keys(int key, t_rt *rt)
+int			rt_keys(int key, t_rt *rt)
 {
 	if (key == KEYLINUX_ESC || key == KEYMAC_ESC)
 		return (rt_quit(rt));
@@ -34,15 +34,21 @@ int		rt_keys(int key, t_rt *rt)
 	return (0);
 }
 
-int		rt_quit(t_rt *rt)
+static void	rt_mlxdestroy(void *mlx_ptr, void *win_ptr)
 {
-	mlx_destroy_window(rt->mlx_ptr, rt->win_ptr);
-	clear_rt(&rt, rt->scn, rt->hit);
+	mlx_destroy_window(mlx_ptr, win_ptr);
+	free(mlx_ptr);
+}
+
+int			rt_quit(t_rt *rt)
+{
+	rt_mlxdestroy(rt->mlx_ptr, rt->win_ptr);
+	clear_rt(&rt, rt->scn);
 	rt_exit(0);
 	return (0);
 }
 
-int		rt_loop(t_rt *rt)
+int			rt_loop(t_rt *rt)
 {
 	(rt->scn->cam_current)--;
 	rt_image(rt, &rt->scn->cams, 0);

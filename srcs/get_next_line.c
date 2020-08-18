@@ -28,19 +28,19 @@ static char		*join_buffer(char *save, char *buffer)
 	size_t			len;
 	char			*join;
 
-	len_buffer = gnl_strlen(buffer);
+	len_buffer = ft_strlen(buffer);
 	len_save = 0;
 	if (save)
-		len_save = gnl_strlen(save);
+		len_save = ft_strlen(save);
 	len = len_buffer + len_save;
-	if (!(join = malloc(sizeof(char) * (len + 1))))
+	if (!(join = ft_memalloc(len + 1)))
 		return (NULL);
 	if (save)
 	{
-		gnl_strlcpy(join, save, (len_save + 1));
+		ft_strlcpy(join, save, (len_save + 1));
 		free_and_null(&save);
 	}
-	gnl_strlcpy((join + len_save), buffer, (len_buffer + 1));
+	ft_strlcpy((join + len_save), buffer, (len_buffer + 1));
 	return (join);
 }
 
@@ -51,12 +51,12 @@ static int		line_saved(char **save, char **line)
 	size_t			len;
 
 	found = NULL;
-	if ((found = gnl_strchr(*save, '\n')))
+	if ((found = ft_strchr(*save, '\n')))
 	{
 		end = found - *save;
-		len = gnl_strlen(found);
-		*line = gnl_substr(*save, 0, end);
-		gnl_strlcpy(*save, (found + 1), (len + 1));
+		len = ft_strlen(found);
+		*line = ft_substr(*save, 0, end);
+		ft_strlcpy(*save, (found + 1), (len + 1));
 		return (1);
 	}
 	return (0);
@@ -82,9 +82,7 @@ int				get_next_line(int fd, char **line)
 			return (1);
 	}
 	if (save[fd] && *save[fd])
-		*line = gnl_strdup(save[fd]);
-	else if (nbytes == 0)
-		*line = gnl_strdup("");
+		*line = ft_strdup(save[fd]);
 	free_and_null(&save[fd]);
 	return (nbytes);
 }

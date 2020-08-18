@@ -21,12 +21,8 @@
 # include <string.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include "libft.h"
 
 int		get_next_line(int fd, char **line);
-char	*gnl_strchr(char const *s, int c);
-size_t	gnl_strlen(const char *str);
-char	*gnl_substr(char const *s, unsigned int start, size_t len);
-size_t	gnl_strlcpy(char *dst, const char *src, size_t size);
-char	*gnl_strdup(const char *src);
 
 #endif

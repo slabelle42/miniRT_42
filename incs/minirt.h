@@ -29,7 +29,8 @@
 # define ERR_INFO_DIGIT	-9
 # define ERR_LIMIT		-10
 # define ERR_SHAD		-11
-# define ERR_MALLOC		-99
+# define ERR_MALLOC		-12
+# define ERR_MLX		-13
 
 # include <fcntl.h>
 # include <math.h>
@@ -142,7 +143,7 @@ typedef struct		s_rt
 	int				loop;
 }					t_rt;
 
-void				clear_rt(t_rt **rt, t_scn *scn, t_hit *hit);
+void				clear_rt(t_rt **rt, t_scn *scn);
 
 t_file				*rt_init_file(void);
 t_info3				*rt_init_info3(void);

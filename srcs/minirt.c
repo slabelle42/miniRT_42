@@ -12,13 +12,24 @@
 
 #include "minirt.h"
 
-void		clear_rt(t_rt **rt, t_scn *scn, t_hit *hit)
+static void	clear_rt_structs(t_rt *rt)
+{
+	free(rt->file);
+	rt_clear_hit(rt->hit);
+	free(rt->img);
+}
+
+void		clear_rt(t_rt **rt, t_scn *scn)
 {
 	if (rt && *rt)
 	{
-		rt_clear_scene_elements(scn->amb, scn->cams, scn->lights, scn->objs);
+		clear_rt_structs(*rt);
+		rt_clear_scene_elements(
+			scn->amb,
+			scn->cams,
+			scn->lights,
+			scn->objs);
 		rt_clear_scene(&scn);
-		rt_clear_hit(hit);
 		free(*rt);
 	}
 }

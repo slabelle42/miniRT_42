@@ -6,6 +6,7 @@ FLAGL = -lm -lbsd -lX11 -lXext -Llibs -lft
 
 SRCS_DIR = srcs/
 SRCS = srcs/minirt.c
+SRCS += srcs/get_next_line.c
 SRCS += srcs/1_struct/rt_struct_1_file.c
 SRCS += srcs/1_struct/rt_struct_2_info3.c
 SRCS += srcs/1_struct/rt_struct_3_ambiance.c
@@ -34,8 +35,6 @@ SRCS += srcs/3_image/rt_image_object/rt_image_14_cylinder.c
 SRCS += srcs/3_image/rt_image_object/rt_image_15_triangle.c
 SRCS += srcs/4_keys/rt_keys.c
 SRCS += srcs/5_exit/rt_exit.c
-SRCS += srcs/get_next_line/get_next_line.c
-SRCS += srcs/get_next_line/get_next_line_utils.c
 
 OBJS = ${SRCS:.c=.o}
 
