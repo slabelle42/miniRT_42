@@ -12,14 +12,6 @@
 
 #include "minirt.h"
 
-void		rt_parse_exit(t_rt *rt, int error_nb)
-{
-	ft_putstr_fd("( Stop on line ", 1);
-	ft_putnbr_fd(rt->file->line_nb, 1);
-	ft_putendl_fd(" )", 1);
-	rt_exit(error_nb);
-}
-
 void		rt_parse_colorlimits(t_rt *rt, t_info3 *color)
 {
 	if (color->x_r < 0 || color->x_r > 255
@@ -65,4 +57,15 @@ void		rt_parse_checks(t_rt *rt)
 		|| !rt->scn->objs)
 		rt_exit(ERR_ELEM_MISS);
 	rt_parse_correct(rt);
+}
+
+void		rt_parse_exit(t_rt *rt, int error_nb)
+{
+	free(rt->file->line);
+	close(rt->file->fd);
+	ft_putstr_fd("( Stop on line ", 1);
+	ft_putnbr_fd(rt->file->line_nb, 1);
+	ft_putendl_fd(" )", 1);
+	clear_rt(&rt, rt->scn);
+	rt_exit(error_nb);
 }

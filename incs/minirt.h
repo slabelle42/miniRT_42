@@ -185,10 +185,10 @@ void				rt_parse_move(t_rt *rt, char *line);
 int					rt_parse_atoi(t_rt *rt, char *line);
 double				rt_parse_atod(t_rt *rt, char *line);
 void				rt_parse_info3(t_rt *rt, t_info3 *info3, char *line);
-void				rt_parse_exit(t_rt *rt, int error_nb);
 void				rt_parse_colorlimits(t_rt *rt, t_info3 *color);
 void				rt_parse_veclimits(t_rt *rt, t_info3 *vec);
 void				rt_parse_checks(t_rt *rt);
+void				rt_parse_exit(t_rt *rt, int error_nb);
 
 void				rt_image(t_rt *rt, t_cam **cams, int start);
 void				rt_window(t_rt *rt, t_scn *scn, int start);

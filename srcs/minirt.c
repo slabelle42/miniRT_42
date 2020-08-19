@@ -60,7 +60,6 @@ static void	minirt(char *file_name, int fd)
 	rt->file->name = file_name;
 	rt->file->fd = fd;
 	rt_parse(rt, rt->file);
-	close(fd);
 	ft_putstr_fd("Parsing ended successfully ^^ Loading image... ", 1);
 	rt_image(rt, &rt->scn->cams, 1);
 }

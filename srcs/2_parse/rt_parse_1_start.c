@@ -58,5 +58,6 @@ void		rt_parse(t_rt *rt, t_file *file)
 		rt_parse_line(rt, file->line);
 		free(file->line);
 	}
+	close(file->fd);
 	rt_parse_checks(rt);
 }
