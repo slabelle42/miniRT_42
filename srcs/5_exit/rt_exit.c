@@ -40,6 +40,8 @@ static char	*rt_exit_getmore(int error_nb)
 		return ("unknown value, sh must be set to 0 :o");
 	else if (error_nb == ERR_MALLOC)
 		return ("malloc fail D:");
+	else if (error_nb == ERR_GNL)
+		return ("get_next_line fail D:");
 	else if (error_nb == ERR_MLX)
 		return ("minilibx fail D:");
 	return ("not specified... yet ;)");
@@ -72,10 +74,12 @@ void		rt_exit(int error_nb)
 
 void		rt_exit_parse(t_rt *rt, int error_nb)
 {
-	free(rt->file->line);
+	if (rt->file->line)
+		free(rt->file->line);
 	close(rt->file->fd);
 	ft_putstr_fd("( Stop on line ", 1);
 	ft_putnbr_fd(rt->file->line_nb, 1);
 	ft_putendl_fd(" )", 1);
+	clear_rt(&rt, rt->scn);
 	rt_exit(error_nb);
 }

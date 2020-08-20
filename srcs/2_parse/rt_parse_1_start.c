@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/07/24 13:02:29 by slabelle          #+#    #+#             */
-/*   Updated: 2020/07/24 13:02:58 by slabelle         ###   ########.fr       */
+/*   Created: 2020/07/24 13:01:53 by slabelle          #+#    #+#             */
+/*   Updated: 2020/07/24 13:03:01 by slabelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void		rt_parse(t_rt *rt, t_file *file)
 		rt_parse_line(rt, file->line);
 		free(file->line);
 	}
+	if (file->ret == -1)
+		rt_exit_parse(rt, ERR_GNL);
 	close(file->fd);
 	rt_parse_checks(rt);
 }

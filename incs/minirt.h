@@ -30,7 +30,8 @@
 # define ERR_LIMIT		-10
 # define ERR_SHAD		-11
 # define ERR_MALLOC		-12
-# define ERR_MLX		-13
+# define ERR_GNL		-13
+# define ERR_MLX		-14
 
 # include <fcntl.h>
 # include <math.h>

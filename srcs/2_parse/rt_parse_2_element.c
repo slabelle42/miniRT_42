@@ -53,9 +53,10 @@ void		rt_parse_camera(t_rt *rt, t_cam **cams, char *line)
 	rt_parse_info3(rt, cam->vec, line);
 	rt_parse_veclimits(rt, cam->vec);
 	rt_parse_move(rt, line);
-	cam->fov = rt_parse_atoi(rt, line) * M_PI / 180;
+	cam->fov = rt_parse_atoi(rt, line);
 	if (cam->fov < 0 || cam->fov > 180)
 		rt_exit_parse(rt, ERR_LIMIT);
+	cam->fov *= M_PI / 180;
 	cam = NULL;
 	(rt->scn->cam_nb)++;
 }
