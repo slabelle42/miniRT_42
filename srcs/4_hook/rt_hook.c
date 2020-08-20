@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rt_keys.c                                          :+:      :+:    :+:   */
+/*   rt_hook.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: slabelle <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -11,6 +11,14 @@
 /* ************************************************************************** */
 
 #include "minirt.h"
+
+void		rt_hook(t_rt *rt)
+{
+	mlx_hook(rt->win_ptr, 2, 1L << 0, rt_keys, rt);
+	mlx_hook(rt->win_ptr, 17, 1L << 17, rt_quit, rt);
+	mlx_hook(rt->win_ptr, 12, 1L << 15, rt_loop, rt);
+	mlx_loop(rt->mlx_ptr);
+}
 
 int			rt_keys(int key, t_rt *rt)
 {
@@ -25,24 +33,24 @@ int			rt_keys(int key, t_rt *rt)
 		}
 		else if (rt->scn->cam_nb > 1)
 		{
-			rt->loop = 0;
-			if (rt->scn->cam_current == rt->scn->cam_nb)
-				rt->scn->cam_current = 0;
+			if (rt->img->img)
+				mlx_destroy_image(rt->mlx_ptr, rt->img->img);
+			(rt->scn->cam_current)++;
+			if (rt->scn->cam_current > rt->scn->cam_nb)
+				rt->scn->cam_current = 1;
 			rt_image(rt, &rt->scn->cams, 0);
 		}
 	}
 	return (0);
 }
 
-static void	rt_mlxdestroy(void *mlx_ptr, void *win_ptr)
-{
-	mlx_destroy_window(mlx_ptr, win_ptr);
-	free(mlx_ptr);
-}
-
 int			rt_quit(t_rt *rt)
 {
-	rt_mlxdestroy(rt->mlx_ptr, rt->win_ptr);
+	if (rt->img->img)
+		mlx_destroy_image(rt->mlx_ptr, rt->img->img);
+	if (rt->win_ptr)
+		mlx_destroy_window(rt->mlx_ptr, rt->win_ptr);
+	free(rt->mlx_ptr);
 	clear_rt(&rt, rt->scn);
 	rt_exit(0);
 	return (0);
@@ -50,7 +58,8 @@ int			rt_quit(t_rt *rt)
 
 int			rt_loop(t_rt *rt)
 {
-	(rt->scn->cam_current)--;
-	rt_image(rt, &rt->scn->cams, 0);
+	if (rt->img->img)
+		mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->img->img, 0, 0);
+	mlx_hook(rt->win_ptr, 12, 1L << 15, rt_loop, rt);
 	return (0);
 }

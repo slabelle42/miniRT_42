@@ -55,12 +55,18 @@ static void	rt_delone_object(t_obj *obj)
 {
 	if (obj)
 	{
-		free(obj->ori);
-		free(obj->vec);
-		free(obj->a);
-		free(obj->b);
-		free(obj->c);
-		free(obj->color);
+		if (obj->ori)
+			free(obj->ori);
+		if (obj->vec)
+			free(obj->vec);
+		if (obj->a)
+			free(obj->a);
+		if (obj->b)
+			free(obj->b);
+		if (obj->c)
+			free(obj->c);
+		if (obj->color)
+			free(obj->color);
 		free(obj);
 	}
 }

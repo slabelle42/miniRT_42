@@ -25,7 +25,7 @@ static void	rt_parse_objects(t_rt *rt, char *line)
 	else if (line[0] == 't' && line[1] == 'r')
 		rt_parse_triangle(rt, &rt->scn->objs, line);
 	else
-		rt_parse_exit(rt, ERR_ELEM_UNKN);
+		rt_exit_parse(rt, ERR_ELEM_UNKN);
 }
 
 static void	rt_parse_line(t_rt *rt, char *line)
@@ -35,11 +35,11 @@ static void	rt_parse_line(t_rt *rt, char *line)
 	else if (line[0] == 'R' && rt->scn->win_x < 0 && rt->scn->win_y < 0)
 		rt_parse_resolution(rt, rt->scn, line);
 	else if (line[0] == 'R')
-		rt_parse_exit(rt, ERR_ELEM_UNIQ);
+		rt_exit_parse(rt, ERR_ELEM_UNIQ);
 	else if (line[0] == 'A' && rt->scn->amb->intens < 0)
 		rt_parse_ambiance(rt, rt->scn->amb, line);
 	else if (line[0] == 'A')
-		rt_parse_exit(rt, ERR_ELEM_UNIQ);
+		rt_exit_parse(rt, ERR_ELEM_UNIQ);
 	else if (line[0] == 'c' && line[1] != 'y')
 		rt_parse_camera(rt, &rt->scn->cams, line);
 	else if (line[0] == 'l')

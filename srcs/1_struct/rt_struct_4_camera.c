@@ -49,8 +49,10 @@ static void	rt_delone_camera(t_cam *cam)
 {
 	if (cam)
 	{
-		free(cam->ori);
-		free(cam->vec);
+		if (cam->ori)
+			free(cam->ori);
+		if (cam->vec)
+			free(cam->vec);
 		free(cam);
 	}
 }

@@ -12,6 +12,26 @@
 
 #include "minirt.h"
 
+static void	rt_image_towindow(t_rt *rt, t_scn *scn, int start)
+{
+	ft_putstr_fd("--> Camera ", 1);
+	ft_putnbr_fd(scn->cam_current, 1);
+	ft_putstr_fd("/", 1);
+	ft_putnbr_fd(scn->cam_nb, 1);
+	ft_putendl_fd(" is displayed", 1);
+	if (start)
+	{
+		ft_putendl_fd("[ Commands: ESC = quit, C = change camera ]", 1);
+		if (scn->amb->intens == 0)
+			ft_putendl_fd("\n  /!\\  Ambient light intensity is 0\n", 1);
+		if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, scn->win_x, scn->win_y,
+			rt->file->name)))
+			rt_exit(ERR_MLX);
+		rt_hook(rt);
+	}
+	mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->img->img, 0, 0);
+}
+
 static void	rt_image_pixeltoimage(t_rt *rt, t_scn *scn, t_img *img,
 				t_info3 *pixel_color)
 {
@@ -76,7 +96,6 @@ void		rt_image(t_rt *rt, t_cam **cams, int start)
 {
 	t_cam	*cam;
 
-	(rt->scn->cam_current)++;
 	rt_image_init(rt, rt->scn, rt->img, start);
 	rt->i = 1;
 	cam = *cams;
@@ -86,33 +105,5 @@ void		rt_image(t_rt *rt, t_cam **cams, int start)
 	cam = NULL;
 	if (start)
 		ft_putendl_fd("done!", 1);
-	rt_window(rt, rt->scn, start);
-}
-
-void		rt_window(t_rt *rt, t_scn *scn, int start)
-{
-	if (!rt->loop)
-	{
-		rt->loop = 1;
-		ft_putstr_fd("--> Camera ", 1);
-		ft_putnbr_fd(scn->cam_current, 1);
-		ft_putstr_fd("/", 1);
-		ft_putnbr_fd(scn->cam_nb, 1);
-		ft_putendl_fd(" is displayed", 1);
-	}
-	if (start)
-	{
-		ft_putendl_fd("[ Commands: ESC = quit, C = change camera ]", 1);
-		if (scn->amb->intens == 0)
-			ft_putendl_fd("\n  /!\\  Ambient light intensity is 0\n", 1);
-		if (!(rt->win_ptr = mlx_new_window(rt->mlx_ptr, scn->win_x, scn->win_y,
-			rt->file->name)))
-			rt_exit(ERR_MLX);
-		mlx_hook(rt->win_ptr, 2, 1L << 0, rt_keys, rt);
-		mlx_hook(rt->win_ptr, 17, 1L << 17, rt_quit, rt);
-		mlx_hook(rt->win_ptr, 12, 1L << 15, rt_loop, rt);
-		mlx_loop(rt->mlx_ptr);
-	}
-	mlx_put_image_to_window(rt->mlx_ptr, rt->win_ptr, rt->img->img, 0, 0);
-	mlx_destroy_image(rt->mlx_ptr, rt->img->img);
+	rt_image_towindow(rt, rt->scn, start);
 }

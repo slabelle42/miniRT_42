@@ -27,8 +27,10 @@ void		rt_clear_ray(t_ray *ray)
 {
 	if (ray)
 	{
-		free(ray->ori);
-		free(ray->dir);
+		if (ray->ori)
+			free(ray->ori);
+		if (ray->dir)
+			free(ray->dir);
 		free(ray);
 	}
 }
@@ -53,9 +55,12 @@ void		rt_clear_hit(t_hit *hit)
 	{
 		rt_clear_ray(hit->ray_light);
 		rt_clear_ray(hit->ray_shad);
-		free(hit->ori);
-		free(hit->norm);
-		free(hit->color);
+		if (hit->ori)
+			free(hit->ori);
+		if (hit->norm)
+			free(hit->norm);
+		if (hit->color)
+			free(hit->color);
 		free(hit);
 	}
 }

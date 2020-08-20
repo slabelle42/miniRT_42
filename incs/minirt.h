@@ -140,7 +140,6 @@ typedef struct		s_rt
 	void			*win_ptr;
 	int				i;
 	int				j;
-	int				loop;
 }					t_rt;
 
 void				clear_rt(t_rt **rt, t_scn *scn);
@@ -188,10 +187,8 @@ void				rt_parse_info3(t_rt *rt, t_info3 *info3, char *line);
 void				rt_parse_colorlimits(t_rt *rt, t_info3 *color);
 void				rt_parse_veclimits(t_rt *rt, t_info3 *vec);
 void				rt_parse_checks(t_rt *rt);
-void				rt_parse_exit(t_rt *rt, int error_nb);
 
 void				rt_image(t_rt *rt, t_cam **cams, int start);
-void				rt_window(t_rt *rt, t_scn *scn, int start);
 t_obj				*rt_image_getobjhit(t_scn *scn, t_hit *hit);
 double				rt_image_tryhit(t_hit *hit, t_ray *ray, t_obj *obj);
 t_info3				*rt_image_getcolor(t_scn *scn, t_amb *amb, t_hit *hit,
@@ -238,10 +235,12 @@ double				rt_image_tryhit_triangle(t_hit *hit, t_ray *ray,
 void				rt_image_gethitpoint_triangle(t_hit *hit, t_ray *ray,
 						t_obj *obj_hit);
 
+void				rt_hook(t_rt *rt);
 int					rt_keys(int key, t_rt *rt);
 int					rt_quit(t_rt *rt);
 int					rt_loop(t_rt *rt);
 
 void				rt_exit(int error_nb);
+void				rt_exit_parse(t_rt *rt, int error_nb);
 
 #endif

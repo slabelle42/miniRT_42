@@ -23,7 +23,7 @@ t_scn		*rt_init_scene(void)
 	scn->amb = rt_init_ambiance();
 	scn->cams = NULL;
 	scn->cam_nb = 0;
-	scn->cam_current = 0;
+	scn->cam_current = 1;
 	scn->lights = NULL;
 	scn->objs = NULL;
 	scn->is_shad = 1;

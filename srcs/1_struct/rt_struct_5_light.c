@@ -49,8 +49,10 @@ static void	rt_delone_light(t_light *light)
 {
 	if (light)
 	{
-		free(light->ori);
-		free(light->color);
+		if (light->ori)
+			free(light->ori);
+		if (light->color)
+			free(light->color);
 		free(light);
 	}
 }

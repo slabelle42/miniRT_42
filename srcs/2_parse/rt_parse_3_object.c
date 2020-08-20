@@ -17,7 +17,7 @@ void		rt_parse_sphere(t_rt *rt, t_obj **objs, char *line)
 	t_obj	*obj;
 
 	if (rt_add_object(objs, rt_init_object()) < 0)
-		rt_parse_exit(rt, ERR_MALLOC);
+		rt_exit_parse(rt, ERR_MALLOC);
 	obj = *objs;
 	while (obj->next)
 		obj = obj->next;
@@ -38,7 +38,7 @@ void		rt_parse_plane(t_rt *rt, t_obj **objs, char *line)
 	t_obj	*obj;
 
 	if (rt_add_object(objs, rt_init_object()) < 0)
-		rt_parse_exit(rt, ERR_MALLOC);
+		rt_exit_parse(rt, ERR_MALLOC);
 	obj = *objs;
 	while (obj->next)
 		obj = obj->next;
@@ -60,7 +60,7 @@ void		rt_parse_square(t_rt *rt, t_obj **objs, char *line)
 	t_obj	*obj;
 
 	if (rt_add_object(objs, rt_init_object()) < 0)
-		rt_parse_exit(rt, ERR_MALLOC);
+		rt_exit_parse(rt, ERR_MALLOC);
 	obj = *objs;
 	while (obj->next)
 		obj = obj->next;
@@ -84,7 +84,7 @@ void		rt_parse_cylinder(t_rt *rt, t_obj **objs, char *line)
 	t_obj	*obj;
 
 	if (rt_add_object(objs, rt_init_object()) < 0)
-		rt_parse_exit(rt, ERR_MALLOC);
+		rt_exit_parse(rt, ERR_MALLOC);
 	obj = *objs;
 	while (obj->next)
 		obj = obj->next;
@@ -110,7 +110,7 @@ void		rt_parse_triangle(t_rt *rt, t_obj **objs, char *line)
 	t_obj	*obj;
 
 	if (rt_add_object(objs, rt_init_object()) < 0)
-		rt_parse_exit(rt, ERR_MALLOC);
+		rt_exit_parse(rt, ERR_MALLOC);
 	obj = *objs;
 	while (obj->next)
 		obj = obj->next;

@@ -27,7 +27,8 @@ void		rt_clear_ambiance(t_amb *amb)
 {
 	if (amb)
 	{
-		free(amb->color);
+		if (amb->color)
+			free(amb->color);
 		free(amb);
 	}
 }

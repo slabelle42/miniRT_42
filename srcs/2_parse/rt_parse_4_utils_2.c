@@ -17,7 +17,7 @@ void		rt_parse_colorlimits(t_rt *rt, t_info3 *color)
 	if (color->x_r < 0 || color->x_r > 255
 		|| color->y_g < 0 || color->y_g > 255
 		|| color->z_b < 0 || color->z_b > 255)
-		rt_parse_exit(rt, ERR_LIMIT);
+		rt_exit_parse(rt, ERR_LIMIT);
 }
 
 void		rt_parse_veclimits(t_rt *rt, t_info3 *vec)
@@ -25,7 +25,7 @@ void		rt_parse_veclimits(t_rt *rt, t_info3 *vec)
 	if (vec->x_r < -1 || vec->x_r > 1
 		|| vec->y_g < -1 || vec->y_g > 1
 		|| vec->z_b < -1 || vec->z_b > 1)
-		rt_parse_exit(rt, ERR_LIMIT);
+		rt_exit_parse(rt, ERR_LIMIT);
 }
 
 static void	rt_parse_correct(t_rt *rt)
@@ -57,15 +57,4 @@ void		rt_parse_checks(t_rt *rt)
 		|| !rt->scn->objs)
 		rt_exit(ERR_ELEM_MISS);
 	rt_parse_correct(rt);
-}
-
-void		rt_parse_exit(t_rt *rt, int error_nb)
-{
-	free(rt->file->line);
-	close(rt->file->fd);
-	ft_putstr_fd("( Stop on line ", 1);
-	ft_putnbr_fd(rt->file->line_nb, 1);
-	ft_putendl_fd(" )", 1);
-	clear_rt(&rt, rt->scn);
-	rt_exit(error_nb);
 }

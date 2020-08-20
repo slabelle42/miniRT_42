@@ -33,7 +33,7 @@ SRCS += srcs/3_image/rt_image_object/rt_image_12_plane.c
 SRCS += srcs/3_image/rt_image_object/rt_image_13_square.c
 SRCS += srcs/3_image/rt_image_object/rt_image_14_cylinder.c
 SRCS += srcs/3_image/rt_image_object/rt_image_15_triangle.c
-SRCS += srcs/4_keys/rt_keys.c
+SRCS += srcs/4_hook/rt_hook.c
 SRCS += srcs/5_exit/rt_exit.c
 
 OBJS = ${SRCS:.c=.o}

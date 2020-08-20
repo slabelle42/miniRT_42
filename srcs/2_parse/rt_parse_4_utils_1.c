@@ -17,7 +17,7 @@ void			rt_parse_move(t_rt *rt, char *line)
 	while (line[rt->i] == ' ' || line[rt->i] == '\t')
 		(rt->i)++;
 	if (line[rt->i] == '\0')
-		rt_parse_exit(rt, ERR_ELEM_WRG);
+		rt_exit_parse(rt, ERR_ELEM_WRG);
 }
 
 int				rt_parse_atoi(t_rt *rt, char *line)
@@ -34,7 +34,7 @@ int				rt_parse_atoi(t_rt *rt, char *line)
 		}
 		return (nb);
 	}
-	rt_parse_exit(rt, ERR_ELEM_WRG);
+	rt_exit_parse(rt, ERR_ELEM_WRG);
 	return (0);
 }
 
@@ -45,7 +45,7 @@ static double	rt_parse_getfloat(t_rt *rt, char *line)
 
 	(rt->i)++;
 	if (!(ft_isdigit(line[rt->i])))
-		rt_parse_exit(rt, ERR_ELEM_WRG);
+		rt_exit_parse(rt, ERR_ELEM_WRG);
 	f = 0;
 	len = 0;
 	while (ft_isdigit(line[rt->i]))
@@ -55,7 +55,7 @@ static double	rt_parse_getfloat(t_rt *rt, char *line)
 		len++;
 	}
 	if (len > 5)
-		rt_parse_exit(rt, ERR_INFO_DIGIT);
+		rt_exit_parse(rt, ERR_INFO_DIGIT);
 	while (len-- > 0)
 		f *= 0.1;
 	return (f);
@@ -84,7 +84,7 @@ double			rt_parse_atod(t_rt *rt, char *line)
 			nb += rt_parse_getfloat(rt, line);
 		return (sign * nb);
 	}
-	rt_parse_exit(rt, ERR_ELEM_WRG);
+	rt_exit_parse(rt, ERR_ELEM_WRG);
 	return (0);
 }
 
@@ -93,7 +93,7 @@ void			rt_parse_info3(t_rt *rt, t_info3 *info3, char *line)
 	int			info_nb;
 
 	if (!ft_isdigit(line[rt->i]) && line[rt->i] != '-')
-		rt_parse_exit(rt, ERR_ELEM_WRG);
+		rt_exit_parse(rt, ERR_ELEM_WRG);
 	info_nb = 0;
 	while (++info_nb <= 3)
 	{
@@ -107,10 +107,10 @@ void			rt_parse_info3(t_rt *rt, t_info3 *info3, char *line)
 				info3->z_b = rt_parse_atod(rt, line);
 		}
 		else
-			rt_parse_exit(rt, ERR_ELEM_WRG);
+			rt_exit_parse(rt, ERR_ELEM_WRG);
 		if (line[rt->i] == ',')
 			(rt->i)++;
 		else if (info_nb < 3)
-			rt_parse_exit(rt, ERR_ELEM_WRG);
+			rt_exit_parse(rt, ERR_ELEM_WRG);
 	}
 }

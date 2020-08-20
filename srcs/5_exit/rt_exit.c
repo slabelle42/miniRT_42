@@ -69,3 +69,13 @@ void		rt_exit(int error_nb)
 	ft_putendl_fd("Thanks for trying MiniRT :D", 1);
 	exit(0);
 }
+
+void		rt_exit_parse(t_rt *rt, int error_nb)
+{
+	free(rt->file->line);
+	close(rt->file->fd);
+	ft_putstr_fd("( Stop on line ", 1);
+	ft_putnbr_fd(rt->file->line_nb, 1);
+	ft_putendl_fd(" )", 1);
+	rt_exit(error_nb);
+}

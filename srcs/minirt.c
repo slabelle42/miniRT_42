@@ -14,9 +14,11 @@
 
 static void	clear_rt_structs(t_rt *rt)
 {
-	free(rt->file);
+	if (rt->file)
+		free(rt->file);
 	rt_clear_hit(rt->hit);
-	free(rt->img);
+	if (rt->img)
+		free(rt->img);
 }
 
 void		clear_rt(t_rt **rt, t_scn *scn)
@@ -48,7 +50,6 @@ static t_rt	*init_rt(void)
 	rt->win_ptr = NULL;
 	rt->i = 0;
 	rt->j = 0;
-	rt->loop = 0;
 	return (rt);
 }
 
