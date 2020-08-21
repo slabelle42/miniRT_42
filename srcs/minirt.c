@@ -53,7 +53,7 @@ static t_rt	*init_rt(void)
 	return (rt);
 }
 
-static void	minirt(char *file_name, int fd)
+static void	minirt(char *file_name, int fd, int start)
 {
 	t_rt	*rt;
 
@@ -62,12 +62,13 @@ static void	minirt(char *file_name, int fd)
 	rt->file->fd = fd;
 	rt_parse(rt, rt->file);
 	ft_putstr_fd("Parsing ended successfully ^^ Loading image... ", 1);
-	rt_image(rt, &rt->scn->cams, 1);
+	rt_image(rt, &rt->scn->cams, start);
 }
 
 int			main(int ac, char **av)
 {
 	int		fd;
+	int		start;
 
 	ft_putendl_fd("MiniRT is starting! Hi :)", 1);
 	if (ac < 2 || ac > 3)
@@ -76,6 +77,9 @@ int			main(int ac, char **av)
 		rt_exit(ERR_FILE_RT);
 	if ((fd = open(av[1], O_RDONLY)) < 0)
 		rt_exit(ERR_FILE_UNKN);
-	minirt(av[1], fd);
+	start = 1;
+	if (ac == 3 && ft_strncmp(av[2], "-save", 5) == 0)
+		start = 2;
+	minirt(av[1], fd, start);
 	return (0);
 }

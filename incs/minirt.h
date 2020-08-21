@@ -33,6 +33,8 @@
 # define ERR_GNL		-13
 # define ERR_MLX		-14
 
+# define HEADER_SIZE	122
+
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
@@ -194,6 +196,24 @@ t_obj				*rt_image_getobjhit(t_scn *scn, t_hit *hit);
 double				rt_image_tryhit(t_hit *hit, t_ray *ray, t_obj *obj);
 t_info3				*rt_image_getcolor(t_scn *scn, t_amb *amb, t_hit *hit,
 						t_obj *obj_hit);
+double				rt_image_tryhit_sphere(t_ray *ray, t_obj *obj);
+void				rt_image_gethitpoint_sphere(t_hit *hit, t_ray *ray,
+						t_obj *obj_hit);
+double				rt_image_tryhit_plane(t_ray *ray, t_obj *obj);
+void				rt_image_gethitpoint_plane(t_hit *hit, t_ray *ray,
+						t_obj *obj_hit);
+t_info3				*rt_image_getnormal_plane(t_ray *ray, t_obj *obj);
+double				rt_image_tryhit_square(t_hit *hit, t_ray *ray, t_obj *obj);
+void				rt_image_gethitpoint_square(t_hit *hit, t_ray *ray,
+						t_obj *obj_hit);
+double				rt_image_tryhit_cylinder(t_hit *hit, t_ray *ray,
+						t_obj *obj);
+void				rt_image_gethitpoint_cylinder(t_hit *hit, t_ray *ray,
+						t_obj *obj_hit);
+double				rt_image_tryhit_triangle(t_hit *hit, t_ray *ray,
+						t_obj *obj);
+void				rt_image_gethitpoint_triangle(t_hit *hit, t_ray *ray,
+						t_obj *obj_hit);
 void				rt_math_normalize(t_info3 *info3);
 double				rt_math_cosine(t_info3 *info3a, t_info3 *info3b);
 double				rt_math_lambertian(t_hit *hit, t_light *light);
@@ -217,24 +237,7 @@ void				rt_image_getorigin(t_info3 *hit_ori, t_ray *ray,
 double				rt_image_getdistance(t_info3 *hit_ori, t_info3 *light_ori);
 t_info3				*rt_image_getintensity(t_info3 *color, double intens);
 double				rt_image_rgbtoi(t_info3 *color);
-double				rt_image_tryhit_sphere(t_ray *ray, t_obj *obj);
-void				rt_image_gethitpoint_sphere(t_hit *hit, t_ray *ray,
-						t_obj *obj_hit);
-double				rt_image_tryhit_plane(t_ray *ray, t_obj *obj);
-void				rt_image_gethitpoint_plane(t_hit *hit, t_ray *ray,
-						t_obj *obj_hit);
-t_info3				*rt_image_getnormal_plane(t_ray *ray, t_obj *obj);
-double				rt_image_tryhit_square(t_hit *hit, t_ray *ray, t_obj *obj);
-void				rt_image_gethitpoint_square(t_hit *hit, t_ray *ray,
-						t_obj *obj_hit);
-double				rt_image_tryhit_cylinder(t_hit *hit, t_ray *ray,
-						t_obj *obj);
-void				rt_image_gethitpoint_cylinder(t_hit *hit, t_ray *ray,
-						t_obj *obj_hit);
-double				rt_image_tryhit_triangle(t_hit *hit, t_ray *ray,
-						t_obj *obj);
-void				rt_image_gethitpoint_triangle(t_hit *hit, t_ray *ray,
-						t_obj *obj_hit);
+void				rt_image_bmp(t_rt *rt);
 
 void				rt_hook(t_rt *rt);
 int					rt_keys(int key, t_rt *rt);

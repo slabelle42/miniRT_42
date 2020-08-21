@@ -28,6 +28,7 @@ SRCS += srcs/3_image/rt_image_4_math.c
 SRCS += srcs/3_image/rt_image_5_info3.c
 SRCS += srcs/3_image/rt_image_6_rotation.c
 SRCS += srcs/3_image/rt_image_7_utils.c
+SRCS += srcs/3_image/rt_image_8_bmp.c
 SRCS += srcs/3_image/rt_image_object/rt_image_11_sphere.c
 SRCS += srcs/3_image/rt_image_object/rt_image_12_plane.c
 SRCS += srcs/3_image/rt_image_object/rt_image_13_square.c
