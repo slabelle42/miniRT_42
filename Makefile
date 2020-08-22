@@ -61,24 +61,26 @@ $(NAME): $(LIBX1) $(LIBFT) $(OBJS)
 
 $(LIBX1):
 	@make -C $(LIBX_DIR)
-	@cp $(LIBX_DIR)$(LIBX1) $(LIBS_DIR)
-	@cp $(LIBX_DIR)$(LIBX2) $(LIBS_DIR)
+	@mv $(LIBX_DIR)$(LIBX1) $(LIBS_DIR)
+	@mv $(LIBX_DIR)$(LIBX2) $(LIBS_DIR)
 	@cp $(LIBX_DIR)$(LIBXH) $(INCS_DIR)
 
 $(LIBFT):
 	@make -C $(LIBFT_DIR)
-	@cp $(LIBFT_DIR)$(LIBFT) $(LIBS_DIR)
+	@mv $(LIBFT_DIR)$(LIBFT) $(LIBS_DIR)
 	@cp $(LIBFT_DIR)$(LIBFTH) $(INCS_DIR)
 
 all: $(NAME)
 
 clean:
 	@rm -f $(OBJS)
-	@rm -f $(LIBS_DIR)$(LIBX1) $(LIBS_DIR)$(LIBX2) $(LIBS_DIR)$(LIBFT)
-	@rm -f $(INCS_DIR)$(LIBXH) $(INCS_DIR)$(LIBFTH)
+	@make -C $(LIBX_DIR) clean
+	@make -C $(LIBFT_DIR) clean
 
 fclean: clean
 	@rm $(NAME)
+	@rm -f $(LIBS_DIR)$(LIBX1) $(LIBS_DIR)$(LIBX2) $(LIBS_DIR)$(LIBFT)
+	@rm -f $(INCS_DIR)$(LIBXH) $(INCS_DIR)$(LIBFTH)
 
 re: fclean all
 

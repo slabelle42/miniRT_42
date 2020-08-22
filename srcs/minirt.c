@@ -80,6 +80,8 @@ int			main(int ac, char **av)
 	start = 1;
 	if (ac == 3 && ft_strncmp(av[2], "-save", 5) == 0)
 		start = 2;
+	else if (ac == 3)
+		rt_exit(ERR_SAVE);
 	minirt(av[1], fd, start);
 	return (0);
 }

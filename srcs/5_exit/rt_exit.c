@@ -55,6 +55,8 @@ static char	*rt_exit_getmessage(int error_nb)
 		return ("wrong file type :'( I need a .rt file");
 	else if (error_nb == ERR_FILE_UNKN)
 		return ("wrong file name :'( I can't find it");
+	else if (error_nb == ERR_SAVE)
+		return ("invalid third argument, you must use -save :o");
 	return (rt_exit_getmore(error_nb));
 }
 

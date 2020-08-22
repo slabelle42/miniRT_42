@@ -109,8 +109,7 @@ void		rt_image(t_rt *rt, t_cam **cams, int start)
 	{
 		rt_image_bmp(rt);
 		ft_putendl_fd("Your picture is now available, lucky you :J", 1);
-		clear_rt(&rt, rt->scn);
-		rt_exit(0);
+		rt_quit(rt);
 	}
 	else
 		rt_image_towindow(rt, rt->scn, start);
